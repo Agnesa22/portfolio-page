@@ -3,159 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio von Agnesa Pajaziti – Wirtschaftsinformatik, Webentwicklung, UX/UI und digitale Projekte.">
 
-    <title>Agnesa Portfolio</title>
+    <meta
+        name="description"
+        content="Portfolio von Agnesa Pajaziti – Wirtschaftsinformatik, Webentwicklung, UX/UI und digitale Projekte."
+    >
+
+    <title>Agnesa Pajaziti | Portfolio</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="#home">Agnesa</a>
-            </div>
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header class="site-header">
+        <nav class="navbar">
+
+            <a href="#home" class="logo">
+                Agnesa
+            </a>
 
             <ul class="nav-links">
-                <li><a href="#home">Start</a></li>
-                <li><a href="#about">Über mich</a></li>
+                <li><a href="#about">Biography</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projekte</a></li>
-                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="#projects">My Work</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+
         </nav>
     </header>
 
+
     <main>
 
+        <!-- =========================
+             HERO
+        ========================== -->
+
         <section id="home" class="hero">
-            <div class="hero-content">
-                <p class="intro-text">Hallo, ich bin</p>
 
-                <h1>Agnesa Pajaziti</h1>
+            <div class="hero-top">
+                <span>PORTFOLIO</span>
+                <span>2026</span>
+            </div>
 
-                <h2>Wirtschaftsinformatik & digitale Lösungen</h2>
+            <div class="hero-main">
 
-                <p>
-                    Ich interessiere mich für die Verbindung von Business und Technologie
-                    und entwickle gerne digitale Lösungen mit Fokus auf Web, UX/UI
-                    und Prozessoptimierung.
+                <p class="hero-label">
+                    Business Information Technology
                 </p>
 
-                <div class="hero-buttons">
-                    <a href="#projects" class="button">Meine Projekte</a>
-                    <a href="#contact" class="button button-secondary">Kontakt</a>
+                <h1>
+                    Agnesa
+                    <span>Pajaziti</span>
+                </h1>
+
+                <div class="hero-bottom">
+
+                    <p class="hero-description">
+                        Ich verbinde Business und Technologie und interessiere
+                        mich besonders für Webentwicklung, UX/UI,
+                        digitale Prozesse und innovative Lösungen.
+                    </p>
+
+                    <a href="#projects" class="hero-link">
+                        Selected Work
+                        <span>↘</span>
+                    </a>
+
                 </div>
+
             </div>
+
         </section>
 
-        <section id="about">
-            <h2>Über mich</h2>
 
-            <p>
-                Ich studiere Wirtschaftsinformatik und beschäftige mich besonders
-                mit digitalen Geschäftsprozessen, Webentwicklung, UX/UI
-                und der Gestaltung benutzerfreundlicher digitaler Lösungen.
-            </p>
+        <!-- =========================
+             BIOGRAPHY
+        ========================== -->
+
+        <section id="about" class="editorial-section">
+
+            <div class="section-number">
+                01
+            </div>
+
+            <div class="section-heading">
+                <p>Biography</p>
+
+                <h2>
+                    Business meets
+                    <span>technology.</span>
+                </h2>
+            </div>
+
+            <div class="section-content">
+
+                <p class="large-text">
+                    Ich studiere Wirtschaftsinformatik und beschäftige mich
+                    mit der Schnittstelle zwischen Menschen, Prozessen
+                    und digitalen Technologien.
+                </p>
+
+                <p>
+                    Besonders interessieren mich Webentwicklung,
+                    User Experience, digitale Transformation und
+                    die Optimierung von Geschäftsprozessen.
+                </p>
+
+                <p>
+                    In meinen Projekten verbinde ich analytisches Denken
+                    mit kreativen und praktischen digitalen Lösungen.
+                </p>
+
+            </div>
+
         </section>
 
-        <section id="skills">
-            <h2>Skills & Technologien</h2>
 
-            <div class="skills-container">
+        <!-- =========================
+             SKILLS
+        ========================== -->
 
-                <div class="skill-card">
-                    <h3>Webentwicklung</h3>
+        <section id="skills" class="skills-section">
+
+            <div class="section-number">
+                02
+            </div>
+
+            <div class="section-heading">
+                <p>Skills & Expertise</p>
+
+                <h2>
+                    What I
+                    <span>work with.</span>
+                </h2>
+            </div>
+
+            <div class="skills-grid">
+
+                <article class="skill-item">
+                    <span class="skill-number">01</span>
+                    <h3>Web Development</h3>
                     <p>HTML, CSS, JavaScript</p>
-                </div>
+                </article>
 
-                <div class="skill-card">
-                    <h3>UX/UI</h3>
+                <article class="skill-item">
+                    <span class="skill-number">02</span>
+                    <h3>UX/UI Design</h3>
                     <p>Figma, Prototyping, User Experience</p>
-                </div>
+                </article>
 
-                <div class="skill-card">
-                    <h3>Business & Prozesse</h3>
-                    <p>Prozessanalyse, BPMN, digitale Transformation</p>
-                </div>
+                <article class="skill-item">
+                    <span class="skill-number">03</span>
+                    <h3>Business & Processes</h3>
+                    <p>Process Analysis, BPMN, Digital Transformation</p>
+                </article>
 
-                <div class="skill-card">
+                <article class="skill-item">
+                    <span class="skill-number">04</span>
                     <h3>Tools</h3>
                     <p>GitHub, Camunda, Figma</p>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>Meine Projekte</h2>
-
-            <div class="projects-container">
-
-                <article class="project-card">
-                    <h3>CasaSierra</h3>
-
-                    <p>
-                        Konzeption und Entwicklung einer modernen Website
-                        für ein Immobilien- und Treuhandunternehmen.
-                    </p>
-
-                    <p class="project-tech">
-                        HTML · CSS · JavaScript
-                    </p>
-                </article>
-
-                <article class="project-card">
-                    <h3>FairFlat</h3>
-
-                    <p>
-                        UX/UI-Konzept für eine App zur Organisation
-                        des Zusammenlebens in Wohngemeinschaften.
-                    </p>
-
-                    <p class="project-tech">
-                        Figma · UX Research · Prototyping
-                    </p>
-                </article>
-
-                <article class="project-card">
-                    <h3>AI WasteWatch</h3>
-
-                    <p>
-                        Projekt im Bereich künstliche Intelligenz
-                        mit Fokus auf Nachhaltigkeit und digitale Lösungen.
-                    </p>
-
-                    <p class="project-tech">
-                        AI · Sustainability · Concept Development
-                    </p>
                 </article>
 
             </div>
+
         </section>
 
-        <section id="contact">
-            <h2>Kontakt</h2>
 
-            <p>
-                Du möchtest mehr über meine Projekte erfahren?
-                Dann kannst du mich gerne kontaktieren.
+        <!-- =========================
+             SELECTED WORK
+        ========================== -->
+
+        <section id="projects" class="projects-section">
+
+            <div class="section-number">
+                03
+            </div>
+
+            <div class="section-heading">
+                <p>Selected Work</p>
+
+                <h2>
+                    Projects &
+                    <span>experiences.</span>
+                </h2>
+            </div>
+
+
+            <div class="projects-list">
+
+                <article class="project-item">
+
+                    <div class="project-index">
+                        01
+                    </div>
+
+                    <div class="project-content">
+                        <p class="project-category">
+                            Web Development
+                        </p>
+
+                        <h3>
+                            CasaSierra
+                        </h3>
+
+                        <p class="project-description">
+                            Konzeption und Entwicklung einer modernen
+                            Website für ein Immobilien- und
+                            Treuhandunternehmen.
+                        </p>
+
+                        <p class="project-tech">
+                            HTML · CSS · JavaScript
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="project-item">
+
+                    <div class="project-index">
+                        02
+                    </div>
+
+                    <div class="project-content">
+                        <p class="project-category">
+                            UX/UI Design
+                        </p>
+
+                        <h3>
+                            FairFlat
+                        </h3>
+
+                        <p class="project-description">
+                            Entwicklung eines UX/UI-Konzepts für eine
+                            App zur Organisation des Zusammenlebens
+                            in Wohngemeinschaften.
+                        </p>
+
+                        <p class="project-tech">
+                            Figma · UX Research · Prototyping
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="project-item">
+
+                    <div class="project-index">
+                        03
+                    </div>
+
+                    <div class="project-content">
+                        <p class="project-category">
+                            Artificial Intelligence
+                        </p>
+
+                        <h3>
+                            AI WasteWatch
+                        </h3>
+
+                        <p class="project-description">
+                            Projekt im Bereich künstliche Intelligenz
+                            mit Fokus auf Nachhaltigkeit und
+                            digitale Lösungen.
+                        </p>
+
+                        <p class="project-tech">
+                            AI · Sustainability · Concept Development
+                        </p>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section id="contact" class="contact-section">
+
+            <p class="contact-label">
+                Let’s connect
             </p>
 
-            <a href="mailto:deine-email@example.com" class="button">
-                E-Mail senden
+            <h2>
+                Have a project,
+                <span>idea or question?</span>
+            </h2>
+
+            <p class="contact-text">
+                Ich freue mich über spannende Projekte,
+                neue Ideen und interessante Kontakte.
+            </p>
+
+            <a
+                href="mailto:deine-email@example.com"
+                class="contact-link"
+            >
+                Get in touch
+                <span>↗</span>
             </a>
+
         </section>
 
     </main>
 
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
+
         <p>
             © 2026 Agnesa Pajaziti
         </p>
+
+        <p>
+            Business Information Technology
+        </p>
+
     </footer>
+
 
     <script src="script.js"></script>
 
