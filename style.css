@@ -1,6 +1,25 @@
 /* =========================
-   GRUNDEINSTELLUNGEN
+   FARBEN & GRUNDEINSTELLUNGEN
 ========================= */
+
+:root {
+    --background: #f7f7f5;
+    --surface: #ffffff;
+    --surface-soft: #f0f2f5;
+
+    --text: #1f2328;
+    --text-light: #667085;
+
+    --accent: #2f6fed;
+    --accent-dark: #1f55c7;
+
+    --border: #e2e5e9;
+
+    --dark: #15171a;
+    --dark-soft: #22252a;
+
+    --max-width: 1200px;
+}
 
 * {
     box-sizing: border-box;
@@ -14,28 +33,48 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f7f7f7;
-    color: #222222;
+    background-color: var(--background);
+    color: var(--text);
     line-height: 1.6;
-}
-
-
-/* =========================
-   ALLGEMEINE ELEMENTE
-========================= */
-
-section {
-    padding: 90px 8%;
-}
-
-section h2 {
-    font-size: 36px;
-    margin-bottom: 25px;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+}
+
+
+/* =========================
+   ALLGEMEINE SEKTIONEN
+========================= */
+
+section {
+    padding: 95px 8%;
+}
+
+section h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+section h2::after {
+    content: "";
+    display: block;
+
+    width: 45px;
+    height: 4px;
+
+    margin-top: 10px;
+
+    background-color: var(--accent);
+    border-radius: 20px;
 }
 
 
@@ -44,15 +83,18 @@ a {
 ========================= */
 
 header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid var(--border);
+
     position: sticky;
     top: 0;
     z-index: 1000;
+
+    backdrop-filter: blur(10px);
 }
 
 nav {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding: 20px 30px;
 
@@ -64,23 +106,47 @@ nav {
 .logo a {
     font-size: 24px;
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .nav-links {
     list-style: none;
 
     display: flex;
+    align-items: center;
     gap: 30px;
 }
 
 .nav-links a {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    transition: opacity 0.2s ease;
+
+    position: relative;
+
+    transition: color 0.2s ease;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 2px;
+
+    background-color: var(--accent);
+
+    transition: width 0.2s ease;
 }
 
 .nav-links a:hover {
-    opacity: 0.6;
+    color: var(--accent);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 
@@ -94,36 +160,59 @@ nav {
     display: flex;
     align-items: center;
 
-    background-color: #eeeeee;
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(47, 111, 237, 0.10),
+            transparent 35%
+        ),
+        var(--surface-soft);
 }
 
 .hero-content {
-    max-width: 900px;
+    max-width: var(--max-width);
     margin: 0 auto;
     width: 100%;
 }
 
 .intro-text {
-    font-size: 20px;
+    color: var(--accent);
+
+    font-size: 18px;
+    font-weight: 600;
+
     margin-bottom: 10px;
 }
 
 .hero h1 {
     font-size: 64px;
-    line-height: 1.1;
-    margin-bottom: 15px;
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 18px;
 }
 
 .hero h2 {
     font-size: 30px;
     font-weight: 500;
+
+    color: var(--text-light);
+
     margin-bottom: 25px;
+}
+
+.hero h2::after {
+    display: none;
 }
 
 .hero-content > p:not(.intro-text) {
     max-width: 700px;
+
     font-size: 18px;
-    margin-bottom: 30px;
+    color: var(--text-light);
+
+    margin-bottom: 32px;
 }
 
 
@@ -140,28 +229,42 @@ nav {
 .button {
     display: inline-block;
 
-    background-color: #222222;
+    background-color: var(--accent);
     color: #ffffff;
 
-    padding: 13px 22px;
-    border-radius: 6px;
+    padding: 13px 23px;
+
+    border-radius: 7px;
+    border: 1px solid var(--accent);
 
     font-weight: 600;
 
     transition:
         transform 0.2s ease,
-        opacity 0.2s ease;
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .button:hover {
+    background-color: var(--accent-dark);
+
     transform: translateY(-2px);
-    opacity: 0.85;
+
+    box-shadow: 0 8px 20px rgba(47, 111, 237, 0.22);
 }
 
 .button-secondary {
     background-color: transparent;
-    color: #222222;
-    border: 1px solid #222222;
+    color: var(--text);
+
+    border: 1px solid var(--text);
+}
+
+.button-secondary:hover {
+    background-color: var(--text);
+    color: #ffffff;
+
+    box-shadow: none;
 }
 
 
@@ -176,7 +279,9 @@ nav {
 
 #about p {
     max-width: 800px;
+
     font-size: 18px;
+    color: var(--text-light);
 }
 
 
@@ -185,17 +290,17 @@ nav {
 ========================= */
 
 #skills {
-    background-color: #ffffff;
+    background-color: var(--surface);
 }
 
 #skills > h2 {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin-left: auto;
     margin-right: auto;
 }
 
 .skills-container {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
 
     display: grid;
@@ -204,22 +309,34 @@ nav {
 }
 
 .skill-card {
-    background-color: #f2f2f2;
+    background-color: var(--background);
+
     padding: 30px;
 
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    border: 1px solid var(--border);
 
     min-height: 180px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
 }
 
 .skill-card h3 {
     margin-bottom: 15px;
+
     font-size: 20px;
 }
 
 .skill-card p {
-    color: #555555;
+    color: var(--text-light);
 }
 
 
@@ -228,7 +345,7 @@ nav {
 ========================= */
 
 #projects {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
 }
 
@@ -239,35 +356,44 @@ nav {
 }
 
 .project-card {
-    background-color: #ffffff;
-    padding: 30px;
+    background-color: var(--surface);
 
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
+    padding: 32px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-6px);
+
+    border-color: rgba(47, 111, 237, 0.4);
+
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
 }
 
 .project-card h3 {
     font-size: 24px;
+
     margin-bottom: 15px;
 }
 
 .project-card p {
     margin-bottom: 15px;
+
+    color: var(--text-light);
 }
 
 .project-tech {
     font-size: 14px;
     font-weight: 600;
-    color: #666666;
+
+    color: var(--accent) !important;
 }
 
 
@@ -276,22 +402,32 @@ nav {
 ========================= */
 
 #contact {
-    background-color: #222222;
+    background-color: var(--dark);
     color: #ffffff;
 
     text-align: center;
 }
 
+#contact h2::after {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #contact p {
     max-width: 600px;
+
     margin: 0 auto 30px auto;
 
     font-size: 18px;
+
+    color: #c9cdd4;
 }
 
 #contact .button {
-    background-color: #ffffff;
-    color: #222222;
+    background-color: var(--accent);
+    color: #ffffff;
+
+    border-color: var(--accent);
 }
 
 
@@ -300,8 +436,8 @@ nav {
 ========================= */
 
 footer {
-    background-color: #111111;
-    color: #cccccc;
+    background-color: #0d0f11;
+    color: #aeb4bd;
 
     text-align: center;
 
@@ -337,12 +473,14 @@ footer {
 
     nav {
         flex-direction: column;
+
         gap: 20px;
     }
 
     .nav-links {
         flex-wrap: wrap;
         justify-content: center;
+
         gap: 15px;
     }
 
@@ -352,12 +490,15 @@ footer {
 
     .hero {
         min-height: auto;
+
         padding-top: 100px;
         padding-bottom: 100px;
     }
 
     .hero h1 {
         font-size: 42px;
+
+        letter-spacing: -1px;
     }
 
     .hero h2 {
@@ -380,6 +521,14 @@ footer {
 
 @media (max-width: 480px) {
 
+    nav {
+        padding: 18px 20px;
+    }
+
+    .nav-links {
+        font-size: 14px;
+    }
+
     .hero h1 {
         font-size: 36px;
     }
@@ -394,11 +543,13 @@ footer {
 
     .hero-buttons {
         flex-direction: column;
+
         align-items: flex-start;
     }
 
     .button {
         width: 100%;
+
         text-align: center;
     }
 }
