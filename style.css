@@ -1,25 +1,31 @@
 /* =========================
-   FARBEN & GRUNDEINSTELLUNGEN
+   DESIGN SYSTEM
 ========================= */
 
 :root {
-    --background: #f7f7f5;
-    --surface: #ffffff;
-    --surface-soft: #f0f2f5;
+    --background: #f6f0e8;
+    --surface: #fffaf5;
+    --surface-soft: #efe5dc;
 
-    --text: #1f2328;
-    --text-light: #667085;
+    --text: #2b2220;
+    --text-light: #6f625d;
 
-    --accent: #2f6fed;
-    --accent-dark: #1f55c7;
+    --accent: #7a1f2b;
+    --accent-dark: #5e1721;
+    --accent-soft: #ead8d8;
 
-    --border: #e2e5e9;
+    --border: #dfd1c7;
 
-    --dark: #15171a;
-    --dark-soft: #22252a;
+    --dark: #28191c;
+    --dark-soft: #3a252a;
 
     --max-width: 1200px;
 }
+
+
+/* =========================
+   RESET & BASIS
+========================= */
 
 * {
     box-sizing: border-box;
@@ -35,7 +41,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: var(--background);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 a {
@@ -55,26 +61,30 @@ button:focus-visible {
 ========================= */
 
 section {
-    padding: 95px 8%;
+    padding: 110px 8%;
 }
 
 section h2 {
-    font-size: 36px;
-    margin-bottom: 30px;
-    position: relative;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.1;
+
+    margin-bottom: 35px;
+
+    color: var(--accent);
 }
 
 section h2::after {
     content: "";
     display: block;
 
-    width: 45px;
-    height: 4px;
+    width: 55px;
+    height: 2px;
 
-    margin-top: 10px;
+    margin-top: 14px;
 
     background-color: var(--accent);
-    border-radius: 20px;
 }
 
 
@@ -83,20 +93,22 @@ section h2::after {
 ========================= */
 
 header {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 250, 245, 0.94);
+
     border-bottom: 1px solid var(--border);
 
     position: sticky;
     top: 0;
     z-index: 1000;
 
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
 }
 
 nav {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 20px 30px;
+
+    padding: 22px 30px;
 
     display: flex;
     justify-content: space-between;
@@ -104,9 +116,12 @@ nav {
 }
 
 .logo a {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 28px;
+    font-weight: 600;
+
+    color: var(--accent);
 }
 
 .nav-links {
@@ -114,14 +129,17 @@ nav {
 
     display: flex;
     align-items: center;
+
     gap: 30px;
 }
 
 .nav-links a {
+    position: relative;
+
     font-size: 15px;
     font-weight: 500;
 
-    position: relative;
+    color: var(--text);
 
     transition: color 0.2s ease;
 }
@@ -155,51 +173,68 @@ nav {
 ========================= */
 
 .hero {
-    min-height: 85vh;
+    min-height: 88vh;
 
     display: flex;
     align-items: center;
 
     background:
         radial-gradient(
-            circle at 80% 20%,
-            rgba(47, 111, 237, 0.10),
-            transparent 35%
+            circle at 82% 18%,
+            rgba(122, 31, 43, 0.10),
+            transparent 34%
         ),
-        var(--surface-soft);
+        linear-gradient(
+            180deg,
+            #f8f2eb 0%,
+            #f3e9e0 100%
+        );
 }
 
 .hero-content {
-    max-width: var(--max-width);
-    margin: 0 auto;
     width: 100%;
+    max-width: var(--max-width);
+
+    margin: 0 auto;
 }
 
 .intro-text {
+    margin-bottom: 10px;
+
     color: var(--accent);
 
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
 
-    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .hero h1 {
-    font-size: 64px;
-    line-height: 1.05;
+    max-width: 900px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 76px;
+    font-weight: 500;
+    line-height: 1;
 
     letter-spacing: -2px;
 
-    margin-bottom: 18px;
+    color: var(--text);
+
+    margin-bottom: 22px;
 }
 
 .hero h2 {
-    font-size: 30px;
-    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
 
-    color: var(--text-light);
+    font-size: 27px;
+    font-weight: 400;
 
-    margin-bottom: 25px;
+    color: var(--accent);
+
+    margin-bottom: 28px;
 }
 
 .hero h2::after {
@@ -209,10 +244,11 @@ nav {
 .hero-content > p:not(.intro-text) {
     max-width: 700px;
 
-    font-size: 18px;
-    color: var(--text-light);
+    margin-bottom: 34px;
 
-    margin-bottom: 32px;
+    font-size: 18px;
+
+    color: var(--text-light);
 }
 
 
@@ -229,19 +265,20 @@ nav {
 .button {
     display: inline-block;
 
+    padding: 13px 24px;
+
     background-color: var(--accent);
     color: #ffffff;
 
-    padding: 13px 23px;
-
-    border-radius: 7px;
     border: 1px solid var(--accent);
+    border-radius: 999px;
 
     font-weight: 600;
 
     transition:
         transform 0.2s ease,
         background-color 0.2s ease,
+        color 0.2s ease,
         box-shadow 0.2s ease;
 }
 
@@ -250,21 +287,20 @@ nav {
 
     transform: translateY(-2px);
 
-    box-shadow: 0 8px 20px rgba(47, 111, 237, 0.22);
+    box-shadow: 0 10px 24px rgba(122, 31, 43, 0.20);
 }
 
 .button-secondary {
     background-color: transparent;
-    color: var(--text);
 
-    border: 1px solid var(--text);
+    color: var(--accent);
+
+    border-color: var(--accent);
 }
 
 .button-secondary:hover {
-    background-color: var(--text);
+    background-color: var(--accent);
     color: #ffffff;
-
-    box-shadow: none;
 }
 
 
@@ -278,9 +314,10 @@ nav {
 }
 
 #about p {
-    max-width: 800px;
+    max-width: 820px;
 
-    font-size: 18px;
+    font-size: 19px;
+
     color: var(--text-light);
 }
 
@@ -295,44 +332,55 @@ nav {
 
 #skills > h2 {
     max-width: var(--max-width);
+
     margin-left: auto;
     margin-right: auto;
 }
 
 .skills-container {
     max-width: var(--max-width);
+
     margin: 0 auto;
 
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+
+    gap: 22px;
 }
 
 .skill-card {
+    min-height: 190px;
+
+    padding: 32px;
+
     background-color: var(--background);
 
-    padding: 30px;
-
-    border-radius: 12px;
     border: 1px solid var(--border);
-
-    min-height: 180px;
+    border-radius: 18px;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .skill-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
 
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+    border-color: rgba(122, 31, 43, 0.35);
+
+    box-shadow: 0 16px 35px rgba(63, 37, 32, 0.08);
 }
 
 .skill-card h3 {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
-    font-size: 20px;
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    color: var(--accent);
 }
 
 .skill-card p {
@@ -351,49 +399,79 @@ nav {
 
 .projects-container {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+
+    gap: 26px;
 }
 
 .project-card {
+    position: relative;
+
+    min-height: 260px;
+
+    padding: 34px;
+
+    overflow: hidden;
+
     background-color: var(--surface);
 
-    padding: 32px;
-
-    border-radius: 12px;
     border: 1px solid var(--border);
+    border-radius: 20px;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.project-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background-color: var(--accent);
 }
 
 .project-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-7px);
 
-    border-color: rgba(47, 111, 237, 0.4);
+    border-color: rgba(122, 31, 43, 0.35);
 
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 18px 40px rgba(63, 37, 32, 0.10);
 }
 
 .project-card h3 {
-    font-size: 24px;
+    margin-bottom: 16px;
 
-    margin-bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 28px;
+    font-weight: 500;
+
+    color: var(--text);
 }
 
 .project-card p {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
     color: var(--text-light);
 }
 
 .project-tech {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
 
     color: var(--accent) !important;
+
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
 }
 
 
@@ -402,32 +480,49 @@ nav {
 ========================= */
 
 #contact {
-    background-color: var(--dark);
+    background:
+        linear-gradient(
+            135deg,
+            var(--dark) 0%,
+            var(--dark-soft) 100%
+        );
+
     color: #ffffff;
 
     text-align: center;
 }
 
+#contact h2 {
+    color: #f6e9e4;
+}
+
 #contact h2::after {
     margin-left: auto;
     margin-right: auto;
+
+    background-color: #d8b2b6;
 }
 
 #contact p {
-    max-width: 600px;
+    max-width: 620px;
 
     margin: 0 auto 30px auto;
 
     font-size: 18px;
 
-    color: #c9cdd4;
+    color: #d9c9c9;
 }
 
 #contact .button {
-    background-color: var(--accent);
-    color: #ffffff;
+    background-color: #f6e9e4;
 
-    border-color: var(--accent);
+    color: var(--accent-dark);
+
+    border-color: #f6e9e4;
+}
+
+#contact .button:hover {
+    background-color: #ffffff;
 }
 
 
@@ -436,12 +531,13 @@ nav {
 ========================= */
 
 footer {
-    background-color: #0d0f11;
-    color: #aeb4bd;
+    padding: 25px;
+
+    background-color: #1a1012;
+
+    color: #cbb9ba;
 
     text-align: center;
-
-    padding: 25px;
 }
 
 
@@ -460,7 +556,11 @@ footer {
     }
 
     .hero h1 {
-        font-size: 52px;
+        font-size: 60px;
+    }
+
+    section h2 {
+        font-size: 42px;
     }
 }
 
@@ -479,13 +579,14 @@ footer {
 
     .nav-links {
         flex-wrap: wrap;
+
         justify-content: center;
 
         gap: 15px;
     }
 
     section {
-        padding: 70px 6%;
+        padding: 78px 6%;
     }
 
     .hero {
@@ -496,13 +597,13 @@ footer {
     }
 
     .hero h1 {
-        font-size: 42px;
+        font-size: 46px;
 
         letter-spacing: -1px;
     }
 
     .hero h2 {
-        font-size: 24px;
+        font-size: 23px;
     }
 
     .skills-container {
@@ -525,12 +626,8 @@ footer {
         padding: 18px 20px;
     }
 
-    .nav-links {
-        font-size: 14px;
-    }
-
     .hero h1 {
-        font-size: 36px;
+        font-size: 38px;
     }
 
     .hero h2 {
@@ -538,13 +635,13 @@ footer {
     }
 
     section h2 {
-        font-size: 30px;
+        font-size: 34px;
     }
 
     .hero-buttons {
         flex-direction: column;
 
-        align-items: flex-start;
+        align-items: stretch;
     }
 
     .button {
