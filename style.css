@@ -837,3 +837,88 @@ footer {
         font-size: 46px;
     }
 }
+/* =========================
+   ANIMATIONEN
+========================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Hero Animation */
+
+.hero-reveal {
+    opacity: 0;
+    transform: translateY(35px);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+.hero-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Unterschiedliche Bewegungsrichtungen */
+
+.section-number.reveal {
+    transform: translateX(-30px);
+}
+
+.section-number.reveal.is-visible {
+    transform: translateX(0);
+}
+
+.section-heading.reveal {
+    transform: translateY(45px);
+}
+
+.section-heading.reveal.is-visible {
+    transform: translateY(0);
+}
+
+.project-item.reveal {
+    transform: translateY(60px);
+}
+
+.project-item.reveal.is-visible {
+    transform: translateY(0);
+}
+
+
+/* Accessibility:
+   Animationen reduzieren, falls vom System gewünscht */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal,
+    .hero-reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
