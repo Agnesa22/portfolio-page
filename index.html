@@ -1,16 +1,163 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agnesa Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio von Agnesa Pajaziti – Wirtschaftsinformatik, Webentwicklung, UX/UI und digitale Projekte.">
+
+    <title>Agnesa Portfolio</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>Agnesa</h1>
-  <p>Willkommen auf meiner Portfolio-Seite.</p>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#home">Agnesa</a>
+            </div>
 
-  <script src="script.js"></script>
+            <ul class="nav-links">
+                <li><a href="#home">Start</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projekte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <p class="intro-text">Hallo, ich bin</p>
+
+                <h1>Agnesa Pajaziti</h1>
+
+                <h2>Wirtschaftsinformatik & digitale Lösungen</h2>
+
+                <p>
+                    Ich interessiere mich für die Verbindung von Business und Technologie
+                    und entwickle gerne digitale Lösungen mit Fokus auf Web, UX/UI
+                    und Prozessoptimierung.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="button">Meine Projekte</a>
+                    <a href="#contact" class="button button-secondary">Kontakt</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>Über mich</h2>
+
+            <p>
+                Ich studiere Wirtschaftsinformatik und beschäftige mich besonders
+                mit digitalen Geschäftsprozessen, Webentwicklung, UX/UI
+                und der Gestaltung benutzerfreundlicher digitaler Lösungen.
+            </p>
+        </section>
+
+        <section id="skills">
+            <h2>Skills & Technologien</h2>
+
+            <div class="skills-container">
+
+                <div class="skill-card">
+                    <h3>Webentwicklung</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>UX/UI</h3>
+                    <p>Figma, Prototyping, User Experience</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>Business & Prozesse</h3>
+                    <p>Prozessanalyse, BPMN, digitale Transformation</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>Tools</h3>
+                    <p>GitHub, Camunda, Figma</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Meine Projekte</h2>
+
+            <div class="projects-container">
+
+                <article class="project-card">
+                    <h3>CasaSierra</h3>
+
+                    <p>
+                        Konzeption und Entwicklung einer modernen Website
+                        für ein Immobilien- und Treuhandunternehmen.
+                    </p>
+
+                    <p class="project-tech">
+                        HTML · CSS · JavaScript
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <h3>FairFlat</h3>
+
+                    <p>
+                        UX/UI-Konzept für eine App zur Organisation
+                        des Zusammenlebens in Wohngemeinschaften.
+                    </p>
+
+                    <p class="project-tech">
+                        Figma · UX Research · Prototyping
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <h3>AI WasteWatch</h3>
+
+                    <p>
+                        Projekt im Bereich künstliche Intelligenz
+                        mit Fokus auf Nachhaltigkeit und digitale Lösungen.
+                    </p>
+
+                    <p class="project-tech">
+                        AI · Sustainability · Concept Development
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Kontakt</h2>
+
+            <p>
+                Du möchtest mehr über meine Projekte erfahren?
+                Dann kannst du mich gerne kontaktieren.
+            </p>
+
+            <a href="mailto:deine-email@example.com" class="button">
+                E-Mail senden
+            </a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            © 2026 Agnesa Pajaziti
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
