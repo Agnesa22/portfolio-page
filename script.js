@@ -18,23 +18,115 @@ window.addEventListener("load", () => {
     // Only scroll to the top when the URL does not
     // explicitly contain an anchor such as #projects.
     if (!window.location.hash) {
+
         window.scrollTo({
             top: 0,
             left: 0,
             behavior: "auto"
         });
+
     }
 
 });
 
 
 // =========================
-// ANIMATIONS
+// DOM READY
 // =========================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Elements that should appear while scrolling.
+
+    // =========================
+    // MOBILE NAVIGATION
+    // =========================
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector(".nav-links");
+    const navigationLinks = document.querySelectorAll(".nav-links a");
+
+
+    function openMenu() {
+
+        menuToggle.classList.add("is-active");
+        navigation.classList.add("is-open");
+
+        menuToggle.setAttribute("aria-expanded", "true");
+        menuToggle.setAttribute("aria-label", "Navigation schliessen");
+
+        document.body.classList.add("menu-open");
+
+    }
+
+
+    function closeMenu() {
+
+        menuToggle.classList.remove("is-active");
+        navigation.classList.remove("is-open");
+
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Navigation öffnen");
+
+        document.body.classList.remove("menu-open");
+
+    }
+
+
+    function toggleMenu() {
+
+        const menuIsOpen =
+            menuToggle.classList.contains("is-active");
+
+        if (menuIsOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+
+    }
+
+
+    if (menuToggle && navigation) {
+
+        menuToggle.addEventListener("click", toggleMenu);
+
+
+        // Close menu after clicking a navigation link.
+        navigationLinks.forEach((link) => {
+
+            link.addEventListener("click", () => {
+                closeMenu();
+            });
+
+        });
+
+
+        // Close menu using Escape key.
+        document.addEventListener("keydown", (event) => {
+
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+
+        });
+
+
+        // Reset menu when returning to desktop size.
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+
+        });
+
+    }
+
+
+    // =========================
+    // SCROLL ANIMATIONS
+    // =========================
+
     const revealElements = document.querySelectorAll(
         ".section-number, " +
         ".section-heading, " +
@@ -48,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // Settings for the Intersection Observer.
     const observerOptions = {
         root: null,
         rootMargin: "0px 0px -10% 0px",
@@ -56,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // Observe when elements become visible.
     const revealObserver = new IntersectionObserver(
         (entries, observer) => {
 
@@ -66,9 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     entry.target.classList.add("is-visible");
 
-                    // Stop observing after the animation
-                    // has been triggered once.
                     observer.unobserve(entry.target);
+
                 }
 
             });
@@ -78,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // Add reveal class and observe elements.
     revealElements.forEach((element) => {
 
         element.classList.add("reveal");
@@ -89,14 +177,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================
-    // SKILL DELAYS
+    // SKILL ANIMATION DELAYS
     // =========================
 
-    const skillItems = document.querySelectorAll(".skill-item");
+    const skillItems =
+        document.querySelectorAll(".skill-item");
 
     skillItems.forEach((element, index) => {
 
-        element.style.transitionDelay = `${index * 0.12}s`;
+        element.style.transitionDelay =
+            `${index * 0.12}s`;
 
     });
 
@@ -114,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // Hero elements appear one after another.
     heroElements.forEach((element, index) => {
 
         element.classList.add("hero-reveal");
