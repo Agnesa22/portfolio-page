@@ -41,6 +41,10 @@ body {
     line-height: 1.6;
 }
 
+body.menu-open {
+    overflow: hidden;
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -48,6 +52,10 @@ a {
 
 ul {
     list-style: none;
+}
+
+button {
+    font: inherit;
 }
 
 
@@ -69,9 +77,12 @@ ul {
     border-bottom: 1px solid rgba(122, 31, 43, 0.12);
 
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar {
+    position: relative;
+
     max-width: var(--max-width);
 
     margin: 0 auto;
@@ -90,6 +101,8 @@ ul {
     font-weight: 600;
 
     color: var(--burgundy);
+
+    z-index: 1002;
 }
 
 .nav-links {
@@ -124,6 +137,56 @@ ul {
 
 .nav-links a:hover::after {
     width: 100%;
+}
+
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+.menu-toggle {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    padding: 10px;
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+
+    position: relative;
+
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+
+    width: 24px;
+    height: 1.5px;
+
+    margin: 6px auto;
+
+    background-color: var(--burgundy);
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.menu-toggle.is-active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.menu-toggle.is-active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
 }
 
 
@@ -373,10 +436,18 @@ ul {
 .skills-section {
     max-width: none;
 
-    padding-left: max(7%, calc((100vw - var(--max-width)) / 2 + 40px));
-    padding-right: max(7%, calc((100vw - var(--max-width)) / 2 + 40px));
+    padding-left: max(
+        7%,
+        calc((100vw - var(--max-width)) / 2 + 40px)
+    );
+
+    padding-right: max(
+        7%,
+        calc((100vw - var(--max-width)) / 2 + 40px)
+    );
 
     background-color: var(--burgundy);
+
     color: var(--cream-light);
 }
 
@@ -650,6 +721,7 @@ footer {
 
     .hero-bottom {
         grid-template-columns: 1fr;
+
         gap: 30px;
     }
 
@@ -671,6 +743,7 @@ footer {
 
     .section-heading {
         grid-template-columns: 1fr;
+
         gap: 20px;
     }
 
@@ -701,9 +774,86 @@ footer {
         padding: 18px 22px;
     }
 
+    .menu-toggle {
+        display: block;
+    }
+
+
+    /* Mobile Navigation Panel */
+
     .nav-links {
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 0;
+
+        padding: 10px 24px 28px;
+
+        background-color: var(--cream-light);
+
+        border-bottom: 1px solid var(--line);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-12px);
+
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .nav-links.is-open {
+        opacity: 1;
+        visibility: visible;
+
+        transform: translateY(0);
+
+        pointer-events: auto;
+    }
+
+    .nav-links li {
+        width: 100%;
+
+        border-bottom: 1px solid var(--line);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        display: block;
+
+        width: 100%;
+
+        padding: 18px 0;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 28px;
+        font-weight: 400;
+
+        color: var(--text);
+    }
+
+    .nav-links a::after {
         display: none;
     }
+
+
+    /* Hero */
 
     .hero {
         padding:
@@ -727,6 +877,9 @@ footer {
     .hero-description {
         font-size: 16px;
     }
+
+
+    /* Sections */
 
     .editorial-section,
     .projects-section {
@@ -761,6 +914,9 @@ footer {
         gap: 25px;
     }
 
+
+    /* Skills */
+
     .skills-grid {
         grid-template-columns: 1fr;
     }
@@ -781,6 +937,9 @@ footer {
         margin-bottom: 35px;
     }
 
+
+    /* Projects */
+
     .project-item {
         grid-template-columns: 1fr;
 
@@ -793,6 +952,9 @@ footer {
         padding-left: 0;
     }
 
+
+    /* Contact */
+
     .contact-section {
         min-height: 75vh;
 
@@ -804,6 +966,9 @@ footer {
     .contact-section h2 {
         font-size: 54px;
     }
+
+
+    /* Footer */
 
     footer {
         flex-direction: column;
@@ -837,12 +1002,15 @@ footer {
         font-size: 46px;
     }
 }
+
+
 /* =========================
    ANIMATIONEN
 ========================= */
 
 .reveal {
     opacity: 0;
+
     transform: translateY(50px);
 
     transition:
@@ -852,6 +1020,7 @@ footer {
 
 .reveal.is-visible {
     opacity: 1;
+
     transform: translateY(0);
 }
 
@@ -860,6 +1029,7 @@ footer {
 
 .hero-reveal {
     opacity: 0;
+
     transform: translateY(35px);
 
     transition:
@@ -869,6 +1039,7 @@ footer {
 
 .hero-visible {
     opacity: 1;
+
     transform: translateY(0);
 }
 
@@ -900,8 +1071,9 @@ footer {
 }
 
 
-/* Accessibility:
-   Animationen reduzieren, falls vom System gewünscht */
+/* =========================
+   ACCESSIBILITY
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -919,6 +1091,7 @@ footer {
     .reveal,
     .hero-reveal {
         opacity: 1;
+
         transform: none;
     }
 }
