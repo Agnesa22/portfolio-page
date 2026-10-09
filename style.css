@@ -17,6 +17,8 @@
     --line: #d8c7bc;
 
     --max-width: 1280px;
+
+    --header-height: 88px;
 }
 
 
@@ -36,8 +38,11 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+
     background-color: var(--cream);
+
     color: var(--text);
+
     line-height: 1.6;
 }
 
@@ -47,6 +52,7 @@ body.menu-open {
 
 a {
     color: inherit;
+
     text-decoration: none;
 }
 
@@ -65,6 +71,7 @@ button {
 
 .site-header {
     position: fixed;
+
     top: 0;
     left: 0;
 
@@ -77,20 +84,23 @@ button {
     border-bottom: 1px solid rgba(122, 31, 43, 0.12);
 
     backdrop-filter: blur(12px);
+
     -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar {
-    position: relative;
-
     max-width: var(--max-width);
+
+    min-height: var(--header-height);
 
     margin: 0 auto;
 
     padding: 22px 40px;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 }
 
@@ -98,6 +108,7 @@ button {
     font-family: Georgia, "Times New Roman", serif;
 
     font-size: 28px;
+
     font-weight: 600;
 
     color: var(--burgundy);
@@ -113,19 +124,20 @@ button {
 .menu-toggle {
     display: block;
 
+    position: relative;
+
+    z-index: 1002;
+
     width: 44px;
     height: 44px;
 
     padding: 10px;
 
     border: 0;
+
     background: transparent;
 
     cursor: pointer;
-
-    position: relative;
-
-    z-index: 1002;
 }
 
 .menu-toggle span {
@@ -142,6 +154,9 @@ button {
         transform 0.3s ease,
         opacity 0.3s ease;
 }
+
+
+/* Hamburger wird zu X */
 
 .menu-toggle.is-active span:nth-child(1) {
     transform: translateY(7.5px) rotate(45deg);
@@ -161,46 +176,67 @@ button {
 ========================= */
 
 .nav-links {
-    position: absolute;
+    position: fixed;
 
-    top: 100%;
-    left: 0;
+    top: var(--header-height);
 
-    width: 100%;
+    right: 0;
+
+    width: 50vw;
+
+    min-height: calc(100vh - var(--header-height));
 
     display: flex;
+
     flex-direction: column;
+
     align-items: flex-start;
 
     gap: 0;
 
-    padding: 12px 40px 32px;
+    padding:
+        38px
+        55px
+        50px;
 
     background-color: var(--cream-light);
 
+    border-left: 1px solid var(--line);
+
     border-bottom: 1px solid var(--line);
 
+    box-shadow:
+        -18px 20px 45px rgba(45, 36, 34, 0.07);
+
     opacity: 0;
+
     visibility: hidden;
 
-    transform: translateY(-12px);
+    transform: translateX(100%);
 
     pointer-events: none;
 
     transition:
-        opacity 0.3s ease,
-        transform 0.3s ease,
-        visibility 0.3s ease;
+        opacity 0.35s ease,
+        transform 0.45s ease,
+        visibility 0.35s ease;
 }
+
+
+/* Menü geöffnet */
 
 .nav-links.is-open {
     opacity: 1;
+
     visibility: visible;
 
-    transform: translateY(0);
+    transform: translateX(0);
 
     pointer-events: auto;
 }
+
+
+/* Einzelne Menüzeilen */
 
 .nav-links li {
     width: 100%;
@@ -217,18 +253,25 @@ button {
 
     width: 100%;
 
-    padding: 18px 0;
+    padding: 24px 0;
 
     font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 32px;
+    font-size: 36px;
+
     font-weight: 400;
 
     color: var(--text);
+
+    transition:
+        color 0.25s ease,
+        padding-left 0.25s ease;
 }
 
 .nav-links a:hover {
     color: var(--burgundy);
+
+    padding-left: 12px;
 }
 
 
@@ -239,10 +282,15 @@ button {
 .hero {
     min-height: 100vh;
 
-    padding: 140px 7% 70px;
+    padding:
+        140px
+        7%
+        70px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
 
     background:
@@ -262,9 +310,11 @@ button {
     margin: 0 auto;
 
     display: flex;
+
     justify-content: space-between;
 
     font-size: 13px;
+
     font-weight: 700;
 
     letter-spacing: 2px;
@@ -284,15 +334,19 @@ button {
     margin-bottom: 22px;
 
     font-size: 14px;
+
     font-weight: 700;
 
     letter-spacing: 2px;
+
     text-transform: uppercase;
 
     color: var(--burgundy);
 }
 
 .hero h1 {
+    margin-bottom: 55px;
+
     font-family: Georgia, "Times New Roman", serif;
 
     font-size: clamp(72px, 10vw, 150px);
@@ -304,8 +358,6 @@ button {
     letter-spacing: -5px;
 
     color: var(--text);
-
-    margin-bottom: 55px;
 }
 
 .hero h1 span {
@@ -338,7 +390,9 @@ button {
     justify-self: end;
 
     display: flex;
+
     align-items: center;
+
     gap: 18px;
 
     padding-bottom: 8px;
@@ -346,6 +400,7 @@ button {
     border-bottom: 1px solid var(--burgundy);
 
     font-size: 16px;
+
     font-weight: 600;
 
     color: var(--burgundy);
@@ -382,6 +437,7 @@ button {
     margin-bottom: 70px;
 
     font-size: 13px;
+
     font-weight: 700;
 
     letter-spacing: 2px;
@@ -392,7 +448,9 @@ button {
 .section-heading {
     display: grid;
 
-    grid-template-columns: 0.35fr 1fr;
+    grid-template-columns:
+        0.35fr
+        1fr;
 
     gap: 50px;
 
@@ -405,9 +463,11 @@ button {
     padding-top: 12px;
 
     font-size: 14px;
+
     font-weight: 700;
 
     text-transform: uppercase;
+
     letter-spacing: 1.5px;
 
     color: var(--burgundy);
@@ -447,7 +507,10 @@ button {
 
     display: grid;
 
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns:
+        1.4fr
+        1fr
+        1fr;
 
     gap: 45px;
 
@@ -505,9 +568,11 @@ button {
 .skills-grid {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(2, 1fr);
 
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-top:
+        1px solid rgba(255, 255, 255, 0.25);
 }
 
 .skill-item {
@@ -515,11 +580,13 @@ button {
 
     padding: 45px 30px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.25);
 }
 
 .skill-item:nth-child(odd) {
-    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    border-right:
+        1px solid rgba(255, 255, 255, 0.25);
 }
 
 .skill-number {
@@ -562,7 +629,9 @@ button {
 .project-item {
     display: grid;
 
-    grid-template-columns: 0.2fr 1fr;
+    grid-template-columns:
+        0.2fr
+        1fr;
 
     gap: 50px;
 
@@ -578,11 +647,13 @@ button {
 .project-item:hover {
     padding-left: 25px;
 
-    background-color: rgba(255, 255, 255, 0.32);
+    background-color:
+        rgba(255, 255, 255, 0.32);
 }
 
 .project-index {
     font-size: 12px;
+
     font-weight: 700;
 
     color: var(--burgundy);
@@ -591,7 +662,9 @@ button {
 .project-content {
     display: grid;
 
-    grid-template-columns: 0.35fr 0.65fr;
+    grid-template-columns:
+        0.35fr
+        0.65fr;
 
     column-gap: 50px;
 }
@@ -600,16 +673,20 @@ button {
     grid-column: 1;
 
     font-size: 13px;
+
     font-weight: 700;
 
     color: var(--burgundy);
 
     text-transform: uppercase;
+
     letter-spacing: 1px;
 }
 
 .project-content h3 {
     grid-column: 2;
+
+    margin-bottom: 24px;
 
     font-family: Georgia, "Times New Roman", serif;
 
@@ -618,8 +695,6 @@ button {
     font-weight: 400;
 
     line-height: 1;
-
-    margin-bottom: 24px;
 }
 
 .project-description {
@@ -627,15 +702,16 @@ button {
 
     max-width: 600px;
 
-    color: var(--text-soft);
-
     margin-bottom: 18px;
+
+    color: var(--text-soft);
 }
 
 .project-tech {
     grid-column: 2;
 
     font-size: 13px;
+
     font-weight: 700;
 
     color: var(--burgundy);
@@ -651,10 +727,14 @@ button {
 .contact-section {
     min-height: 85vh;
 
-    padding: 130px 7%;
+    padding:
+        130px
+        7%;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
 
     background-color: var(--burgundy-dark);
@@ -668,6 +748,7 @@ button {
     margin-bottom: 25px;
 
     font-size: 13px;
+
     font-weight: 700;
 
     letter-spacing: 2px;
@@ -680,7 +761,10 @@ button {
 .contact-section h2 {
     max-width: 1000px;
 
-    margin: 0 auto 40px;
+    margin:
+        0
+        auto
+        40px;
 
     font-family: Georgia, "Times New Roman", serif;
 
@@ -702,11 +786,14 @@ button {
 .contact-text {
     max-width: 600px;
 
-    margin: 0 auto 40px;
-
-    color: #d8c6c7;
+    margin:
+        0
+        auto
+        40px;
 
     font-size: 18px;
+
+    color: #d8c6c7;
 }
 
 .contact-link {
@@ -715,13 +802,15 @@ button {
     margin: 0 auto;
 
     display: flex;
+
     align-items: center;
 
     gap: 16px;
 
     padding-bottom: 8px;
 
-    border-bottom: 1px solid #f6e7e8;
+    border-bottom:
+        1px solid #f6e7e8;
 
     font-size: 18px;
 
@@ -741,6 +830,7 @@ footer {
     padding: 25px 40px;
 
     display: flex;
+
     justify-content: space-between;
 
     background-color: #241014;
@@ -756,6 +846,10 @@ footer {
 ========================= */
 
 @media (max-width: 1024px) {
+
+    .nav-links {
+        width: 60vw;
+    }
 
     .hero h1 {
         font-size: 90px;
@@ -776,7 +870,9 @@ footer {
 
         margin-left: 0;
 
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr
+            1fr;
     }
 
     .section-content .large-text {
@@ -812,19 +908,31 @@ footer {
 
 @media (max-width: 768px) {
 
+    :root {
+        --header-height: 80px;
+    }
+
     .navbar {
+        min-height: var(--header-height);
+
         padding: 18px 22px;
     }
 
     .nav-links {
+        width: 100vw;
+
         padding:
-            10px
+            18px
             24px
-            28px;
+            32px;
+
+        border-left: none;
     }
 
     .nav-links a {
         font-size: 28px;
+
+        padding: 18px 0;
     }
 
     .hero {
@@ -835,11 +943,11 @@ footer {
     }
 
     .hero h1 {
+        margin-top: 30px;
+
         font-size: 64px;
 
         letter-spacing: -3px;
-
-        margin-top: 30px;
     }
 
     .hero h1 span {
@@ -1034,6 +1142,7 @@ footer {
         scroll-behavior: auto !important;
 
         animation-duration: 0.01ms !important;
+
         animation-iteration-count: 1 !important;
 
         transition-duration: 0.01ms !important;
