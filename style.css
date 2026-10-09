@@ -105,47 +105,13 @@ button {
     z-index: 1002;
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-
-    gap: 34px;
-}
-
-.nav-links a {
-    position: relative;
-
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.nav-links a::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    bottom: -7px;
-
-    width: 0;
-    height: 1px;
-
-    background-color: var(--burgundy);
-
-    transition: width 0.25s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
 
 /* =========================
-   MOBILE MENU BUTTON
+   HAMBURGER MENU
 ========================= */
 
 .menu-toggle {
-    display: none;
+    display: block;
 
     width: 44px;
     height: 44px;
@@ -187,6 +153,82 @@ button {
 
 .menu-toggle.is-active span:nth-child(3) {
     transform: translateY(-7.5px) rotate(-45deg);
+}
+
+
+/* =========================
+   NAVIGATION PANEL
+========================= */
+
+.nav-links {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0;
+
+    padding: 12px 40px 32px;
+
+    background-color: var(--cream-light);
+
+    border-bottom: 1px solid var(--line);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-12px);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.nav-links.is-open {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
+}
+
+.nav-links li {
+    width: 100%;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.nav-links li:last-child {
+    border-bottom: none;
+}
+
+.nav-links a {
+    display: block;
+
+    width: 100%;
+
+    padding: 18px 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 32px;
+    font-weight: 400;
+
+    color: var(--text);
+}
+
+.nav-links a:hover {
+    color: var(--burgundy);
 }
 
 
@@ -774,86 +816,16 @@ footer {
         padding: 18px 22px;
     }
 
-    .menu-toggle {
-        display: block;
-    }
-
-
-    /* Mobile Navigation Panel */
-
     .nav-links {
-        position: absolute;
-
-        top: 100%;
-        left: 0;
-
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        gap: 0;
-
-        padding: 10px 24px 28px;
-
-        background-color: var(--cream-light);
-
-        border-bottom: 1px solid var(--line);
-
-        opacity: 0;
-        visibility: hidden;
-
-        transform: translateY(-12px);
-
-        pointer-events: none;
-
-        transition:
-            opacity 0.3s ease,
-            transform 0.3s ease,
-            visibility 0.3s ease;
-    }
-
-    .nav-links.is-open {
-        opacity: 1;
-        visibility: visible;
-
-        transform: translateY(0);
-
-        pointer-events: auto;
-    }
-
-    .nav-links li {
-        width: 100%;
-
-        border-bottom: 1px solid var(--line);
-    }
-
-    .nav-links li:last-child {
-        border-bottom: none;
+        padding:
+            10px
+            24px
+            28px;
     }
 
     .nav-links a {
-        display: block;
-
-        width: 100%;
-
-        padding: 18px 0;
-
-        font-family: Georgia, "Times New Roman", serif;
-
         font-size: 28px;
-        font-weight: 400;
-
-        color: var(--text);
     }
-
-    .nav-links a::after {
-        display: none;
-    }
-
-
-    /* Hero */
 
     .hero {
         padding:
@@ -877,9 +849,6 @@ footer {
     .hero-description {
         font-size: 16px;
     }
-
-
-    /* Sections */
 
     .editorial-section,
     .projects-section {
@@ -914,9 +883,6 @@ footer {
         gap: 25px;
     }
 
-
-    /* Skills */
-
     .skills-grid {
         grid-template-columns: 1fr;
     }
@@ -937,9 +903,6 @@ footer {
         margin-bottom: 35px;
     }
 
-
-    /* Projects */
-
     .project-item {
         grid-template-columns: 1fr;
 
@@ -952,9 +915,6 @@ footer {
         padding-left: 0;
     }
 
-
-    /* Contact */
-
     .contact-section {
         min-height: 75vh;
 
@@ -966,9 +926,6 @@ footer {
     .contact-section h2 {
         font-size: 54px;
     }
-
-
-    /* Footer */
 
     footer {
         flex-direction: column;
@@ -1024,9 +981,6 @@ footer {
     transform: translateY(0);
 }
 
-
-/* Hero Animation */
-
 .hero-reveal {
     opacity: 0;
 
@@ -1042,9 +996,6 @@ footer {
 
     transform: translateY(0);
 }
-
-
-/* Unterschiedliche Bewegungsrichtungen */
 
 .section-number.reveal {
     transform: translateX(-30px);
