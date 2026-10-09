@@ -38,11 +38,8 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
     background-color: var(--cream);
-
     color: var(--text);
-
     line-height: 1.6;
 }
 
@@ -52,7 +49,6 @@ body.menu-open {
 
 a {
     color: inherit;
-
     text-decoration: none;
 }
 
@@ -84,7 +80,6 @@ button {
     border-bottom: 1px solid rgba(122, 31, 43, 0.12);
 
     backdrop-filter: blur(12px);
-
     -webkit-backdrop-filter: blur(12px);
 }
 
@@ -155,9 +150,6 @@ button {
         opacity 0.3s ease;
 }
 
-
-/* Hamburger wird zu X */
-
 .menu-toggle.is-active span:nth-child(1) {
     transform: translateY(7.5px) rotate(45deg);
 }
@@ -182,7 +174,7 @@ button {
 
     right: 0;
 
-    width: 50vw;
+    width: 25vw;
 
     min-height: calc(100vh - var(--header-height));
 
@@ -195,9 +187,9 @@ button {
     gap: 0;
 
     padding:
-        38px
-        55px
-        50px;
+        28px
+        34px
+        40px;
 
     background-color: var(--cream-light);
 
@@ -206,7 +198,7 @@ button {
     border-bottom: 1px solid var(--line);
 
     box-shadow:
-        -18px 20px 45px rgba(45, 36, 34, 0.07);
+        -14px 20px 35px rgba(45, 36, 34, 0.06);
 
     opacity: 0;
 
@@ -253,11 +245,11 @@ button {
 
     width: 100%;
 
-    padding: 24px 0;
+    padding: 18px 0;
 
     font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 36px;
+    font-size: 28px;
 
     font-weight: 400;
 
@@ -271,7 +263,7 @@ button {
 .nav-links a:hover {
     color: var(--burgundy);
 
-    padding-left: 12px;
+    padding-left: 8px;
 }
 
 
@@ -848,7 +840,7 @@ footer {
 @media (max-width: 1024px) {
 
     .nav-links {
-        width: 60vw;
+        width: 45vw;
     }
 
     .hero h1 {
