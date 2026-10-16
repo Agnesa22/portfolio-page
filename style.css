@@ -19,6 +19,9 @@
     --max-width: 1280px;
 
     --header-height: 88px;
+
+    /* Einheitliche Pfeilgrösse */
+    --arrow-size: 26px;
 }
 
 
@@ -414,8 +417,37 @@ button {
     gap: 28px;
 }
 
-.hero-link span {
-    font-size: 22px;
+
+/* =========================
+   EINHEITLICHE PFEILE
+========================= */
+
+.hero-link span,
+.project-arrow,
+.contact-link span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        var(--arrow-size);
+
+    font-weight: 400;
+
+    font-style: normal;
+
+    line-height: 1;
+
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
 }
 
 
@@ -574,6 +606,7 @@ button {
         4 / 5;
 
     object-fit: cover;
+
     object-position:
         center top;
 
@@ -824,7 +857,6 @@ h2 span {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
@@ -962,7 +994,11 @@ h2 span {
 .browser-address {
     justify-self: center;
 
-    width: min(340px, 100%);
+    width:
+        min(
+            340px,
+            100%
+        );
 
     padding:
         7px
@@ -1278,8 +1314,6 @@ h2 span {
 }
 
 .project-arrow {
-    font-size: 27px;
-
     color:
         var(--burgundy);
 
@@ -1292,10 +1326,6 @@ h2 span {
     margin-left: auto;
 
     text-align: right;
-}
-
-.project-arrow-left {
-    font-size: 32px;
 }
 
 .project-feature:hover
@@ -1354,7 +1384,8 @@ h2 span {
 
     text-transform: uppercase;
 
-    color: #d9b8bb;
+    color:
+        #d9b8bb;
 }
 
 .contact-section h2 {
@@ -1536,6 +1567,7 @@ footer {
 
     :root {
         --header-height: 80px;
+        --arrow-size: 24px;
     }
 
     .navbar {
