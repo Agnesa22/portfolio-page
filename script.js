@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================
-    // MOBILE NAVIGATION
+    // NAVIGATION
     // =========================
 
     const menuToggle = document.querySelector(".menu-toggle");
@@ -52,7 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
         navigation.classList.add("is-open");
 
         menuToggle.setAttribute("aria-expanded", "true");
-        menuToggle.setAttribute("aria-label", "Navigation schliessen");
+        menuToggle.setAttribute(
+            "aria-label",
+            "Navigation schliessen"
+        );
 
         document.body.classList.add("menu-open");
 
@@ -65,7 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
         navigation.classList.remove("is-open");
 
         menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Navigation öffnen");
+        menuToggle.setAttribute(
+            "aria-label",
+            "Navigation öffnen"
+        );
 
         document.body.classList.remove("menu-open");
 
@@ -88,10 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (menuToggle && navigation) {
 
-        menuToggle.addEventListener("click", toggleMenu);
+        menuToggle.addEventListener(
+            "click",
+            toggleMenu
+        );
 
 
-        // Close menu after clicking a navigation link.
+        // Close navigation after clicking a link.
         navigationLinks.forEach((link) => {
 
             link.addEventListener("click", () => {
@@ -101,24 +110,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        // Close menu using Escape key.
-        document.addEventListener("keydown", (event) => {
+        // Close navigation with Escape.
+        document.addEventListener(
+            "keydown",
+            (event) => {
 
-            if (event.key === "Escape") {
-                closeMenu();
+                if (event.key === "Escape") {
+                    closeMenu();
+                }
+
             }
-
-        });
-
-
-        // Reset menu when returning to desktop size.
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-
-        });
+        );
 
     }
 
@@ -127,53 +129,72 @@ document.addEventListener("DOMContentLoaded", () => {
     // SCROLL ANIMATIONS
     // =========================
 
-    const revealElements = document.querySelectorAll(
-        ".section-number, " +
-        ".section-heading, " +
-        ".section-content, " +
-        ".skill-item, " +
-        ".project-item, " +
-        ".contact-label, " +
-        ".contact-section h2, " +
-        ".contact-text, " +
-        ".contact-link"
-    );
+    const revealElements =
+        document.querySelectorAll(
+            ".section-number, " +
+            ".section-heading, " +
+            ".bio-layout, " +
+            ".skill-item, " +
+            ".project-feature, " +
+            ".contact-label, " +
+            ".contact-section h2, " +
+            ".contact-text, " +
+            ".contact-link"
+        );
 
 
     const observerOptions = {
+
         root: null,
-        rootMargin: "0px 0px -10% 0px",
+
+        rootMargin:
+            "0px 0px -10% 0px",
+
         threshold: 0.15
+
     };
 
 
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
+    const revealObserver =
+        new IntersectionObserver(
+            (entries, observer) => {
 
-            entries.forEach((entry) => {
+                entries.forEach((entry) => {
 
-                if (entry.isIntersecting) {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-                    entry.target.classList.add("is-visible");
+                        entry.target
+                            .classList
+                            .add("is-visible");
 
-                    observer.unobserve(entry.target);
+                        observer.unobserve(
+                            entry.target
+                        );
 
-                }
+                    }
 
-            });
+                });
 
-        },
-        observerOptions
+            },
+            observerOptions
+        );
+
+
+    revealElements.forEach(
+        (element) => {
+
+            element
+                .classList
+                .add("reveal");
+
+            revealObserver.observe(
+                element
+            );
+
+        }
     );
-
-
-    revealElements.forEach((element) => {
-
-        element.classList.add("reveal");
-
-        revealObserver.observe(element);
-
-    });
 
 
     // =========================
@@ -181,39 +202,53 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
 
     const skillItems =
-        document.querySelectorAll(".skill-item");
+        document.querySelectorAll(
+            ".skill-item"
+        );
 
-    skillItems.forEach((element, index) => {
 
-        element.style.transitionDelay =
-            `${index * 0.12}s`;
+    skillItems.forEach(
+        (element, index) => {
 
-    });
+            element.style
+                .transitionDelay =
+                `${index * 0.12}s`;
+
+        }
+    );
 
 
     // =========================
     // HERO ANIMATION
     // =========================
 
-    const heroElements = document.querySelectorAll(
-        ".hero-top, " +
-        ".hero-label, " +
-        ".hero h1, " +
-        ".hero-description, " +
-        ".hero-link"
+    const heroElements =
+        document.querySelectorAll(
+            ".hero-top, " +
+            ".hero-label, " +
+            ".hero h1, " +
+            ".hero-description, " +
+            ".hero-link"
+        );
+
+
+    heroElements.forEach(
+        (element, index) => {
+
+            element.classList.add(
+                "hero-reveal"
+            );
+
+
+            setTimeout(() => {
+
+                element.classList.add(
+                    "hero-visible"
+                );
+
+            }, 180 + index * 180);
+
+        }
     );
-
-
-    heroElements.forEach((element, index) => {
-
-        element.classList.add("hero-reveal");
-
-        setTimeout(() => {
-
-            element.classList.add("hero-visible");
-
-        }, 180 + index * 180);
-
-    });
 
 });
