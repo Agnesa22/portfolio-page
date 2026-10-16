@@ -38,11 +38,8 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
     background-color: var(--cream);
-
     color: var(--text);
-
     line-height: 1.6;
 }
 
@@ -70,7 +67,6 @@ button {
 
 .site-header {
     position: fixed;
-
     top: 0;
     left: 0;
 
@@ -92,7 +88,6 @@ button {
 
 .navbar {
     max-width: var(--max-width);
-
     min-height: var(--header-height);
 
     margin: 0 auto;
@@ -100,9 +95,7 @@ button {
     padding: 22px 40px;
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 }
 
@@ -845,9 +838,6 @@ h2 span {
     align-items: center;
 }
 
-
-/* Alternierende Anordnung */
-
 .project-feature-reverse
 .project-visual {
     grid-column: 2;
@@ -917,6 +907,25 @@ h2 span {
         );
 }
 
+
+/* =========================
+   FAIRFLAT
+========================= */
+
+.project-visual-fairflat {
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
+}
+
+
+/* =========================
+   SHARED PROJECT IMAGE
+========================= */
+
 .project-image-frame {
     width: 100%;
 
@@ -953,111 +962,6 @@ h2 span {
 .project-preview-image {
     transform:
         scale(1.025);
-}
-
-
-/* =========================
-   FAIRFLAT
-========================= */
-
-.project-visual-fairflat {
-    background:
-        var(--burgundy);
-}
-
-.visual-eyebrow {
-    font-size: 11px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-    color:
-        var(--burgundy);
-
-    text-transform:
-        uppercase;
-}
-
-.phone-mockup {
-    width: 245px;
-
-    padding: 10px;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.5);
-
-    border-radius: 38px;
-
-    background:
-        #31161b;
-
-    box-shadow:
-        0
-        25px
-        60px
-        rgba(0, 0, 0, 0.2);
-}
-
-.phone-screen {
-    min-height: 440px;
-
-    padding:
-        35px
-        25px;
-
-    border-radius: 29px;
-
-    background:
-        var(--cream-light);
-
-    overflow: hidden;
-}
-
-.phone-card {
-    margin-top: 80px;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 31px;
-
-    line-height: 1.1;
-
-    color:
-        var(--burgundy);
-}
-
-.phone-lines {
-    margin-top: 65px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
-}
-
-.phone-lines span {
-    display: block;
-
-    height: 8px;
-
-    background:
-        var(--cream-dark);
-}
-
-.phone-lines
-span:nth-child(2) {
-    width: 75%;
-}
-
-.phone-lines
-span:nth-child(3) {
-    width: 55%;
 }
 
 
