@@ -18,7 +18,7 @@
 
     --max-width: 1280px;
 
-    --header-height: 96px;
+    --header-height: 88px;
 
     --arrow-size: 30px;
     --arrow-stroke: 1.8;
@@ -41,26 +41,38 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--cream);
-    color: var(--text);
-    line-height: 1.6;
+
+    background-color:
+        var(--cream);
+
+    color:
+        var(--text);
+
+    line-height:
+        1.6;
 }
 
 body.menu-open {
-    overflow: hidden;
+    overflow:
+        hidden;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+    color:
+        inherit;
+
+    text-decoration:
+        none;
 }
 
 ul {
-    list-style: none;
+    list-style:
+        none;
 }
 
 button {
-    font: inherit;
+    font:
+        inherit;
 }
 
 
@@ -69,14 +81,20 @@ button {
 ========================= */
 
 .site-header {
-    position: fixed;
+    position:
+        fixed;
 
-    top: 0;
-    left: 0;
+    top:
+        0;
 
-    width: 100%;
+    left:
+        0;
 
-    z-index: 1000;
+    width:
+        100%;
+
+    z-index:
+        1000;
 
     background:
         rgba(244, 237, 229, 0.94);
@@ -103,7 +121,7 @@ button {
         0 auto;
 
     padding:
-        18px
+        16px
         40px;
 
     display:
@@ -118,60 +136,41 @@ button {
 
 
 /* =========================
-   BRAND BLOCK
+   PORTFOLIO BRAND
 ========================= */
 
 .brand-block {
     display:
         flex;
 
-    flex-direction:
-        column;
+    align-items:
+        center;
 
-    gap:
-        2px;
+    min-height:
+        44px;
 
     z-index:
         1002;
 }
 
-.brand-name {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:
-        24px;
-
-    font-weight:
-        600;
-
-    line-height:
-        1.05;
-
-    color:
-        var(--burgundy);
-
-    letter-spacing:
-        -0.4px;
-}
-
 .brand-subtitle {
     font-size:
-        10px;
+        12px;
 
     font-weight:
         700;
 
+    line-height:
+        1;
+
     letter-spacing:
-        1.6px;
+        2px;
 
     text-transform:
         uppercase;
 
     color:
-        var(--text-soft);
+        var(--burgundy);
 }
 
 
@@ -205,9 +204,6 @@ button {
 
     color:
         var(--burgundy);
-
-    transition:
-        opacity 0.25s ease;
 }
 
 
@@ -516,11 +512,8 @@ span:nth-child(3) {
     display:
         flex;
 
-    flex-direction:
-        column;
-
-    justify-content:
-        space-between;
+    align-items:
+        center;
 
     background:
         radial-gradient(
@@ -531,35 +524,6 @@ span:nth-child(3) {
         var(--cream-light);
 }
 
-.hero-top {
-    max-width:
-        var(--max-width);
-
-    width:
-        100%;
-
-    margin:
-        0 auto;
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    font-size:
-        13px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        2px;
-
-    color:
-        var(--burgundy);
-}
-
 .hero-main {
     max-width:
         var(--max-width);
@@ -568,7 +532,7 @@ span:nth-child(3) {
         100%;
 
     margin:
-        auto;
+        0 auto;
 }
 
 .hero-label {
@@ -2048,7 +2012,7 @@ footer {
 
     :root {
         --header-height:
-            88px;
+            80px;
 
         --arrow-size:
             28px;
@@ -2059,18 +2023,16 @@ footer {
             var(--header-height);
 
         padding:
-            14px
+            12px
             22px;
-    }
-
-    .brand-name {
-        font-size:
-            20px;
     }
 
     .brand-subtitle {
         font-size:
-            8px;
+            10px;
+
+        letter-spacing:
+            1.5px;
     }
 
     .menu-label {
@@ -2101,15 +2063,12 @@ footer {
 
     .hero {
         padding:
-            130px
+            120px
             24px
             60px;
     }
 
     .hero h1 {
-        margin-top:
-            30px;
-
         font-size:
             64px;
 
