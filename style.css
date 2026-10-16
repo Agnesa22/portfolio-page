@@ -18,7 +18,7 @@
 
     --max-width: 1280px;
 
-    --header-height: 88px;
+    --header-height: 96px;
 
     --arrow-size: 30px;
     --arrow-stroke: 1.8;
@@ -41,13 +41,8 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
-    background-color:
-        var(--cream);
-
-    color:
-        var(--text);
-
+    background-color: var(--cream);
+    color: var(--text);
     line-height: 1.6;
 }
 
@@ -57,7 +52,6 @@ body.menu-open {
 
 a {
     color: inherit;
-
     text-decoration: none;
 }
 
@@ -85,17 +79,17 @@ button {
     z-index: 1000;
 
     background:
-        rgba(244, 237, 229, 0.92);
+        rgba(244, 237, 229, 0.94);
 
     border-bottom:
         1px solid
-        rgba(122, 31, 43, 0.12);
+        rgba(122, 31, 43, 0.14);
 
     backdrop-filter:
-        blur(12px);
+        blur(14px);
 
     -webkit-backdrop-filter:
-        blur(12px);
+        blur(14px);
 }
 
 .navbar {
@@ -109,9 +103,11 @@ button {
         0 auto;
 
     padding:
-        22px 40px;
+        18px
+        40px;
 
-    display: flex;
+    display:
+        flex;
 
     justify-content:
         space-between;
@@ -120,20 +116,98 @@ button {
         center;
 }
 
-.logo {
+
+/* =========================
+   BRAND BLOCK
+========================= */
+
+.brand-block {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        2px;
+
+    z-index:
+        1002;
+}
+
+.brand-name {
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 28px;
+    font-size:
+        24px;
 
-    font-weight: 600;
+    font-weight:
+        600;
+
+    line-height:
+        1.05;
 
     color:
         var(--burgundy);
 
-    z-index: 1002;
+    letter-spacing:
+        -0.4px;
+}
+
+.brand-subtitle {
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.6px;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--text-soft);
+}
+
+
+/* =========================
+   MENU AREA
+========================= */
+
+.menu-area {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    z-index:
+        1002;
+}
+
+.menu-label {
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.8px;
+
+    color:
+        var(--burgundy);
+
+    transition:
+        opacity 0.25s ease;
 }
 
 
@@ -142,76 +216,128 @@ button {
 ========================= */
 
 .menu-toggle {
-    display: block;
+    display:
+        block;
 
-    position: relative;
+    position:
+        relative;
 
-    z-index: 1002;
+    width:
+        44px;
 
-    width: 44px;
-    height: 44px;
+    height:
+        44px;
 
-    padding: 10px;
+    padding:
+        10px;
 
-    border: 0;
+    border:
+        1px solid
+        rgba(122, 31, 43, 0.22);
+
+    border-radius:
+        50%;
 
     background:
-        transparent;
+        rgba(255, 255, 255, 0.26);
 
     cursor:
         pointer;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background:
+        var(--burgundy);
+
+    border-color:
+        var(--burgundy);
+
+    transform:
+        rotate(4deg);
 }
 
 .menu-toggle span {
-    display: block;
+    display:
+        block;
 
-    width: 24px;
-    height: 1.5px;
+    width:
+        20px;
+
+    height:
+        1.5px;
 
     margin:
-        6px auto;
+        5px auto;
 
     background-color:
         var(--burgundy);
 
     transition:
         transform 0.3s ease,
-        opacity 0.3s ease;
+        opacity 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.menu-toggle:hover span {
+    background-color:
+        var(--cream-light);
+}
+
+.menu-toggle.is-active {
+    background:
+        var(--burgundy);
+
+    border-color:
+        var(--burgundy);
+}
+
+.menu-toggle.is-active span {
+    background:
+        var(--cream-light);
 }
 
 .menu-toggle.is-active
 span:nth-child(1) {
     transform:
-        translateY(7.5px)
+        translateY(6.5px)
         rotate(45deg);
 }
 
 .menu-toggle.is-active
 span:nth-child(2) {
-    opacity: 0;
+    opacity:
+        0;
 }
 
 .menu-toggle.is-active
 span:nth-child(3) {
     transform:
-        translateY(-7.5px)
+        translateY(-6.5px)
         rotate(-45deg);
 }
 
 
 /* =========================
-   NAVIGATION
+   NAVIGATION PANEL
 ========================= */
 
 .nav-links {
-    position: fixed;
+    position:
+        fixed;
 
     top:
         var(--header-height);
 
-    right: 0;
+    right:
+        0;
 
-    width: 25vw;
+    width:
+        25vw;
 
     min-height:
         calc(
@@ -219,7 +345,8 @@ span:nth-child(3) {
             var(--header-height)
         );
 
-    display: flex;
+    display:
+        flex;
 
     flex-direction:
         column;
@@ -227,7 +354,8 @@ span:nth-child(3) {
     align-items:
         flex-start;
 
-    gap: 0;
+    gap:
+        0;
 
     padding:
         28px
@@ -251,7 +379,8 @@ span:nth-child(3) {
         35px
         rgba(45, 36, 34, 0.06);
 
-    opacity: 0;
+    opacity:
+        0;
 
     visibility:
         hidden;
@@ -269,7 +398,8 @@ span:nth-child(3) {
 }
 
 .nav-links.is-open {
-    opacity: 1;
+    opacity:
+        1;
 
     visibility:
         visible;
@@ -282,7 +412,8 @@ span:nth-child(3) {
 }
 
 .nav-links li {
-    width: 100%;
+    width:
+        100%;
 
     border-bottom:
         1px solid
@@ -295,9 +426,11 @@ span:nth-child(3) {
 }
 
 .nav-links a {
-    display: block;
+    display:
+        block;
 
-    width: 100%;
+    width:
+        100%;
 
     padding:
         18px 0;
@@ -307,9 +440,11 @@ span:nth-child(3) {
         "Times New Roman",
         serif;
 
-    font-size: 28px;
+    font-size:
+        28px;
 
-    font-weight: 400;
+    font-weight:
+        400;
 
     color:
         var(--text);
@@ -342,7 +477,8 @@ span:nth-child(3) {
     display:
         block;
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 
     overflow:
         visible;
@@ -373,11 +509,12 @@ span:nth-child(3) {
         100vh;
 
     padding:
-        140px
+        150px
         7%
         70px;
 
-    display: flex;
+    display:
+        flex;
 
     flex-direction:
         column;
@@ -398,19 +535,23 @@ span:nth-child(3) {
     max-width:
         var(--max-width);
 
-    width: 100%;
+    width:
+        100%;
 
     margin:
         0 auto;
 
-    display: flex;
+    display:
+        flex;
 
     justify-content:
         space-between;
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    font-weight: 700;
+    font-weight:
+        700;
 
     letter-spacing:
         2px;
@@ -423,7 +564,8 @@ span:nth-child(3) {
     max-width:
         var(--max-width);
 
-    width: 100%;
+    width:
+        100%;
 
     margin:
         auto;
@@ -1618,9 +1760,6 @@ span:nth-child(3) {
         transform 0.3s ease;
 }
 
-
-/* Beide Projektpfeile exakt gleich */
-
 .project-arrow-left,
 .project-arrow-right {
     width:
@@ -1629,7 +1768,6 @@ span:nth-child(3) {
     height:
         var(--arrow-size);
 }
-
 
 .project-feature:hover
 .project-arrow-left {
@@ -1910,7 +2048,7 @@ footer {
 
     :root {
         --header-height:
-            80px;
+            88px;
 
         --arrow-size:
             28px;
@@ -1921,8 +2059,23 @@ footer {
             var(--header-height);
 
         padding:
-            18px
+            14px
             22px;
+    }
+
+    .brand-name {
+        font-size:
+            20px;
+    }
+
+    .brand-subtitle {
+        font-size:
+            8px;
+    }
+
+    .menu-label {
+        display:
+            none;
     }
 
     .nav-links {
@@ -1948,7 +2101,7 @@ footer {
 
     .hero {
         padding:
-            120px
+            130px
             24px
             60px;
     }
