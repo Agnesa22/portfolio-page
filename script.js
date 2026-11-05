@@ -2,7 +2,11 @@
 // CONFIGURATION
 // =========================
 
-const GITHUB_USERNAME = "Agnesa22";
+const GITHUB_USERNAME =
+    "Agnesa22";
+
+const CONTACT_EMAIL =
+    "pajaziti.agnesa@hotmail.com";
 
 const GITHUB_API_URL =
     `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
@@ -22,36 +26,59 @@ const GITHUB_CACHE_TIME =
 const projects = [
     {
         id: 1,
-        title: "CasaSierra",
-        category: "Web Development",
+
+        title:
+            "CasaSierra",
+
+        category:
+            "Web Development",
+
         description:
             "Konzeption und Entwicklung einer modernen Website für ein Immobilien- und Treuhandunternehmen.",
+
         technologies: [
             "HTML",
             "CSS",
             "JavaScript"
         ],
-        type: "browser",
-        image: "casasierra-preview.png",
+
+        type:
+            "browser",
+
+        image:
+            "casasierra-preview.png",
+
         imageAlt:
             "Vorschau der CasaSierra Website",
+
         browserAddress:
             "casasierra.ch"
     },
 
     {
         id: 2,
-        title: "FairFlat",
-        category: "UX/UI Design",
+
+        title:
+            "FairFlat",
+
+        category:
+            "UX/UI Design",
+
         description:
             "Entwicklung eines UX/UI-Konzepts für eine App zur Organisation des Zusammenlebens in Wohngemeinschaften.",
+
         technologies: [
             "Figma",
             "UX Research",
             "Prototyping"
         ],
-        type: "phone",
-        image: "fairflat-preview.png",
+
+        type:
+            "phone",
+
+        image:
+            "fairflat-preview.png",
+
         imageAlt:
             "Vorschau des FairFlat Projekts"
     }
@@ -62,8 +89,15 @@ const projects = [
 // SCROLL POSITION
 // =========================
 
-if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
+if (
+    "scrollRestoration"
+    in
+    history
+) {
+
+    history.scrollRestoration =
+        "manual";
+
 }
 
 
@@ -71,7 +105,9 @@ window.addEventListener(
     "load",
     () => {
 
-        if (!window.location.hash) {
+        if (
+            !window.location.hash
+        ) {
 
             window.scrollTo({
                 top: 0,
@@ -86,12 +122,18 @@ window.addEventListener(
 
 
 // =========================
-// PROJECT RENDERING
+// PROJECT ARROW
 // =========================
 
-function createArrowSVG(direction) {
+function createArrowSVG(
+    direction
+) {
 
-    if (direction === "left") {
+    if (
+        direction
+        ===
+        "left"
+    ) {
 
         return `
             <svg
@@ -121,9 +163,19 @@ function createArrowSVG(direction) {
 }
 
 
-function createProjectVisual(project) {
+// =========================
+// PROJECT VISUALS
+// =========================
 
-    if (project.type === "browser") {
+function createProjectVisual(
+    project
+) {
+
+    if (
+        project.type
+        ===
+        "browser"
+    ) {
 
         return `
             <div class="project-visual project-visual-casasierra">
@@ -162,7 +214,11 @@ function createProjectVisual(project) {
     }
 
 
-    if (project.type === "phone") {
+    if (
+        project.type
+        ===
+        "phone"
+    ) {
 
         return `
             <div class="project-visual project-visual-fairflat">
@@ -190,8 +246,13 @@ function createProjectVisual(project) {
 
 
     return "";
+
 }
 
+
+// =========================
+// PROJECT MARKUP
+// =========================
 
 function createProjectMarkup(
     project,
@@ -207,23 +268,37 @@ function createProjectMarkup(
             : "project-feature reveal";
 
     const technologyText =
-        project.technologies.join(" · ");
+        project.technologies.join(
+            " · "
+        );
 
     const number =
-        String(project.id)
-            .padStart(2, "0");
+        String(
+            project.id
+        ).padStart(
+            2,
+            "0"
+        );
 
     const visual =
-        createProjectVisual(project);
+        createProjectVisual(
+            project
+        );
 
     const leftArrow =
-        createArrowSVG("left");
+        createArrowSVG(
+            "left"
+        );
 
     const rightArrow =
-        createArrowSVG("right");
+        createArrowSVG(
+            "right"
+        );
 
 
-    if (!isReverse) {
+    if (
+        !isReverse
+    ) {
 
         return `
             <article class="${articleClass}">
@@ -315,6 +390,10 @@ function createProjectMarkup(
 }
 
 
+// =========================
+// RENDER PROJECTS
+// =========================
+
 function renderProjects() {
 
     const projectShowcase =
@@ -323,12 +402,14 @@ function renderProjects() {
         );
 
 
-    if (!projectShowcase) {
+    if (
+        !projectShowcase
+    ) {
         return;
     }
 
 
-    const projectMarkup =
+    projectShowcase.innerHTML =
         projects
             .map(
                 (
@@ -341,10 +422,6 @@ function renderProjects() {
                     )
             )
             .join("");
-
-
-    projectShowcase.innerHTML =
-        projectMarkup;
 
 }
 
@@ -361,7 +438,9 @@ function getCachedRepositories() {
         );
 
 
-    if (!cachedData) {
+    if (
+        !cachedData
+    ) {
         return null;
     }
 
@@ -375,13 +454,16 @@ function getCachedRepositories() {
 
 
         const cacheIsValid =
-            Date.now() -
+            Date.now()
+            -
             parsedData.timestamp
             <
             GITHUB_CACHE_TIME;
 
 
-        if (!cacheIsValid) {
+        if (
+            !cacheIsValid
+        ) {
 
             localStorage.removeItem(
                 GITHUB_CACHE_KEY
@@ -394,7 +476,9 @@ function getCachedRepositories() {
 
         return parsedData.repositories;
 
-    } catch (error) {
+    } catch (
+        error
+    ) {
 
         localStorage.removeItem(
             GITHUB_CACHE_KEY
@@ -412,17 +496,21 @@ function cacheRepositories(
 ) {
 
     const cacheData = {
+
         timestamp:
             Date.now(),
 
         repositories:
             repositories
+
     };
 
 
     localStorage.setItem(
         GITHUB_CACHE_KEY,
-        JSON.stringify(cacheData)
+        JSON.stringify(
+            cacheData
+        )
     );
 
 }
@@ -438,14 +526,18 @@ async function fetchRepositories() {
         getCachedRepositories();
 
 
-    if (cachedRepositories) {
+    if (
+        cachedRepositories
+    ) {
 
         return {
+
             repositories:
                 cachedRepositories,
 
             source:
                 "cache"
+
         };
 
     }
@@ -463,7 +555,9 @@ async function fetchRepositories() {
         );
 
 
-    if (!response.ok) {
+    if (
+        !response.ok
+    ) {
 
         throw new Error(
             `GitHub API Error: ${response.status}`
@@ -482,18 +576,20 @@ async function fetchRepositories() {
 
 
     return {
+
         repositories:
             repositories,
 
         source:
             "api"
+
     };
 
 }
 
 
 // =========================
-// GITHUB RENDERING
+// DATE FORMATTING
 // =========================
 
 function formatRepositoryDate(
@@ -518,10 +614,16 @@ function formatRepositoryDate(
             year:
                 "numeric"
         }
-    ).format(date);
+    ).format(
+        date
+    );
 
 }
 
+
+// =========================
+// REPOSITORY MARKUP
+// =========================
 
 function createRepositoryMarkup(
     repository,
@@ -544,8 +646,12 @@ function createRepositoryMarkup(
         );
 
     const number =
-        String(index + 1)
-            .padStart(2, "0");
+        String(
+            index + 1
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     return `
@@ -568,23 +674,19 @@ function createRepositoryMarkup(
 
             </div>
 
-
             <h3>
                 ${repository.name}
             </h3>
 
-
             <p class="github-description">
                 ${description}
             </p>
-
 
             <div class="github-card-footer">
 
                 <span class="github-updated">
                     Updated ${updatedDate}
                 </span>
-
 
                 <svg
                     class="arrow-icon github-open"
@@ -603,6 +705,10 @@ function createRepositoryMarkup(
 }
 
 
+// =========================
+// RENDER REPOSITORIES
+// =========================
+
 function renderRepositories(
     repositories
 ) {
@@ -613,7 +719,9 @@ function renderRepositories(
         );
 
 
-    if (!repositoryContainer) {
+    if (
+        !repositoryContainer
+    ) {
         return;
     }
 
@@ -667,6 +775,10 @@ function renderRepositories(
 }
 
 
+// =========================
+// GITHUB STATUS
+// =========================
+
 function updateGitHubStatus(
     message
 ) {
@@ -677,7 +789,9 @@ function updateGitHubStatus(
         );
 
 
-    if (statusElement) {
+    if (
+        statusElement
+    ) {
 
         statusElement.textContent =
             message;
@@ -686,6 +800,10 @@ function updateGitHubStatus(
 
 }
 
+
+// =========================
+// LOAD GITHUB
+// =========================
 
 async function loadGitHubRepositories() {
 
@@ -723,7 +841,9 @@ async function loadGitHubRepositories() {
 
         }
 
-    } catch (error) {
+    } catch (
+        error
+    ) {
 
         console.error(
             "GitHub repositories could not be loaded:",
@@ -742,14 +862,15 @@ async function loadGitHubRepositories() {
             );
 
 
-        if (repositoryContainer) {
+        if (
+            repositoryContainer
+        ) {
 
             repositoryContainer.innerHTML =
                 `
                     <div class="github-error">
                         Die GitHub-Repositories sind momentan nicht verfügbar.
-                        Bitte versuche es später erneut oder besuche mein
-                        GitHub-Profil direkt.
+                        Bitte besuche mein GitHub-Profil direkt.
                     </div>
                 `;
 
@@ -847,13 +968,11 @@ function initialiseNavigation() {
 
     function toggleMenu() {
 
-        const menuIsOpen =
+        if (
             menuToggle.classList.contains(
                 "is-active"
-            );
-
-
-        if (menuIsOpen) {
+            )
+        ) {
 
             closeMenu();
 
@@ -905,6 +1024,398 @@ function initialiseNavigation() {
 
 
 // =========================
+// CONTACT VALIDATION
+// =========================
+
+function initialiseContactForm() {
+
+    const form =
+        document.querySelector(
+            "#contact-form"
+        );
+
+    if (
+        !form
+    ) {
+        return;
+    }
+
+
+    const nameInput =
+        document.querySelector(
+            "#contact-name"
+        );
+
+    const emailInput =
+        document.querySelector(
+            "#contact-email"
+        );
+
+    const messageInput =
+        document.querySelector(
+            "#contact-message"
+        );
+
+    const characterCount =
+        document.querySelector(
+            "#character-count"
+        );
+
+    const formStatus =
+        document.querySelector(
+            "#form-status"
+        );
+
+
+    const MAX_MESSAGE_LENGTH =
+        1000;
+
+
+    function showError(
+        input,
+        errorElementId,
+        message
+    ) {
+
+        const errorElement =
+            document.querySelector(
+                `#${errorElementId}`
+            );
+
+        const formGroup =
+            input.closest(
+                ".form-group"
+            );
+
+
+        if (
+            errorElement
+        ) {
+
+            errorElement.textContent =
+                message;
+
+        }
+
+
+        if (
+            formGroup
+        ) {
+
+            formGroup.classList.add(
+                "has-error"
+            );
+
+        }
+
+
+        input.setAttribute(
+            "aria-invalid",
+            "true"
+        );
+
+    }
+
+
+    function clearError(
+        input,
+        errorElementId
+    ) {
+
+        const errorElement =
+            document.querySelector(
+                `#${errorElementId}`
+            );
+
+        const formGroup =
+            input.closest(
+                ".form-group"
+            );
+
+
+        if (
+            errorElement
+        ) {
+
+            errorElement.textContent =
+                "";
+
+        }
+
+
+        if (
+            formGroup
+        ) {
+
+            formGroup.classList.remove(
+                "has-error"
+            );
+
+        }
+
+
+        input.removeAttribute(
+            "aria-invalid"
+        );
+
+    }
+
+
+    function validateName() {
+
+        const value =
+            nameInput.value.trim();
+
+
+        if (
+            value.length
+            < 2
+        ) {
+
+            showError(
+                nameInput,
+                "name-error",
+                "Bitte gib deinen Namen ein."
+            );
+
+            return false;
+
+        }
+
+
+        clearError(
+            nameInput,
+            "name-error"
+        );
+
+        return true;
+
+    }
+
+
+    function validateEmail() {
+
+        const value =
+            emailInput.value.trim();
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (
+            !emailPattern.test(
+                value
+            )
+        ) {
+
+            showError(
+                emailInput,
+                "email-error",
+                "Bitte gib eine gültige E-Mail-Adresse ein."
+            );
+
+            return false;
+
+        }
+
+
+        clearError(
+            emailInput,
+            "email-error"
+        );
+
+        return true;
+
+    }
+
+
+    function validateMessage() {
+
+        const value =
+            messageInput.value.trim();
+
+
+        if (
+            value.length
+            < 10
+        ) {
+
+            showError(
+                messageInput,
+                "message-error",
+                "Die Nachricht sollte mindestens 10 Zeichen enthalten."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            value.length
+            >
+            MAX_MESSAGE_LENGTH
+        ) {
+
+            showError(
+                messageInput,
+                "message-error",
+                "Die Nachricht darf maximal 1000 Zeichen enthalten."
+            );
+
+            return false;
+
+        }
+
+
+        clearError(
+            messageInput,
+            "message-error"
+        );
+
+        return true;
+
+    }
+
+
+    function updateCharacterCount() {
+
+        const length =
+            messageInput.value.length;
+
+
+        characterCount.textContent =
+            `${length} / ${MAX_MESSAGE_LENGTH}`;
+
+
+        if (
+            length
+            >
+            MAX_MESSAGE_LENGTH
+        ) {
+
+            characterCount.style.color =
+                "#ffb2b2";
+
+        } else {
+
+            characterCount.style.color =
+                "";
+
+        }
+
+    }
+
+
+    nameInput.addEventListener(
+        "blur",
+        validateName
+    );
+
+
+    emailInput.addEventListener(
+        "blur",
+        validateEmail
+    );
+
+
+    messageInput.addEventListener(
+        "blur",
+        validateMessage
+    );
+
+
+    messageInput.addEventListener(
+        "input",
+        updateCharacterCount
+    );
+
+
+    form.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+
+            formStatus.textContent =
+                "";
+
+            formStatus.classList.remove(
+                "is-success"
+            );
+
+
+            const nameIsValid =
+                validateName();
+
+            const emailIsValid =
+                validateEmail();
+
+            const messageIsValid =
+                validateMessage();
+
+
+            if (
+                !nameIsValid
+                ||
+                !emailIsValid
+                ||
+                !messageIsValid
+            ) {
+
+                formStatus.textContent =
+                    "Bitte überprüfe die markierten Felder.";
+
+                return;
+
+            }
+
+
+            const name =
+                nameInput.value.trim();
+
+            const senderEmail =
+                emailInput.value.trim();
+
+            const message =
+                messageInput.value.trim();
+
+
+            const subject =
+                encodeURIComponent(
+                    `Portfolio Anfrage von ${name}`
+                );
+
+
+            const body =
+                encodeURIComponent(
+                    `Name: ${name}\n` +
+                    `E-Mail: ${senderEmail}\n\n` +
+                    `Nachricht:\n${message}`
+                );
+
+
+            formStatus.textContent =
+                "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
+
+            formStatus.classList.add(
+                "is-success"
+            );
+
+
+            window.location.href =
+                `mailto:${CONTACT_EMAIL}` +
+                `?subject=${subject}` +
+                `&body=${body}`;
+
+        }
+    );
+
+}
+
+
+// =========================
 // SCROLL ANIMATIONS
 // =========================
 
@@ -918,14 +1429,14 @@ function initialiseRevealAnimations() {
             ".skill-item, " +
             ".project-feature, " +
             ".github-intro, " +
-            ".contact-label, " +
-            ".contact-section h2, " +
-            ".contact-text, " +
-            ".contact-link"
+            ".contact-header, " +
+            ".contact-form, " +
+            ".contact-direct"
         );
 
 
     const observerOptions = {
+
         root:
             null,
 
@@ -934,6 +1445,7 @@ function initialiseRevealAnimations() {
 
         threshold:
             0.15
+
     };
 
 
@@ -990,7 +1502,7 @@ function initialiseRevealAnimations() {
 
 
 // =========================
-// SKILL ANIMATIONS
+// SKILL ANIMATION DELAYS
 // =========================
 
 function initialiseSkillAnimations() {
@@ -1053,8 +1565,10 @@ function initialiseHeroAnimation() {
                         );
 
                 },
-                180 +
-                index *
+                180
+                +
+                index
+                *
                 180
             );
 
@@ -1072,14 +1586,11 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        /*
-         * Projects are generated first so
-         * the animation observer can find them.
-         */
-
         renderProjects();
 
         initialiseNavigation();
+
+        initialiseContactForm();
 
         initialiseRevealAnimations();
 
