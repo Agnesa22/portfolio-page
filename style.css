@@ -59,7 +59,9 @@ ul {
     list-style: none;
 }
 
-button {
+button,
+input,
+textarea {
     font: inherit;
 }
 
@@ -82,14 +84,19 @@ button {
         rgba(244, 237, 229, 0.94);
 
     border-bottom:
-        1px solid rgba(122, 31, 43, 0.14);
+        1px solid
+        rgba(122, 31, 43, 0.14);
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
 }
 
 .navbar {
-    max-width: var(--max-width);
+    max-width:
+        var(--max-width);
 
     min-height:
         var(--header-height);
@@ -101,7 +108,8 @@ button {
         16px
         40px;
 
-    display: flex;
+    display:
+        flex;
 
     justify-content:
         space-between;
@@ -116,7 +124,8 @@ button {
 ========================= */
 
 .brand-block {
-    display: flex;
+    display:
+        flex;
 
     align-items:
         center;
@@ -154,7 +163,8 @@ button {
 ========================= */
 
 .menu-area {
-    display: flex;
+    display:
+        flex;
 
     align-items:
         center;
@@ -186,9 +196,11 @@ button {
 ========================= */
 
 .menu-toggle {
-    display: block;
+    display:
+        block;
 
-    position: relative;
+    position:
+        relative;
 
     width:
         44px;
@@ -291,7 +303,7 @@ span:nth-child(3) {
 
 
 /* =========================
-   NAVIGATION PANEL
+   NAVIGATION
 ========================= */
 
 .nav-links {
@@ -321,9 +333,6 @@ span:nth-child(3) {
 
     align-items:
         flex-start;
-
-    gap:
-        0;
 
     padding:
         28px
@@ -411,9 +420,6 @@ span:nth-child(3) {
     font-size:
         28px;
 
-    font-weight:
-        400;
-
     color:
         var(--text);
 
@@ -432,7 +438,7 @@ span:nth-child(3) {
 
 
 /* =========================
-   SVG ARROWS
+   ARROWS
 ========================= */
 
 .arrow-icon {
@@ -811,9 +817,6 @@ span:nth-child(3) {
 
     border-radius:
         50%;
-
-    pointer-events:
-        none;
 }
 
 .bio-image {
@@ -851,10 +854,6 @@ span:nth-child(3) {
 .bio-image {
     transform:
         scale(1.025);
-
-    filter:
-        saturate(1)
-        contrast(1.03);
 }
 
 .bio-image-caption {
@@ -929,9 +928,6 @@ span:last-child {
 
     line-height:
         1.35;
-
-    color:
-        var(--text);
 }
 
 .bio-small-text {
@@ -1119,11 +1115,6 @@ h2 span {
         1;
 }
 
-
-/* =========================
-   PROJECT VISUALS
-========================= */
-
 .project-visual {
     position:
         relative;
@@ -1206,22 +1197,6 @@ h2 span {
         22px
         55px
         rgba(45, 36, 34, 0.12);
-
-    transition:
-        transform 0.55s ease,
-        box-shadow 0.55s ease;
-}
-
-.project-feature:hover
-.browser-mockup {
-    transform:
-        translateY(-4px);
-
-    box-shadow:
-        0
-        28px
-        65px
-        rgba(45, 36, 34, 0.16);
 }
 
 .browser-topbar {
@@ -1258,9 +1233,6 @@ h2 span {
 .browser-controls {
     display:
         flex;
-
-    align-items:
-        center;
 
     gap:
         8px;
@@ -1330,9 +1302,6 @@ span:nth-child(3) {
 
     text-align:
         center;
-
-    letter-spacing:
-        0.2px;
 }
 
 .browser-content {
@@ -1352,12 +1321,6 @@ span:nth-child(3) {
 
     height:
         auto;
-
-    object-fit:
-        cover;
-
-    object-position:
-        top center;
 
     transition:
         transform 0.7s ease;
@@ -1417,28 +1380,6 @@ span:nth-child(3) {
         0
         1px
         rgba(255, 255, 255, 0.08);
-
-    transition:
-        transform 0.55s ease,
-        box-shadow 0.55s ease;
-}
-
-.project-feature:hover
-.fairflat-device {
-    transform:
-        translateY(-5px)
-        rotate(-1deg);
-
-    box-shadow:
-        0
-        38px
-        70px
-        rgba(0, 0, 0, 0.37),
-        inset
-        0
-        0
-        1px
-        rgba(255, 255, 255, 0.08);
 }
 
 .fairflat-device-speaker {
@@ -1471,9 +1412,6 @@ span:nth-child(3) {
 }
 
 .fairflat-device-screen {
-    position:
-        relative;
-
     overflow:
         hidden;
 
@@ -1523,9 +1461,6 @@ span:nth-child(3) {
     height:
         60px;
 
-    border-radius:
-        3px 0 0 3px;
-
     background:
         #1b1b1b;
 
@@ -1551,9 +1486,6 @@ span:nth-child(3) {
 
     height:
         80px;
-
-    border-radius:
-        0 3px 3px 0;
 
     background:
         #1b1b1b;
@@ -1624,9 +1556,6 @@ span:nth-child(3) {
 
     line-height:
         0.95;
-
-    letter-spacing:
-        -2px;
 }
 
 .project-description {
@@ -1698,24 +1627,18 @@ span:nth-child(3) {
 .project-feature:hover
 .project-arrow-left {
     transform:
-        translate(
-            -5px,
-            -5px
-        );
+        translate(-5px, -5px);
 }
 
 .project-feature:hover
 .project-arrow-right {
     transform:
-        translate(
-            5px,
-            -5px
-        );
+        translate(5px, -5px);
 }
 
 
 /* =========================
-   GITHUB API SECTION
+   GITHUB
 ========================= */
 
 .github-section {
@@ -1747,6 +1670,9 @@ span:nth-child(3) {
     margin-bottom:
         45px;
 
+    padding-bottom:
+        30px;
+
     display:
         flex;
 
@@ -1762,9 +1688,6 @@ span:nth-child(3) {
     border-bottom:
         1px solid
         var(--line);
-
-    padding-bottom:
-        30px;
 }
 
 .github-intro p {
@@ -1803,14 +1726,6 @@ span:nth-child(3) {
 
     color:
         var(--burgundy);
-
-    transition:
-        gap 0.25s ease;
-}
-
-.github-profile-link:hover {
-    gap:
-        22px;
 }
 
 .github-status {
@@ -1911,12 +1826,6 @@ span:nth-child(3) {
 
     justify-content:
         space-between;
-
-    align-items:
-        center;
-
-    gap:
-        20px;
 }
 
 .github-card-number {
@@ -1937,11 +1846,11 @@ span:nth-child(3) {
     font-weight:
         700;
 
-    letter-spacing:
-        1px;
-
     text-transform:
         uppercase;
+
+    letter-spacing:
+        1px;
 
     color:
         var(--text-soft);
@@ -1961,9 +1870,6 @@ span:nth-child(3) {
 
     font-weight:
         400;
-
-    line-height:
-        1.05;
 
     overflow-wrap:
         anywhere;
@@ -1999,9 +1905,6 @@ span:nth-child(3) {
 
     align-items:
         center;
-
-    gap:
-        20px;
 }
 
 .github-updated {
@@ -2010,9 +1913,6 @@ span:nth-child(3) {
 
     font-weight:
         700;
-
-    letter-spacing:
-        0.6px;
 
     text-transform:
         uppercase;
@@ -2024,18 +1924,6 @@ span:nth-child(3) {
 .github-open {
     color:
         var(--burgundy);
-
-    transition:
-        transform 0.3s ease;
-}
-
-.github-card:hover
-.github-open {
-    transform:
-        translate(
-            4px,
-            -4px
-        );
 }
 
 .github-error {
@@ -2044,14 +1932,6 @@ span:nth-child(3) {
 
     padding:
         40px;
-
-    border-right:
-        1px solid
-        var(--line);
-
-    border-bottom:
-        1px solid
-        var(--line);
 
     color:
         var(--text-soft);
@@ -2063,38 +1943,36 @@ span:nth-child(3) {
 ========================= */
 
 .contact-section {
-    min-height:
-        85vh;
-
     padding:
-        130px
+        140px
         7%;
 
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    justify-content:
-        center;
-
-    background-color:
+    background:
         var(--burgundy-dark);
 
     color:
         var(--cream-light);
+}
 
-    text-align:
-        center;
+.contact-inner {
+    max-width:
+        var(--max-width);
+
+    margin:
+        0 auto;
+}
+
+.contact-header {
+    margin-bottom:
+        80px;
 }
 
 .contact-label {
     margin-bottom:
-        25px;
+        35px;
 
     font-size:
-        13px;
+        12px;
 
     font-weight:
         700;
@@ -2109,13 +1987,11 @@ span:nth-child(3) {
         #d9b8bb;
 }
 
-.contact-section h2 {
+.contact-header h2 {
     max-width:
         1000px;
 
-    margin:
-        0
-        auto
+    margin-bottom:
         40px;
 
     font-family:
@@ -2127,7 +2003,7 @@ span:nth-child(3) {
         clamp(
             55px,
             8vw,
-            110px
+            105px
         );
 
     font-weight:
@@ -2140,7 +2016,7 @@ span:nth-child(3) {
         -3px;
 }
 
-.contact-section h2 span {
+.contact-header h2 span {
     display:
         block;
 
@@ -2150,26 +2026,183 @@ span:nth-child(3) {
 
 .contact-text {
     max-width:
-        600px;
-
-    margin:
-        0
-        auto
-        40px;
+        630px;
 
     font-size:
-        18px;
+        17px;
 
     color:
         #d8c6c7;
 }
 
-.contact-link {
-    width:
-        fit-content;
 
-    margin:
-        0 auto;
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    column-gap:
+        60px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+}
+
+.form-group {
+    position:
+        relative;
+
+    padding:
+        35px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+}
+
+.form-group-message {
+    grid-column:
+        1 / -1;
+}
+
+.form-group label {
+    display:
+        block;
+
+    margin-bottom:
+        15px;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.5px;
+
+    text-transform:
+        uppercase;
+
+    color:
+        #ddb9bd;
+}
+
+.form-group input,
+.form-group textarea {
+    width:
+        100%;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--cream-light);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        28px;
+
+    line-height:
+        1.4;
+}
+
+.form-group textarea {
+    min-height:
+        180px;
+
+    resize:
+        vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color:
+        rgba(244, 237, 229, 0.38);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    color:
+        white;
+}
+
+.form-group.has-error {
+    border-bottom-color:
+        #ff9a9a;
+}
+
+.form-group.has-error input,
+.form-group.has-error textarea {
+    color:
+        #ffe5e5;
+}
+
+.form-error {
+    min-height:
+        20px;
+
+    margin-top:
+        9px;
+
+    font-size:
+        11px;
+
+    color:
+        #ffb2b2;
+}
+
+.message-meta {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        flex-end;
+
+    gap:
+        20px;
+}
+
+.character-count {
+    margin-top:
+        9px;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1px;
+
+    color:
+        #bfa3a6;
+}
+
+.form-footer {
+    grid-column:
+        1 / -1;
+
+    padding-top:
+        35px;
 
     display:
         flex;
@@ -2177,26 +2210,128 @@ span:nth-child(3) {
     align-items:
         center;
 
-    gap:
-        16px;
+    justify-content:
+        space-between;
 
-    padding-bottom:
-        8px;
+    gap:
+        30px;
+}
+
+.form-status {
+    min-height:
+        24px;
+
+    font-size:
+        13px;
+
+    color:
+        #ddb9bd;
+}
+
+.form-status.is-success {
+    color:
+        #f7dedf;
+}
+
+.contact-submit {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        18px;
+
+    padding:
+        14px
+        0;
+
+    border:
+        none;
 
     border-bottom:
         1px solid
-        #f6e7e8;
+        var(--cream-light);
 
-    font-size:
-        18px;
+    background:
+        transparent;
+
+    color:
+        var(--cream-light);
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
 
     transition:
-        gap 0.25s ease;
+        gap 0.25s ease,
+        opacity 0.25s ease;
 }
 
-.contact-link:hover {
+.contact-submit:hover {
     gap:
         28px;
+}
+
+.contact-submit:focus-visible {
+    outline:
+        2px solid
+        #ddb9bd;
+
+    outline-offset:
+        8px;
+}
+
+.contact-direct {
+    margin-top:
+        80px;
+
+    padding-top:
+        25px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        30px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+    font-size:
+        12px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1px;
+
+    color:
+        #bfa3a6;
+}
+
+.contact-direct a {
+    color:
+        var(--cream-light);
+
+    text-transform:
+        none;
+
+    letter-spacing:
+        0;
+}
+
+.contact-direct a:hover {
+    text-decoration:
+        underline;
 }
 
 
@@ -2281,9 +2416,6 @@ footer {
     .bio-small-text {
         grid-template-columns:
             1fr;
-
-        gap:
-            20px;
     }
 
     .project-feature,
@@ -2301,11 +2433,6 @@ footer {
 
         grid-row:
             auto;
-    }
-
-    .project-visual {
-        min-height:
-            430px;
     }
 
     .github-grid {
@@ -2330,20 +2457,9 @@ footer {
     }
 
     .navbar {
-        min-height:
-            var(--header-height);
-
         padding:
             12px
             22px;
-    }
-
-    .brand-subtitle {
-        font-size:
-            10px;
-
-        letter-spacing:
-            1.5px;
     }
 
     .menu-label {
@@ -2354,22 +2470,6 @@ footer {
     .nav-links {
         width:
             100vw;
-
-        padding:
-            18px
-            24px
-            32px;
-
-        border-left:
-            none;
-    }
-
-    .nav-links a {
-        font-size:
-            28px;
-
-        padding:
-            18px 0;
     }
 
     .hero {
@@ -2392,11 +2492,6 @@ footer {
             0;
     }
 
-    .hero-description {
-        font-size:
-            16px;
-    }
-
     .editorial-section,
     .projects-section,
     .github-inner {
@@ -2411,49 +2506,19 @@ footer {
             24px;
     }
 
-    .section-number {
-        margin-bottom:
-            45px;
-    }
-
-    .section-heading {
-        margin-bottom:
-            55px;
-    }
-
     .section-heading h2 {
         font-size:
             52px;
-
-        letter-spacing:
-            -2px;
     }
 
     .bio-layout {
         grid-template-columns:
             1fr;
-
-        gap:
-            40px;
     }
 
-    .bio-image-column {
-        max-width:
-            470px;
-    }
-
-    .bio-content {
-        padding-top:
-            30px;
-    }
-
-    .bio-content
-    .large-text {
-        font-size:
-            26px;
-
-        margin-bottom:
-            35px;
+    .bio-small-text {
+        grid-template-columns:
+            1fr;
     }
 
     .skills-grid {
@@ -2466,96 +2531,12 @@ footer {
             none;
     }
 
-    .skill-item {
-        min-height:
-            auto;
-
-        padding:
-            38px
-            10px;
-    }
-
-    .skill-number {
-        margin-bottom:
-            35px;
-    }
-
-    .project-showcase {
-        gap:
-            80px;
-    }
-
     .project-visual {
         min-height:
             360px;
 
         padding:
             25px;
-    }
-
-    .browser-topbar {
-        grid-template-columns:
-            66px
-            1fr
-            66px;
-
-        padding:
-            0
-            12px;
-    }
-
-    .browser-address {
-        font-size:
-            10px;
-
-        padding:
-            6px
-            10px;
-    }
-
-    .fairflat-device {
-        width:
-            min(
-                270px,
-                88%
-            );
-
-        border-radius:
-            42px;
-
-        padding:
-            11px;
-    }
-
-    .fairflat-device-screen {
-        border-radius:
-            31px;
-    }
-
-    .fairflat-device-speaker {
-        width:
-            78px;
-
-        height:
-            21px;
-
-        top:
-            17px;
-    }
-
-    .project-details h3 {
-        font-size:
-            48px;
-    }
-
-    .project-meta {
-        margin-bottom:
-            35px;
-    }
-
-    .project-description {
-        margin-bottom:
-            35px;
     }
 
     .github-intro {
@@ -2571,23 +2552,44 @@ footer {
             1fr;
     }
 
-    .github-card {
-        min-height:
-            270px;
-    }
-
     .contact-section {
-        min-height:
-            75vh;
-
         padding:
             100px
             24px;
     }
 
-    .contact-section h2 {
+    .contact-header h2 {
         font-size:
             54px;
+    }
+
+    .contact-form {
+        grid-template-columns:
+            1fr;
+    }
+
+    .form-group-message {
+        grid-column:
+            1;
+    }
+
+    .form-footer {
+        grid-column:
+            1;
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+    }
+
+    .contact-direct {
+        flex-direction:
+            column;
+
+        gap:
+            10px;
     }
 
     footer {
@@ -2624,9 +2626,15 @@ footer {
             42px;
     }
 
-    .contact-section h2 {
+    .contact-header h2 {
         font-size:
             46px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size:
+            23px;
     }
 }
 
@@ -2671,36 +2679,6 @@ footer {
     opacity:
         1;
 
-    transform:
-        translateY(0);
-}
-
-.section-number.reveal {
-    transform:
-        translateX(-30px);
-}
-
-.section-number.reveal.is-visible {
-    transform:
-        translateX(0);
-}
-
-.section-heading.reveal {
-    transform:
-        translateY(45px);
-}
-
-.section-heading.reveal.is-visible {
-    transform:
-        translateY(0);
-}
-
-.project-feature.reveal {
-    transform:
-        translateY(65px);
-}
-
-.project-feature.reveal.is-visible {
     transform:
         translateY(0);
 }
