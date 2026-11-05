@@ -16,13 +16,21 @@
 
     <title>Agnesa Pajaziti | Lebenslauf</title>
 
+    <!-- Hauptdesign -->
     <link
         rel="stylesheet"
         href="style.css"
     >
+
+    <!-- Eigenes CV Design -->
+    <link
+        rel="stylesheet"
+        href="lebenslauf.css"
+    >
 </head>
 
-<body class="cv-page">
+
+<body class="compact-cv-page">
 
     <!-- CUSTOM CURSOR -->
 
@@ -37,642 +45,800 @@
 
     <!-- HEADER -->
 
-    <header class="site-header">
+    <header class="cv-nav">
 
-        <nav class="navbar">
+        <div class="cv-nav-inner">
 
             <a
                 href="index.html"
-                class="brand-block"
+                class="cv-logo"
                 data-cursor="BACK"
             >
-                <span class="brand-subtitle">
-                    Portfolio / 2026
+                AP.
+            </a>
+
+
+            <div class="cv-nav-right">
+
+                <span>
+                    Curriculum Vitae / 2026
                 </span>
-            </a>
 
 
-            <a
-                href="index.html"
-                class="cv-back-link"
-                data-cursor="BACK"
-            >
-
-                <svg
-                    class="cv-back-arrow"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
+                <a
+                    href="index.html"
+                    class="cv-back"
+                    data-cursor="BACK"
                 >
-                    <path d="M19 12 H5"></path>
-                    <path d="M11 6 L5 12 L11 18"></path>
-                </svg>
 
-                Portfolio
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path d="M19 12 H5"></path>
+                        <path d="M11 6 L5 12 L11 18"></path>
+                    </svg>
 
-            </a>
+                    Portfolio
 
-        </nav>
+                </a>
+
+            </div>
+
+        </div>
 
     </header>
 
 
-    <main>
+    <main class="cv-main">
 
-        <!-- CV HERO -->
+        <!-- =========================
+             LEFT SIDEBAR
+        ========================== -->
 
-        <section class="cv-hero">
+        <aside class="cv-sidebar">
 
-            <div class="cv-hero-number">
-                CV / 2026
+            <div class="cv-portrait">
+
+                <img
+                    src="Pajaziti_Agnesa_paz_10922_bea.jpg"
+                    alt="Portrait von Agnesa Pajaziti"
+                >
+
             </div>
 
 
-            <div class="cv-hero-layout">
+            <div class="cv-name">
+
+                <span class="cv-small-label">
+                    Curriculum Vitae
+                </span>
+
+                <h1>
+                    Agnesa
+                    <span>Pajaziti</span>
+                </h1>
+
+
+                <p>
+                    Bachelorstudentin
+                    Wirtschaftsinformatik
+                </p>
+
+            </div>
+
+
+            <!-- PERSONALITY -->
+
+            <div class="cv-sidebar-block">
+
+                <p class="cv-sidebar-title">
+                    Persönlichkeit
+                </p>
+
+
+                <div class="cv-personality">
+
+                    <span>Zuverlässig</span>
+                    <span>Ehrgeizig</span>
+                    <span>Belastbar</span>
+                    <span>Zielorientiert</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ABOUT -->
+
+            <div class="cv-sidebar-block">
+
+                <p class="cv-sidebar-title">
+                    Profil
+                </p>
+
+
+                <p class="cv-sidebar-text">
+                    Effizient, exakt, strukturiert und selbstständig.
+                    Berufserfahrung an der Schnittstelle von Banking,
+                    Administration, digitalen Prozessen und IT.
+                </p>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="cv-sidebar-block">
+
+                <p class="cv-sidebar-title">
+                    Kontakt
+                </p>
+
+
+                <a
+                    href="mailto:pajaziti.agnesa@hotmail.com"
+                    class="cv-email"
+                    data-cursor="MAIL"
+                >
+                    pajaziti.agnesa@
+                    hotmail.com
+                </a>
+
+            </div>
+
+
+            <!-- LANGUAGES -->
+
+            <div class="cv-sidebar-block">
+
+                <p class="cv-sidebar-title">
+                    Sprachen
+                </p>
+
+
+                <div class="cv-language-list">
+
+                    <div>
+                        <strong>Deutsch</strong>
+                        <span>Muttersprache</span>
+                    </div>
+
+                    <div>
+                        <strong>Albanisch</strong>
+                        <span>Muttersprache</span>
+                    </div>
+
+                    <div>
+                        <strong>Englisch</strong>
+                        <span>First B2</span>
+                    </div>
+
+                    <div>
+                        <strong>Französisch</strong>
+                        <span>DELF B2</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TECH -->
+
+            <div class="cv-sidebar-block">
+
+                <p class="cv-sidebar-title">
+                    Tools & Systeme
+                </p>
+
+
+                <div class="cv-tech-cloud">
+
+                    <span>Finnova</span>
+                    <span>Jira</span>
+                    <span>Confluence</span>
+                    <span>TWINT Snow</span>
+                    <span>IAM Adminapp</span>
+                    <span>Quorum</span>
+                    <span>Mammut</span>
+                    <span>ASAL</span>
+                    <span>FileNet</span>
+                    <span>DocGenie</span>
+                    <span>TYPO3</span>
+                    <span>Microsoft 365</span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CV CONTENT
+        ========================== -->
+
+        <div class="cv-content">
+
+            <!-- INTRO -->
+
+            <section class="cv-intro">
 
                 <div>
 
-                    <p class="cv-kicker">
-                        Curriculum Vitae
+                    <p class="cv-eyebrow">
+                        Mein Weg
                     </p>
 
-                    <h1>
-                        Agnesa
-                        <span>Pajaziti</span>
-                    </h1>
+                    <h2>
+                        Business,
+                        <span>Technology & Banking.</span>
+                    </h2>
 
                 </div>
 
 
-                <div class="cv-hero-intro">
+                <div class="cv-intro-right">
 
                     <p>
-                        Wirtschaftsinformatikstudentin mit beruflicher
-                        Erfahrung an der Schnittstelle von Banking,
-                        Kundenservice, Finanzadministration,
-                        digitalen Prozessen und IT.
+                        Ich verbinde meine berufliche Erfahrung im Banking
+                        und in der Administration mit meinem Studium der
+                        Wirtschaftsinformatik.
                     </p>
 
 
-                    <div class="cv-hero-tags">
+                    <div class="cv-current-mini">
 
-                        <span>
-                            Business IT
-                        </span>
+                        <span class="cv-live-dot"></span>
 
-                        <span>
-                            Banking
-                        </span>
-
-                        <span>
-                            Digital Processes
-                        </span>
-
-                        <span>
-                            UX
-                        </span>
+                        Aktuell:
+                        Valiant Bank + BFH
 
                     </div>
 
                 </div>
 
-            </div>
-
-        </section>
+            </section>
 
 
-        <!-- WORK EXPERIENCE -->
+            <!-- =========================
+                 CURRENT
+            ========================== -->
 
-        <section class="cv-section">
+            <section class="cv-section-compact">
 
-            <div class="cv-section-heading">
+                <div class="cv-section-head">
 
-                <span>
-                    01
-                </span>
+                    <div>
+                        <span>
+                            01
+                        </span>
 
-                <p>
-                    Berufserfahrung
-                </p>
-
-                <h2>
-                    Experience
-                </h2>
-
-            </div>
-
-
-            <div class="cv-timeline">
-
-                <!-- VALIANT -->
-
-                <article class="cv-entry cv-entry-current">
-
-                    <div class="cv-entry-date">
-                        10/2025 — Heute
+                        <h2>
+                            Aktuell
+                        </h2>
                     </div>
 
 
-                    <div class="cv-entry-content">
+                    <p>
+                        Current
+                    </p>
 
-                        <div class="cv-entry-top">
+                </div>
 
-                            <p>
-                                Valiant Bank AG · Gümligen
-                            </p>
+
+                <div class="cv-current-grid">
+
+                    <!-- VALIANT -->
+
+                    <article class="cv-current-card cv-current-primary">
+
+                        <div class="cv-card-meta">
 
                             <span>
+                                10/2025 — Heute
+                            </span>
+
+                            <span class="cv-current-badge">
                                 Current
                             </span>
 
                         </div>
 
 
-                        <h3>
-                            Fachspezialistin E-Banking
-                        </h3>
-
-
-                        <p class="cv-entry-percentage">
-                            70 %
+                        <p class="cv-card-company">
+                            Valiant Bank AG · Gümligen
                         </p>
 
 
-                        <div class="cv-entry-details">
+                        <h3>
+                            Fachspezialistin
+                            <span>E-Banking</span>
+                        </h3>
 
-                            <p>
-                                3rd-Level-Support für E-Banking,
-                                Mobile Banking, TWINT, Zahlungsverkehr
-                                und Schnittstellen.
-                            </p>
 
-                            <p>
-                                Beratung von Kundschaft sowie
-                                internen Anspruchsgruppen.
-                            </p>
+                        <p>
+                            3rd-Level-Support für E-Banking,
+                            Mobile Banking, TWINT, Zahlungsverkehr
+                            und Schnittstellen.
+                        </p>
 
-                            <p>
-                                Bearbeitung und Weiterleitung von
-                                Supportfällen und Kundenfeedbacks.
-                            </p>
 
-                            <p>
-                                Mitarbeit an digitalen Kanälen,
-                                Zahlungsverkehrsprozessen und Projekten.
-                            </p>
+                        <ul>
 
-                            <p>
-                                Qualitätssicherung, Funktionstests
-                                und UX-Optimierung in E-Banking
-                                und Mobile App.
-                            </p>
+                            <li>
+                                Beratung von Kundschaft und
+                                internen Anspruchsgruppen
+                            </li>
+
+                            <li>
+                                Digitale Kanäle und
+                                Zahlungsverkehrsprojekte
+                            </li>
+
+                            <li>
+                                Funktionstests und
+                                Qualitätssicherung
+                            </li>
+
+                            <li>
+                                UX-Optimierung von
+                                E-Banking und Mobile App
+                            </li>
+
+                        </ul>
+
+
+                        <div class="cv-inline-tags">
+
+                            <span>E-Banking</span>
+                            <span>Payments</span>
+                            <span>QA</span>
+                            <span>UX</span>
 
                         </div>
 
-                    </div>
-
-                </article>
+                    </article>
 
 
-                <!-- ROBERT PFISTER -->
+                    <!-- BFH -->
 
-                <article class="cv-entry">
+                    <article class="cv-current-card">
 
-                    <div class="cv-entry-date">
-                        07/2024 — 09/2025
-                    </div>
+                        <div class="cv-card-meta">
 
+                            <span>
+                                09/2023 — Heute
+                            </span>
 
-                    <div class="cv-entry-content">
-
-                        <p class="cv-company">
-                            Robert Pfister AG · Bern
-                        </p>
-
-
-                        <h3>
-                            Sachbearbeiterin Buchhaltung
-                            & Mitarbeiterin IT
-                        </h3>
-
-
-                        <p class="cv-entry-percentage">
-                            60–70 %
-                        </p>
-
-
-                        <div class="cv-entry-details">
-
-                            <p>
-                                Kreditoren-, Debitoren-
-                                und Mieterbuchhaltung.
-                            </p>
-
-                            <p>
-                                Mahn- und Inkassowesen sowie
-                                Heiz-, Neben- und
-                                Liegenschaftskostenabrechnungen.
-                            </p>
-
-                            <p>
-                                Finanzadministration inklusive
-                                Lohn, Eigentümerauszahlungen,
-                                Mietkautionen und ERP-Support.
-                            </p>
+                            <span>
+                                BFH
+                            </span>
 
                         </div>
 
-                    </div>
 
-                </article>
-
-
-                <!-- UNIA ALK -->
-
-                <article class="cv-entry">
-
-                    <div class="cv-entry-date">
-                        08/2020 — 06/2024
-                    </div>
-
-
-                    <div class="cv-entry-content">
-
-                        <p class="cv-company">
-                            Unia Arbeitslosenkasse · Bern
-                        </p>
-
-
-                        <h3>
-                            Sachbearbeiterin
-                        </h3>
-
-
-                        <p class="cv-entry-percentage">
-                            60 %
-                        </p>
-
-
-                        <div class="cv-entry-details">
-
-                            <p>
-                                Anspruchsabklärungen und
-                                Entschädigungsbearbeitung.
-                            </p>
-
-                            <p>
-                                Erstellung von Verwaltungsverfügungen
-                                und Anwendung von Arbeitsrecht.
-                            </p>
-
-                            <p>
-                                Korrespondenz mit Versicherten,
-                                Ämtern und Arbeitgebern sowie
-                                Beratung am Telefon und Schalter.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- APPRENTICESHIP -->
-
-                <article class="cv-entry">
-
-                    <div class="cv-entry-date">
-                        08/2017 — 07/2020
-                    </div>
-
-
-                    <div class="cv-entry-content">
-
-                        <p class="cv-company">
-                            Unia Zentralsekretariat · Bern
-                        </p>
-
-
-                        <h3>
-                            Lernende Kauffrau
-                            E-Profil
-                        </h3>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- EDUCATION -->
-
-        <section class="cv-section cv-section-dark">
-
-            <div class="cv-section-inner">
-
-                <div class="cv-section-heading">
-
-                    <span>
-                        02
-                    </span>
-
-                    <p>
-                        Ausbildung
-                    </p>
-
-                    <h2>
-                        Education
-                    </h2>
-
-                </div>
-
-
-                <div class="education-grid">
-
-                    <article class="education-card education-current">
-
-                        <span class="education-number">
-                            01
-                        </span>
-
-
-                        <p class="education-date">
-                            09/2023 — Heute
+                        <p class="cv-card-company">
+                            Berner Fachhochschule · Bern
                         </p>
 
 
                         <h3>
                             Bachelor
-                            Wirtschaftsinformatik
+                            <span>Wirtschaftsinformatik</span>
                         </h3>
 
 
                         <p>
-                            Berner Fachhochschule,
-                            Bern
+                            Teilzeitstudium an der Schnittstelle
+                            von Business, Technologie und
+                            Digitalisierung.
                         </p>
 
 
-                        <span class="education-badge">
+                        <div class="cv-inline-tags">
+
+                            <span>Business IT</span>
+                            <span>Agility</span>
+                            <span>PM</span>
+                            <span>Transformation</span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 EXPERIENCE
+            ========================== -->
+
+            <section class="cv-section-compact">
+
+                <div class="cv-section-head">
+
+                    <div>
+                        <span>
+                            02
+                        </span>
+
+                        <h2>
+                            Berufserfahrung
+                        </h2>
+                    </div>
+
+
+                    <p>
+                        Experience
+                    </p>
+
+                </div>
+
+
+                <div class="cv-timeline-compact">
+
+                    <!-- ROBERT PFISTER -->
+
+                    <article class="cv-timeline-entry">
+
+                        <div class="cv-timeline-date">
+                            07/2024
+                            <span>—</span>
+                            09/2025
+                        </div>
+
+
+                        <div class="cv-timeline-marker">
+                            01
+                        </div>
+
+
+                        <div class="cv-timeline-content">
+
+                            <div class="cv-timeline-title">
+
+                                <div>
+
+                                    <p>
+                                        Robert Pfister AG · Bern
+                                    </p>
+
+                                    <h3>
+                                        Sachbearbeiterin Buchhaltung
+                                        & Mitarbeiterin IT
+                                    </h3>
+
+                                </div>
+
+
+                                <span>
+                                    60–70 %
+                                </span>
+
+                            </div>
+
+
+                            <div class="cv-job-grid">
+
+                                <p>
+                                    Kreditoren-, Debitoren-
+                                    und Mieterbuchhaltung
+                                </p>
+
+                                <p>
+                                    Mahn- und Inkassowesen
+                                </p>
+
+                                <p>
+                                    Heiz-, Neben- und
+                                    Liegenschaftskosten
+                                </p>
+
+                                <p>
+                                    Finanzadministration
+                                    und ERP-Support
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- UNIA -->
+
+                    <article class="cv-timeline-entry">
+
+                        <div class="cv-timeline-date">
+                            08/2020
+                            <span>—</span>
+                            06/2024
+                        </div>
+
+
+                        <div class="cv-timeline-marker">
+                            02
+                        </div>
+
+
+                        <div class="cv-timeline-content">
+
+                            <div class="cv-timeline-title">
+
+                                <div>
+
+                                    <p>
+                                        Unia Arbeitslosenkasse · Bern
+                                    </p>
+
+                                    <h3>
+                                        Sachbearbeiterin
+                                    </h3>
+
+                                </div>
+
+
+                                <span>
+                                    60 %
+                                </span>
+
+                            </div>
+
+
+                            <div class="cv-job-grid">
+
+                                <p>
+                                    Anspruchsabklärungen und
+                                    Entschädigungsbearbeitung
+                                </p>
+
+                                <p>
+                                    Verwaltungsverfügungen
+                                </p>
+
+                                <p>
+                                    Anwendung von Arbeitsrecht
+                                </p>
+
+                                <p>
+                                    Beratung am Telefon
+                                    und Schalter
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- LEHRE -->
+
+                    <article class="cv-timeline-entry">
+
+                        <div class="cv-timeline-date">
+                            08/2017
+                            <span>—</span>
+                            07/2020
+                        </div>
+
+
+                        <div class="cv-timeline-marker">
+                            03
+                        </div>
+
+
+                        <div class="cv-timeline-content">
+
+                            <div class="cv-timeline-title">
+
+                                <div>
+
+                                    <p>
+                                        Unia Zentralsekretariat · Bern
+                                    </p>
+
+                                    <h3>
+                                        Lernende Kauffrau
+                                        E-Profil
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 EDUCATION
+            ========================== -->
+
+            <section class="cv-section-compact">
+
+                <div class="cv-section-head">
+
+                    <div>
+                        <span>
+                            03
+                        </span>
+
+                        <h2>
+                            Ausbildung
+                        </h2>
+                    </div>
+
+
+                    <p>
+                        Education
+                    </p>
+
+                </div>
+
+
+                <div class="cv-education-list">
+
+                    <article class="cv-education-row">
+
+                        <span>
+                            09/2023 — Heute
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Bachelor in Wirtschaftsinformatik
+                            </h3>
+
+                            <p>
+                                Berner Fachhochschule · Bern
+                            </p>
+
+                        </div>
+
+
+                        <span class="education-current-label">
                             Current
                         </span>
 
                     </article>
 
 
-                    <article class="education-card">
+                    <article class="cv-education-row">
 
-                        <span class="education-number">
-                            02
-                        </span>
-
-
-                        <p class="education-date">
+                        <span>
                             01/2023 — 07/2023
-                        </p>
+                        </span>
 
+                        <div>
 
-                        <h3>
-                            Zertifikat
-                            Sachbearbeitung ALK SB2
-                        </h3>
+                            <h3>
+                                Zertifikat Sachbearbeitung ALK SB2
+                            </h3>
 
+                            <p>
+                                Unia Arbeitslosenkasse · Bern
+                            </p>
 
-                        <p>
-                            Unia Arbeitslosenkasse,
-                            Bern
-                        </p>
+                        </div>
 
                     </article>
 
 
-                    <article class="education-card">
+                    <article class="cv-education-row">
 
-                        <span class="education-number">
-                            03
-                        </span>
-
-
-                        <p class="education-date">
+                        <span>
                             08/2021 — 07/2023
-                        </p>
+                        </span>
 
+                        <div>
 
-                        <h3>
-                            Berufsmaturität
-                            Wirtschaft & Recht
-                        </h3>
+                            <h3>
+                                Berufsmaturität Wirtschaft & Recht
+                            </h3>
 
+                            <p>
+                                Wirtschafts- und Kaderschule KV · Bern
+                            </p>
 
-                        <p>
-                            Wirtschafts- und Kaderschule KV,
-                            Bern
-                        </p>
+                        </div>
 
                     </article>
 
 
-                    <article class="education-card">
+                    <article class="cv-education-row">
 
-                        <span class="education-number">
-                            04
+                        <span>
+                            08/2017 — 07/2020
                         </span>
 
+                        <div>
 
-                        <p class="education-date">
-                            08/2017 — 07/2020
-                        </p>
+                            <h3>
+                                Kauffrau EFZ
+                            </h3>
 
+                            <p>
+                                Wirtschafts- und Kaderschule KV · Bern
+                            </p>
 
-                        <h3>
-                            Kauffrau EFZ
-                        </h3>
-
-
-                        <p>
-                            Wirtschafts- und Kaderschule KV,
-                            Bern
-                        </p>
+                        </div>
 
                     </article>
 
                 </div>
 
-            </div>
-
-        </section>
+            </section>
 
 
-        <!-- TECH -->
+            <!-- =========================
+                 BOTTOM CTA
+            ========================== -->
 
-        <section class="cv-section">
+            <section class="cv-bottom">
 
-            <div class="cv-section-heading">
-
-                <span>
-                    03
-                </span>
-
-                <p>
-                    Kompetenzen
-                </p>
-
-                <h2>
-                    Tools & systems
-                </h2>
-
-            </div>
-
-
-            <div class="cv-tool-grid">
-
-                <span>Microsoft Office</span>
-                <span>TYPO3</span>
-                <span>ASAL</span>
-                <span>DocGenie</span>
-                <span>FileNet</span>
-                <span>Quorum</span>
-                <span>Mammut</span>
-                <span>Jira</span>
-                <span>Confluence</span>
-                <span>TWINT Snow</span>
-                <span>IAM Adminapp</span>
-                <span>Finnova</span>
-
-            </div>
-
-        </section>
-
-
-        <!-- LANGUAGES -->
-
-        <section class="cv-section language-section">
-
-            <div class="cv-section-heading">
-
-                <span>
-                    04
-                </span>
-
-                <p>
-                    Languages
-                </p>
-
-                <h2>
-                    Sprachen
-                </h2>
-
-            </div>
-
-
-            <div class="language-grid">
-
-                <article>
+                <div>
 
                     <span>
-                        DE
+                        Portfolio / 2026
                     </span>
 
-                    <h3>
-                        Deutsch
-                    </h3>
+                    <h2>
+                        Want to see
+                        <span>my work?</span>
+                    </h2>
 
-                    <p>
-                        Muttersprache
-                    </p>
-
-                </article>
+                </div>
 
 
-                <article>
+                <a
+                    href="index.html#projects"
+                    class="cv-project-link"
+                    data-cursor="VIEW"
+                >
 
-                    <span>
-                        AL
-                    </span>
+                    Selected Work
 
-                    <h3>
-                        Albanisch
-                    </h3>
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 19 L19 5"></path>
+                        <path d="M10 5 H19 V14"></path>
+                    </svg>
 
-                    <p>
-                        Muttersprache
-                    </p>
+                </a>
 
-                </article>
+            </section>
 
-
-                <article>
-
-                    <span>
-                        EN
-                    </span>
-
-                    <h3>
-                        Englisch
-                    </h3>
-
-                    <p>
-                        First B2
-                    </p>
-
-                </article>
-
-
-                <article>
-
-                    <span>
-                        FR
-                    </span>
-
-                    <h3>
-                        Französisch
-                    </h3>
-
-                    <p>
-                        DELF B2
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- BACK -->
-
-        <section class="cv-return-section">
-
-            <p>
-                Back to portfolio
-            </p>
-
-
-            <a
-                href="index.html"
-                data-cursor="BACK"
-            >
-                Zurück zum
-                <span>Portfolio.</span>
-            </a>
-
-        </section>
+        </div>
 
     </main>
 
 
-    <footer>
+    <footer class="compact-cv-footer">
 
-        <p>
+        <span>
             © 2026 Agnesa Pajaziti
-        </p>
+        </span>
 
-        <p>
-            Curriculum Vitae
-        </p>
+        <a
+            href="index.html"
+            data-cursor="BACK"
+        >
+            Back to Portfolio
+        </a>
 
     </footer>
 
