@@ -7,3 +7,5 @@ Die Seite enthält Informationen über:
 - meine Skills
 - verwendete Technologien
 - realisierte Projekte
+
+Portfolio updated November 2026.
