@@ -2,11 +2,8 @@
 // CONFIGURATION
 // =========================
 
-const GITHUB_USERNAME =
-    "Agnesa22";
-
-const CONTACT_EMAIL =
-    "pajaziti.agnesa@hotmail.com";
+const GITHUB_USERNAME = "Agnesa22";
+const CONTACT_EMAIL = "pajaziti.agnesa@hotmail.com";
 
 const GITHUB_API_URL =
     `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
@@ -24,7 +21,6 @@ const GITHUB_CACHE_TIME =
 // =========================
 
 const projects = [
-
     {
         id: 1,
 
@@ -65,7 +61,6 @@ const projects = [
             "casasierra.ch"
     },
 
-
     {
         id: 2,
 
@@ -102,7 +97,6 @@ const projects = [
         imageAlt:
             "Vorschau des FairFlat Projekts"
     }
-
 ];
 
 
@@ -110,34 +104,21 @@ const projects = [
 // SCROLL POSITION
 // =========================
 
-if (
-    "scrollRestoration"
-    in
-    history
-) {
-
-    history.scrollRestoration =
-        "manual";
-
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
 }
 
 
 window.addEventListener(
     "load",
     () => {
-
-        if (
-            !window.location.hash
-        ) {
-
+        if (!window.location.hash) {
             window.scrollTo({
                 top: 0,
                 left: 0,
                 behavior: "auto"
             });
-
         }
-
     }
 );
 
@@ -157,7 +138,7 @@ function createProjectButton(
             : "project-modal-trigger-right";
 
 
-    const arrow =
+    const arrowPaths =
         direction === "left"
             ? `
                 <path d="M19 19 L5 5"></path>
@@ -181,11 +162,10 @@ function createProjectButton(
                 viewBox="0 0 24 24"
                 aria-hidden="true"
             >
-                ${arrow}
+                ${arrowPaths}
             </svg>
         </button>
     `;
-
 }
 
 
@@ -197,16 +177,12 @@ function createProjectVisual(
     project
 ) {
 
-    if (
-        project.type
-        ===
-        "browser"
-    ) {
+    if (project.type === "browser") {
 
         return `
             <div
-                class="project-visual project-visual-casasierra parallax-element"
-                data-parallax-speed="0.05"
+                class="project-visual project-visual-casasierra"
+                data-parallax-speed="0.04"
             >
 
                 <div class="browser-mockup">
@@ -239,14 +215,13 @@ function createProjectVisual(
 
             </div>
         `;
-
     }
 
 
     return `
         <div
-            class="project-visual project-visual-fairflat parallax-element"
-            data-parallax-speed="0.05"
+            class="project-visual project-visual-fairflat"
+            data-parallax-speed="0.04"
         >
 
             <div class="fairflat-device">
@@ -267,7 +242,6 @@ function createProjectVisual(
 
         </div>
     `;
-
 }
 
 
@@ -285,9 +259,7 @@ function createProjectMarkup(
 
 
     const number =
-        String(
-            project.id
-        ).padStart(
+        String(project.id).padStart(
             2,
             "0"
         );
@@ -305,12 +277,10 @@ function createProjectMarkup(
         );
 
 
-    if (
-        !isReverse
-    ) {
+    if (!isReverse) {
 
         return `
-            <article class="project-feature reveal">
+            <article class="project-feature">
 
                 ${visual}
 
@@ -353,12 +323,11 @@ function createProjectMarkup(
 
             </article>
         `;
-
     }
 
 
     return `
-        <article class="project-feature project-feature-reverse reveal">
+        <article class="project-feature project-feature-reverse">
 
             ${visual}
 
@@ -401,7 +370,6 @@ function createProjectMarkup(
 
         </article>
     `;
-
 }
 
 
@@ -417,9 +385,7 @@ function renderProjects() {
         );
 
 
-    if (
-        !container
-    ) {
+    if (!container) {
         return;
     }
 
@@ -427,22 +393,18 @@ function renderProjects() {
     container.innerHTML =
         projects
             .map(
-                (
-                    project,
-                    index
-                ) =>
+                (project, index) =>
                     createProjectMarkup(
                         project,
                         index
                     )
             )
             .join("");
-
 }
 
 
 // =========================
-// HERO MOUSE MOVEMENT
+// HERO MOVEMENT
 // =========================
 
 function initialiseHeroMovement() {
@@ -452,7 +414,7 @@ function initialiseHeroMovement() {
             ".hero"
         );
 
-    const orbOne =
+    const orb =
         document.querySelector(
             ".hero-orb-one"
         );
@@ -464,10 +426,8 @@ function initialiseHeroMovement() {
 
 
     if (
-        !hero
-        ||
-        !orbOne
-        ||
+        !hero ||
+        !orb ||
         !grid
     ) {
         return;
@@ -480,8 +440,15 @@ function initialiseHeroMovement() {
         ).matches;
 
 
+    const reducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
     if (
-        !supportsMouse
+        !supportsMouse ||
+        reducedMotion
     ) {
         return;
     }
@@ -495,10 +462,9 @@ function initialiseHeroMovement() {
                 hero.getBoundingClientRect();
 
 
-            const x =
+            const mouseX =
                 (
-                    event.clientX
-                    -
+                    event.clientX -
                     rect.left
                 )
                 /
@@ -507,10 +473,9 @@ function initialiseHeroMovement() {
                 0.5;
 
 
-            const y =
+            const mouseY =
                 (
-                    event.clientY
-                    -
+                    event.clientY -
                     rect.top
                 )
                 /
@@ -519,12 +484,15 @@ function initialiseHeroMovement() {
                 0.5;
 
 
-            orbOne.style.transform =
-                `translate(${x * 38}px, ${y * 38}px)`;
+            orb.style.translate =
+                `${mouseX * 38}px ${mouseY * 38}px`;
 
 
             grid.style.transform =
-                `translate(${x * -22}px, ${y * -22}px)`;
+                `translate(
+                    ${mouseX * -22}px,
+                    ${mouseY * -22}px
+                )`;
 
         }
     );
@@ -534,141 +502,15 @@ function initialiseHeroMovement() {
         "mouseleave",
         () => {
 
-            orbOne.style.transform =
-                "";
+            orb.style.translate =
+                "0 0";
+
 
             grid.style.transform =
-                "";
+                "translate(0, 0)";
 
         }
     );
-
-}
-
-
-// =========================
-// PARALLAX
-// =========================
-
-function initialiseParallax() {
-
-    const elements =
-        document.querySelectorAll(
-            ".parallax-element"
-        );
-
-
-    const reduceMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-
-    const touchDevice =
-        !window.matchMedia(
-            "(pointer: fine)"
-        ).matches;
-
-
-    if (
-        reduceMotion
-        ||
-        touchDevice
-    ) {
-        return;
-    }
-
-
-    let ticking =
-        false;
-
-
-    function updateParallax() {
-
-        const viewportHeight =
-            window.innerHeight;
-
-
-        elements.forEach(
-            element => {
-
-                const rect =
-                    element.getBoundingClientRect();
-
-
-                const speed =
-                    Number(
-                        element.dataset.parallaxSpeed
-                    )
-                    ||
-                    0.05;
-
-
-                const elementCenter =
-                    rect.top
-                    +
-                    rect.height / 2;
-
-
-                const viewportCenter =
-                    viewportHeight / 2;
-
-
-                const distance =
-                    viewportCenter
-                    -
-                    elementCenter;
-
-
-                const movement =
-                    distance
-                    *
-                    speed;
-
-
-                element.style.setProperty(
-                    "--parallax-y",
-                    `${movement}px`
-                );
-
-            }
-        );
-
-
-        ticking =
-            false;
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            if (
-                !ticking
-            ) {
-
-                requestAnimationFrame(
-                    updateParallax
-                );
-
-
-                ticking =
-                    true;
-
-            }
-
-        },
-        {
-            passive:
-                true
-        }
-    );
-
-
-    updateParallax();
-
 }
 
 
@@ -684,22 +526,26 @@ function initialiseProjectTilt() {
         );
 
 
+    if (!projectVisuals.length) {
+        return;
+    }
+
+
     const supportsMouse =
         window.matchMedia(
             "(pointer: fine)"
         ).matches;
 
 
-    const reduceMotion =
+    const reducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
 
     if (
-        !supportsMouse
-        ||
-        reduceMotion
+        !supportsMouse ||
+        reducedMotion
     ) {
         return;
     }
@@ -716,20 +562,18 @@ function initialiseProjectTilt() {
                         visual.getBoundingClientRect();
 
 
-                    const x =
+                    const relativeX =
                         (
-                            event.clientX
-                            -
+                            event.clientX -
                             rect.left
                         )
                         /
                         rect.width;
 
 
-                    const y =
+                    const relativeY =
                         (
-                            event.clientY
-                            -
+                            event.clientY -
                             rect.top
                         )
                         /
@@ -738,26 +582,27 @@ function initialiseProjectTilt() {
 
                     const rotateY =
                         (
-                            x
-                            -
+                            relativeX -
                             0.5
                         )
                         *
-                        8;
+                        7;
 
 
                     const rotateX =
                         (
-                            0.5
-                            -
-                            y
+                            0.5 -
+                            relativeY
                         )
                         *
-                        8;
+                        7;
 
 
                     visual.style.transform =
-                        `translateY(var(--parallax-y, 0px)) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        `
+                            rotateX(${rotateX}deg)
+                            rotateY(${rotateY}deg)
+                        `;
 
                 }
             );
@@ -768,14 +613,123 @@ function initialiseProjectTilt() {
                 () => {
 
                     visual.style.transform =
-                        "translateY(var(--parallax-y, 0px)) rotateX(0deg) rotateY(0deg)";
+                        "rotateX(0deg) rotateY(0deg)";
 
                 }
             );
 
         }
     );
+}
 
+
+// =========================
+// BIOGRAPHY PARALLAX
+// =========================
+
+function initialiseBiographyParallax() {
+
+    const portrait =
+        document.querySelector(
+            ".bio-image-frame"
+        );
+
+
+    if (!portrait) {
+        return;
+    }
+
+
+    const supportsMouse =
+        window.matchMedia(
+            "(pointer: fine)"
+        ).matches;
+
+
+    const reducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+    if (
+        !supportsMouse ||
+        reducedMotion
+    ) {
+        return;
+    }
+
+
+    let ticking =
+        false;
+
+
+    function updatePortrait() {
+
+        const rect =
+            portrait.getBoundingClientRect();
+
+
+        const viewportCenter =
+            window.innerHeight / 2;
+
+
+        const portraitCenter =
+            rect.top +
+            rect.height / 2;
+
+
+        let movement =
+            (
+                viewportCenter -
+                portraitCenter
+            )
+            *
+            0.035;
+
+
+        movement =
+            Math.max(
+                -22,
+                Math.min(
+                    22,
+                    movement
+                )
+            );
+
+
+        portrait.style.transform =
+            `translateY(${movement}px)`;
+
+
+        ticking =
+            false;
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!ticking) {
+
+                window.requestAnimationFrame(
+                    updatePortrait
+                );
+
+
+                ticking =
+                    true;
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    updatePortrait();
 }
 
 
@@ -791,9 +745,7 @@ function initialiseProjectModal() {
         );
 
 
-    if (
-        !modal
-    ) {
+    if (!modal) {
         return;
     }
 
@@ -812,59 +764,115 @@ function initialiseProjectModal() {
         project
     ) {
 
-        document.querySelector(
-            "#modal-project-number"
-        ).textContent =
-            String(
-                project.id
-            ).padStart(
-                2,
-                "0"
+        const projectNumber =
+            document.querySelector(
+                "#modal-project-number"
             );
 
 
-        document.querySelector(
-            "#modal-project-category"
-        ).textContent =
-            project.category;
-
-
-        document.querySelector(
-            "#modal-project-title"
-        ).textContent =
-            project.title;
-
-
-        document.querySelector(
-            "#modal-project-description"
-        ).textContent =
-            project.description;
-
-
-        document.querySelector(
-            "#modal-project-challenge"
-        ).textContent =
-            project.challenge;
-
-
-        document.querySelector(
-            "#modal-project-solution"
-        ).textContent =
-            project.solution;
-
-
-        document.querySelector(
-            "#modal-project-result"
-        ).textContent =
-            project.result;
-
-
-        document.querySelector(
-            "#modal-project-technologies"
-        ).textContent =
-            project.technologies.join(
-                " · "
+        const projectCategory =
+            document.querySelector(
+                "#modal-project-category"
             );
+
+
+        const projectTitle =
+            document.querySelector(
+                "#modal-project-title"
+            );
+
+
+        const projectDescription =
+            document.querySelector(
+                "#modal-project-description"
+            );
+
+
+        const projectChallenge =
+            document.querySelector(
+                "#modal-project-challenge"
+            );
+
+
+        const projectSolution =
+            document.querySelector(
+                "#modal-project-solution"
+            );
+
+
+        const projectResult =
+            document.querySelector(
+                "#modal-project-result"
+            );
+
+
+        const projectTechnologies =
+            document.querySelector(
+                "#modal-project-technologies"
+            );
+
+
+        if (projectNumber) {
+
+            projectNumber.textContent =
+                String(
+                    project.id
+                ).padStart(
+                    2,
+                    "0"
+                );
+        }
+
+
+        if (projectCategory) {
+
+            projectCategory.textContent =
+                project.category;
+        }
+
+
+        if (projectTitle) {
+
+            projectTitle.textContent =
+                project.title;
+        }
+
+
+        if (projectDescription) {
+
+            projectDescription.textContent =
+                project.description;
+        }
+
+
+        if (projectChallenge) {
+
+            projectChallenge.textContent =
+                project.challenge;
+        }
+
+
+        if (projectSolution) {
+
+            projectSolution.textContent =
+                project.solution;
+        }
+
+
+        if (projectResult) {
+
+            projectResult.textContent =
+                project.result;
+        }
+
+
+        if (projectTechnologies) {
+
+            projectTechnologies.textContent =
+                project.technologies.join(
+                    " · "
+                );
+        }
 
     }
 
@@ -898,14 +906,15 @@ function initialiseProjectModal() {
         );
 
 
-        setTimeout(
-            () => {
+        if (closeButton) {
 
-                closeButton.focus();
-
-            },
-            50
-        );
+            window.setTimeout(
+                () => {
+                    closeButton.focus();
+                },
+                50
+            );
+        }
 
     }
 
@@ -929,11 +938,11 @@ function initialiseProjectModal() {
 
 
         if (
-            previouslyFocusedElement
+            previouslyFocusedElement &&
+            typeof previouslyFocusedElement.focus === "function"
         ) {
 
             previouslyFocusedElement.focus();
-
         }
 
     }
@@ -949,9 +958,7 @@ function initialiseProjectModal() {
                 );
 
 
-            if (
-                trigger
-            ) {
+            if (trigger) {
 
                 const projectId =
                     Number(
@@ -962,33 +969,28 @@ function initialiseProjectModal() {
                 const project =
                     projects.find(
                         item =>
-                            item.id
-                            ===
-                            projectId
+                            item.id === projectId
                     );
 
 
-                if (
-                    project
-                ) {
+                if (project) {
 
                     openModal(
                         project
                     );
-
                 }
-
             }
 
 
-            if (
+            const closeTrigger =
                 event.target.closest(
                     "[data-modal-close]"
-                )
-            ) {
+                );
+
+
+            if (closeTrigger) {
 
                 closeModal();
-
             }
 
         }
@@ -1000,77 +1002,17 @@ function initialiseProjectModal() {
         event => {
 
             if (
-                event.key
-                ===
-                "Escape"
-                &&
+                event.key === "Escape" &&
                 modal.classList.contains(
                     "is-open"
                 )
             ) {
 
                 closeModal();
-
-            }
-
-
-            if (
-                event.key
-                ===
-                "Tab"
-                &&
-                modal.classList.contains(
-                    "is-open"
-                )
-            ) {
-
-                const focusableElements =
-                    modal.querySelectorAll(
-                        "button, a, input, textarea, [tabindex]:not([tabindex='-1'])"
-                    );
-
-
-                const firstElement =
-                    focusableElements[0];
-
-
-                const lastElement =
-                    focusableElements[
-                        focusableElements.length - 1
-                    ];
-
-
-                if (
-                    event.shiftKey
-                    &&
-                    document.activeElement
-                    ===
-                    firstElement
-                ) {
-
-                    event.preventDefault();
-
-                    lastElement.focus();
-
-                } else if (
-                    !event.shiftKey
-                    &&
-                    document.activeElement
-                    ===
-                    lastElement
-                ) {
-
-                    event.preventDefault();
-
-                    firstElement.focus();
-
-                }
-
             }
 
         }
     );
-
 }
 
 
@@ -1086,9 +1028,7 @@ function getCachedRepositories() {
         );
 
 
-    if (
-        !cachedData
-    ) {
+    if (!cachedData) {
         return null;
     }
 
@@ -1101,13 +1041,13 @@ function getCachedRepositories() {
             );
 
 
-        if (
-            Date.now()
-            -
-            parsedData.timestamp
-            >
-            GITHUB_CACHE_TIME
-        ) {
+        const cacheExpired =
+            Date.now() -
+            parsedData.timestamp >
+            GITHUB_CACHE_TIME;
+
+
+        if (cacheExpired) {
 
             localStorage.removeItem(
                 GITHUB_CACHE_KEY
@@ -1115,15 +1055,12 @@ function getCachedRepositories() {
 
 
             return null;
-
         }
 
 
         return parsedData.repositories;
 
-    } catch (
-        error
-    ) {
+    } catch (error) {
 
         localStorage.removeItem(
             GITHUB_CACHE_KEY
@@ -1131,9 +1068,7 @@ function getCachedRepositories() {
 
 
         return null;
-
     }
-
 }
 
 
@@ -1141,17 +1076,19 @@ function cacheRepositories(
     repositories
 ) {
 
+    const data = {
+        timestamp:
+            Date.now(),
+
+        repositories:
+            repositories
+    };
+
+
     localStorage.setItem(
         GITHUB_CACHE_KEY,
-        JSON.stringify({
-            timestamp:
-                Date.now(),
-
-            repositories:
-                repositories
-        })
+        JSON.stringify(data)
     );
-
 }
 
 
@@ -1165,9 +1102,7 @@ async function fetchRepositories() {
         getCachedRepositories();
 
 
-    if (
-        cachedRepositories
-    ) {
+    if (cachedRepositories) {
 
         return {
             repositories:
@@ -1176,7 +1111,6 @@ async function fetchRepositories() {
             source:
                 "cache"
         };
-
     }
 
 
@@ -1192,14 +1126,11 @@ async function fetchRepositories() {
         );
 
 
-    if (
-        !response.ok
-    ) {
+    if (!response.ok) {
 
         throw new Error(
             `GitHub API Error: ${response.status}`
         );
-
     }
 
 
@@ -1219,12 +1150,11 @@ async function fetchRepositories() {
         source:
             "api"
     };
-
 }
 
 
 // =========================
-// GITHUB RENDERING
+// GITHUB DATE
 // =========================
 
 function formatRepositoryDate(
@@ -1248,9 +1178,12 @@ function formatRepositoryDate(
             dateString
         )
     );
-
 }
 
+
+// =========================
+// GITHUB CARD
+// =========================
 
 function createRepositoryMarkup(
     repository,
@@ -1264,6 +1197,16 @@ function createRepositoryMarkup(
             2,
             "0"
         );
+
+
+    const language =
+        repository.language ||
+        "Code";
+
+
+    const description =
+        repository.description ||
+        "Öffentliches GitHub Repository.";
 
 
     return `
@@ -1281,7 +1224,7 @@ function createRepositoryMarkup(
                 </span>
 
                 <span class="github-language">
-                    ${repository.language || "Code"}
+                    ${language}
                 </span>
 
             </div>
@@ -1293,7 +1236,7 @@ function createRepositoryMarkup(
 
 
             <p class="github-description">
-                ${repository.description || "Öffentliches GitHub Repository."}
+                ${description}
             </p>
 
 
@@ -1319,9 +1262,12 @@ function createRepositoryMarkup(
 
         </a>
     `;
-
 }
 
+
+// =========================
+// GITHUB RENDERING
+// =========================
 
 function renderRepositories(
     repositories
@@ -1333,9 +1279,7 @@ function renderRepositories(
         );
 
 
-    if (
-        !container
-    ) {
+    if (!container) {
         return;
     }
 
@@ -1344,8 +1288,7 @@ function renderRepositories(
         repositories
             .filter(
                 repository =>
-                    !repository.fork
-                    &&
+                    !repository.fork &&
                     !repository.archived
             )
             .slice(
@@ -1355,8 +1298,7 @@ function renderRepositories(
 
 
     if (
-        visibleRepositories.length
-        ===
+        visibleRepositories.length ===
         0
     ) {
 
@@ -1369,7 +1311,6 @@ function renderRepositories(
 
 
         return;
-
     }
 
 
@@ -1386,9 +1327,12 @@ function renderRepositories(
                     )
             )
             .join("");
-
 }
 
+
+// =========================
+// LOAD GITHUB
+// =========================
 
 async function loadGitHubRepositories() {
 
@@ -1409,39 +1353,46 @@ async function loadGitHubRepositories() {
         );
 
 
-        if (
-            status
-        ) {
+        if (status) {
 
             status.textContent =
-                result.source
-                ===
-                "cache"
+                result.source === "cache"
                     ? "GitHub Daten aus lokalem Cache geladen"
                     : "GitHub Daten erfolgreich aktualisiert";
-
         }
 
-    } catch (
-        error
-    ) {
+    } catch (error) {
 
         console.error(
+            "GitHub API:",
             error
         );
 
 
-        if (
-            status
-        ) {
+        if (status) {
 
             status.textContent =
                 "GitHub Daten konnten nicht geladen werden";
+        }
 
+
+        const container =
+            document.querySelector(
+                "#github-repositories"
+            );
+
+
+        if (container) {
+
+            container.innerHTML =
+                `
+                    <div class="github-error">
+                        Die GitHub-Repositories sind momentan nicht verfügbar.
+                    </div>
+                `;
         }
 
     }
-
 }
 
 
@@ -1464,8 +1415,7 @@ function initialiseNavigation() {
 
 
     if (
-        !button
-        ||
+        !button ||
         !navigation
     ) {
         return;
@@ -1499,7 +1449,6 @@ function initialiseNavigation() {
         document.body.classList.remove(
             "menu-open"
         );
-
     }
 
 
@@ -1508,9 +1457,15 @@ function initialiseNavigation() {
         () => {
 
             const open =
-                button.classList.toggle(
-                    "is-active"
+                !navigation.classList.contains(
+                    "is-open"
                 );
+
+
+            button.classList.toggle(
+                "is-active",
+                open
+            );
 
 
             navigation.classList.toggle(
@@ -1560,19 +1515,13 @@ function initialiseNavigation() {
         "keydown",
         event => {
 
-            if (
-                event.key
-                ===
-                "Escape"
-            ) {
+            if (event.key === "Escape") {
 
                 closeMenu();
-
             }
 
         }
     );
-
 }
 
 
@@ -1588,9 +1537,7 @@ function initialiseContactForm() {
         );
 
 
-    if (
-        !form
-    ) {
+    if (!form) {
         return;
     }
 
@@ -1637,31 +1584,31 @@ function initialiseContactForm() {
             );
 
 
-        if (
-            errorElement
-        ) {
+        const formGroup =
+            input.closest(
+                ".form-group"
+            );
+
+
+        if (errorElement) {
 
             errorElement.textContent =
                 message;
-
         }
 
 
-        input
-            .closest(
-                ".form-group"
-            )
-            .classList
-            .add(
+        if (formGroup) {
+
+            formGroup.classList.add(
                 "has-error"
             );
+        }
 
 
         input.setAttribute(
             "aria-invalid",
             "true"
         );
-
     }
 
 
@@ -1676,30 +1623,30 @@ function initialiseContactForm() {
             );
 
 
-        if (
-            errorElement
-        ) {
+        const formGroup =
+            input.closest(
+                ".form-group"
+            );
+
+
+        if (errorElement) {
 
             errorElement.textContent =
                 "";
-
         }
 
 
-        input
-            .closest(
-                ".form-group"
-            )
-            .classList
-            .remove(
+        if (formGroup) {
+
+            formGroup.classList.remove(
                 "has-error"
             );
+        }
 
 
         input.removeAttribute(
             "aria-invalid"
         );
-
     }
 
 
@@ -1708,9 +1655,7 @@ function initialiseContactForm() {
         if (
             nameInput.value
                 .trim()
-                .length
-            <
-            2
+                .length < 2
         ) {
 
             showError(
@@ -1721,7 +1666,6 @@ function initialiseContactForm() {
 
 
             return false;
-
         }
 
 
@@ -1732,7 +1676,6 @@ function initialiseContactForm() {
 
 
         return true;
-
     }
 
 
@@ -1756,7 +1699,6 @@ function initialiseContactForm() {
 
 
             return false;
-
         }
 
 
@@ -1767,7 +1709,6 @@ function initialiseContactForm() {
 
 
         return true;
-
     }
 
 
@@ -1778,9 +1719,7 @@ function initialiseContactForm() {
 
 
         if (
-            message.length
-            <
-            10
+            message.length < 10
         ) {
 
             showError(
@@ -1791,14 +1730,11 @@ function initialiseContactForm() {
 
 
             return false;
-
         }
 
 
         if (
-            message.length
-            >
-            1000
+            message.length > 1000
         ) {
 
             showError(
@@ -1809,7 +1745,6 @@ function initialiseContactForm() {
 
 
             return false;
-
         }
 
 
@@ -1820,19 +1755,7 @@ function initialiseContactForm() {
 
 
         return true;
-
     }
-
-
-    messageInput.addEventListener(
-        "input",
-        () => {
-
-            characterCount.textContent =
-                `${messageInput.value.length} / 1000`;
-
-        }
-    );
 
 
     nameInput.addEventListener(
@@ -1850,6 +1773,20 @@ function initialiseContactForm() {
     messageInput.addEventListener(
         "blur",
         validateMessage
+    );
+
+
+    messageInput.addEventListener(
+        "input",
+        () => {
+
+            if (characterCount) {
+
+                characterCount.textContent =
+                    `${messageInput.value.length} / 1000`;
+            }
+
+        }
     );
 
 
@@ -1873,15 +1810,16 @@ function initialiseContactForm() {
 
 
             if (
-                !nameValid
-                ||
-                !emailValid
-                ||
+                !nameValid ||
+                !emailValid ||
                 !messageValid
             ) {
 
-                formStatus.textContent =
-                    "Bitte überprüfe die markierten Felder.";
+                if (formStatus) {
+
+                    formStatus.textContent =
+                        "Bitte überprüfe die markierten Felder.";
+                }
 
 
                 const firstInvalid =
@@ -1890,17 +1828,13 @@ function initialiseContactForm() {
                     );
 
 
-                if (
-                    firstInvalid
-                ) {
+                if (firstInvalid) {
 
                     firstInvalid.focus();
-
                 }
 
 
                 return;
-
             }
 
 
@@ -1930,8 +1864,11 @@ function initialiseContactForm() {
                 );
 
 
-            formStatus.textContent =
-                "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
+            if (formStatus) {
+
+                formStatus.textContent =
+                    "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
+            }
 
 
             window.location.href =
@@ -1941,7 +1878,6 @@ function initialiseContactForm() {
 
         }
     );
-
 }
 
 
@@ -1957,12 +1893,29 @@ function initialiseRevealAnimations() {
             ".section-heading, " +
             ".bio-layout, " +
             ".skill-item, " +
-            ".project-feature, " +
             ".github-intro, " +
             ".contact-header, " +
             ".contact-form, " +
             ".contact-direct"
         );
+
+
+    if (
+        !("IntersectionObserver" in window)
+    ) {
+
+        elements.forEach(
+            element => {
+
+                element.classList.add(
+                    "is-visible"
+                );
+            }
+        );
+
+
+        return;
+    }
 
 
     const observer =
@@ -1976,17 +1929,14 @@ function initialiseRevealAnimations() {
                             entry.isIntersecting
                         ) {
 
-                            entry.target
-                                .classList
-                                .add(
-                                    "is-visible"
-                                );
+                            entry.target.classList.add(
+                                "is-visible"
+                            );
 
 
                             observer.unobserve(
                                 entry.target
                             );
-
                         }
 
                     }
@@ -2014,15 +1964,13 @@ function initialiseRevealAnimations() {
             observer.observe(
                 element
             );
-
         }
     );
-
 }
 
 
 // =========================
-// HERO ANIMATION
+// HERO INTRO ANIMATION
 // =========================
 
 function initialiseHeroAnimation() {
@@ -2047,7 +1995,7 @@ function initialiseHeroAnimation() {
             );
 
 
-            setTimeout(
+            window.setTimeout(
                 () => {
 
                     element.classList.add(
@@ -2055,1571 +2003,43 @@ function initialiseHeroAnimation() {
                     );
 
                 },
-                180
-                +
-                index
-                *
-                180
+                180 +
+                index * 180
             );
 
         }
     );
-
 }
 
 
 // =========================
-// START
+// START APPLICATION
 // =========================
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+        // First render important dynamic content.
         renderProjects();
 
-        initialiseProjectModal();
 
+        // Core functionality.
         initialiseNavigation();
-
+        initialiseProjectModal();
         initialiseContactForm();
 
+
+        // API.
+        loadGitHubRepositories();
+
+
+        // Visual effects.
         initialiseRevealAnimations();
-
         initialiseHeroAnimation();
-
         initialiseHeroMovement();
-
-        initialiseParallax();
-
+        initialiseBiographyParallax();
         initialiseProjectTilt();
-
-        loadGitHubRepositories();
-
-    }
-);
-        description:
-            "Entwicklung eines UX/UI-Konzepts für eine App zur Organisation des Zusammenlebens in Wohngemeinschaften.",
-
-        technologies: [
-            "Figma",
-            "UX Research",
-            "Prototyping"
-        ],
-
-        challenge:
-            "Typische Aufgaben im WG-Alltag sollten einfacher organisiert und für alle Bewohnerinnen und Bewohner transparent dargestellt werden.",
-
-        solution:
-            "Auf Basis von UX-Überlegungen wurde eine übersichtliche App-Struktur entwickelt und anschliessend als interaktiver Prototyp in Figma gestaltet.",
-
-        result:
-            "Der entstandene Prototyp zeigt eine intuitive und visuell klare Lösung für die gemeinsame Organisation des WG-Alltags.",
-
-        type:
-            "phone",
-
-        image:
-            "fairflat-preview.png",
-
-        imageAlt:
-            "Vorschau des FairFlat Projekts"
-    }
-
-];
-
-
-// =========================
-// SCROLL POSITION
-// =========================
-
-if (
-    "scrollRestoration"
-    in
-    history
-) {
-
-    history.scrollRestoration =
-        "manual";
-
-}
-
-
-window.addEventListener(
-    "load",
-    () => {
-
-        if (
-            !window.location.hash
-        ) {
-
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "auto"
-            });
-
-        }
-
-    }
-);
-
-
-// =========================
-// PROJECT ARROW
-// =========================
-
-function createProjectButton(
-    project,
-    direction
-) {
-
-    const directionClass =
-        direction === "left"
-            ? "project-modal-trigger-left"
-            : "project-modal-trigger-right";
-
-    const arrow =
-        direction === "left"
-            ? `
-                <path d="M19 19 L5 5"></path>
-                <path d="M14 5 H5 V14"></path>
-            `
-            : `
-                <path d="M5 19 L19 5"></path>
-                <path d="M10 5 H19 V14"></path>
-            `;
-
-
-    return `
-        <button
-            type="button"
-            class="project-modal-trigger ${directionClass}"
-            data-project-id="${project.id}"
-            aria-label="Details zu ${project.title} anzeigen"
-        >
-            <svg
-                class="arrow-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                ${arrow}
-            </svg>
-        </button>
-    `;
-
-}
-
-
-// =========================
-// PROJECT VISUAL
-// =========================
-
-function createProjectVisual(
-    project
-) {
-
-    if (
-        project.type
-        ===
-        "browser"
-    ) {
-
-        return `
-            <div class="project-visual project-visual-casasierra">
-
-                <div class="browser-mockup">
-
-                    <div class="browser-topbar">
-
-                        <div class="browser-controls">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <div class="browser-address">
-                            ${project.browserAddress}
-                        </div>
-
-                    </div>
-
-                    <div class="browser-content">
-
-                        <img
-                            src="${project.image}"
-                            alt="${project.imageAlt}"
-                            class="project-preview-image"
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-
-    }
-
-
-    return `
-        <div class="project-visual project-visual-fairflat">
-
-            <div class="fairflat-device">
-
-                <div class="fairflat-device-speaker"></div>
-
-                <div class="fairflat-device-screen">
-
-                    <img
-                        src="${project.image}"
-                        alt="${project.imageAlt}"
-                        class="fairflat-preview-image"
-                    >
-
-                </div>
-
-            </div>
-
-        </div>
-    `;
-
-}
-
-
-// =========================
-// PROJECT MARKUP
-// =========================
-
-function createProjectMarkup(
-    project,
-    index
-) {
-
-    const isReverse =
-        index % 2 !== 0;
-
-    const number =
-        String(
-            project.id
-        ).padStart(
-            2,
-            "0"
-        );
-
-    const technologyText =
-        project.technologies.join(
-            " · "
-        );
-
-    const visual =
-        createProjectVisual(
-            project
-        );
-
-
-    if (
-        !isReverse
-    ) {
-
-        return `
-            <article class="project-feature reveal">
-
-                ${visual}
-
-                <div class="project-details">
-
-                    <div class="project-meta">
-
-                        <span>
-                            ${number}
-                        </span>
-
-                        <span>
-                            ${project.category}
-                        </span>
-
-                    </div>
-
-                    <h3>
-                        ${project.title}
-                    </h3>
-
-                    <p class="project-description">
-                        ${project.description}
-                    </p>
-
-                    <div class="project-footer project-footer-casasierra">
-
-                        ${createProjectButton(
-                            project,
-                            "left"
-                        )}
-
-                        <p class="project-tech">
-                            ${technologyText}
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-        `;
-
-    }
-
-
-    return `
-        <article class="project-feature project-feature-reverse reveal">
-
-            ${visual}
-
-            <div class="project-details">
-
-                <div class="project-meta">
-
-                    <span>
-                        ${number}
-                    </span>
-
-                    <span>
-                        ${project.category}
-                    </span>
-
-                </div>
-
-                <h3>
-                    ${project.title}
-                </h3>
-
-                <p class="project-description">
-                    ${project.description}
-                </p>
-
-                <div class="project-footer">
-
-                    <p class="project-tech">
-                        ${technologyText}
-                    </p>
-
-                    ${createProjectButton(
-                        project,
-                        "right"
-                    )}
-
-                </div>
-
-            </div>
-
-        </article>
-    `;
-
-}
-
-
-// =========================
-// RENDER PROJECTS
-// =========================
-
-function renderProjects() {
-
-    const container =
-        document.querySelector(
-            "#project-showcase"
-        );
-
-
-    if (
-        !container
-    ) {
-        return;
-    }
-
-
-    container.innerHTML =
-        projects
-            .map(
-                (
-                    project,
-                    index
-                ) =>
-                    createProjectMarkup(
-                        project,
-                        index
-                    )
-            )
-            .join("");
-
-}
-
-
-// =========================
-// PROJECT MODAL
-// =========================
-
-function initialiseProjectModal() {
-
-    const modal =
-        document.querySelector(
-            "#project-modal"
-        );
-
-    if (
-        !modal
-    ) {
-        return;
-    }
-
-
-    const closeButton =
-        modal.querySelector(
-            ".project-modal-close"
-        );
-
-    let previouslyFocusedElement =
-        null;
-
-
-    function populateModal(
-        project
-    ) {
-
-        document.querySelector(
-            "#modal-project-number"
-        ).textContent =
-            String(
-                project.id
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        document.querySelector(
-            "#modal-project-category"
-        ).textContent =
-            project.category;
-
-
-        document.querySelector(
-            "#modal-project-title"
-        ).textContent =
-            project.title;
-
-
-        document.querySelector(
-            "#modal-project-description"
-        ).textContent =
-            project.description;
-
-
-        document.querySelector(
-            "#modal-project-challenge"
-        ).textContent =
-            project.challenge;
-
-
-        document.querySelector(
-            "#modal-project-solution"
-        ).textContent =
-            project.solution;
-
-
-        document.querySelector(
-            "#modal-project-result"
-        ).textContent =
-            project.result;
-
-
-        document.querySelector(
-            "#modal-project-technologies"
-        ).textContent =
-            project.technologies.join(
-                " · "
-            );
-
-    }
-
-
-    function openModal(
-        project
-    ) {
-
-        previouslyFocusedElement =
-            document.activeElement;
-
-
-        populateModal(
-            project
-        );
-
-
-        modal.classList.add(
-            "is-open"
-        );
-
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-
-        document.body.classList.add(
-            "modal-open"
-        );
-
-
-        setTimeout(
-            () => {
-
-                closeButton.focus();
-
-            },
-            50
-        );
-
-    }
-
-
-    function closeModal() {
-
-        modal.classList.remove(
-            "is-open"
-        );
-
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-
-        document.body.classList.remove(
-            "modal-open"
-        );
-
-
-        if (
-            previouslyFocusedElement
-        ) {
-
-            previouslyFocusedElement.focus();
-
-        }
-
-    }
-
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            const trigger =
-                event.target.closest(
-                    ".project-modal-trigger"
-                );
-
-
-            if (
-                trigger
-            ) {
-
-                const projectId =
-                    Number(
-                        trigger.dataset.projectId
-                    );
-
-
-                const project =
-                    projects.find(
-                        item =>
-                            item.id
-                            ===
-                            projectId
-                    );
-
-
-                if (
-                    project
-                ) {
-
-                    openModal(
-                        project
-                    );
-
-                }
-
-            }
-
-
-            if (
-                event.target.closest(
-                    "[data-modal-close]"
-                )
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key
-                ===
-                "Escape"
-                &&
-                modal.classList.contains(
-                    "is-open"
-                )
-            ) {
-
-                closeModal();
-
-            }
-
-
-            if (
-                event.key
-                ===
-                "Tab"
-                &&
-                modal.classList.contains(
-                    "is-open"
-                )
-            ) {
-
-                const focusableElements =
-                    modal.querySelectorAll(
-                        "button, a, input, textarea, [tabindex]:not([tabindex='-1'])"
-                    );
-
-
-                const firstElement =
-                    focusableElements[0];
-
-                const lastElement =
-                    focusableElements[
-                        focusableElements.length - 1
-                    ];
-
-
-                if (
-                    event.shiftKey
-                    &&
-                    document.activeElement
-                    ===
-                    firstElement
-                ) {
-
-                    event.preventDefault();
-
-                    lastElement.focus();
-
-                } else if (
-                    !event.shiftKey
-                    &&
-                    document.activeElement
-                    ===
-                    lastElement
-                ) {
-
-                    event.preventDefault();
-
-                    firstElement.focus();
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-// =========================
-// GITHUB CACHE
-// =========================
-
-function getCachedRepositories() {
-
-    const cachedData =
-        localStorage.getItem(
-            GITHUB_CACHE_KEY
-        );
-
-
-    if (
-        !cachedData
-    ) {
-        return null;
-    }
-
-
-    try {
-
-        const parsedData =
-            JSON.parse(
-                cachedData
-            );
-
-
-        if (
-            Date.now()
-            -
-            parsedData.timestamp
-            >
-            GITHUB_CACHE_TIME
-        ) {
-
-            localStorage.removeItem(
-                GITHUB_CACHE_KEY
-            );
-
-            return null;
-
-        }
-
-
-        return parsedData.repositories;
-
-    } catch (
-        error
-    ) {
-
-        localStorage.removeItem(
-            GITHUB_CACHE_KEY
-        );
-
-        return null;
-
-    }
-
-}
-
-
-function cacheRepositories(
-    repositories
-) {
-
-    localStorage.setItem(
-        GITHUB_CACHE_KEY,
-        JSON.stringify({
-            timestamp:
-                Date.now(),
-
-            repositories:
-                repositories
-        })
-    );
-
-}
-
-
-// =========================
-// GITHUB API
-// =========================
-
-async function fetchRepositories() {
-
-    const cachedRepositories =
-        getCachedRepositories();
-
-
-    if (
-        cachedRepositories
-    ) {
-
-        return {
-            repositories:
-                cachedRepositories,
-
-            source:
-                "cache"
-        };
-
-    }
-
-
-    const response =
-        await fetch(
-            GITHUB_API_URL,
-            {
-                headers: {
-                    Accept:
-                        "application/vnd.github+json"
-                }
-            }
-        );
-
-
-    if (
-        !response.ok
-    ) {
-
-        throw new Error(
-            `GitHub API Error: ${response.status}`
-        );
-
-    }
-
-
-    const repositories =
-        await response.json();
-
-
-    cacheRepositories(
-        repositories
-    );
-
-
-    return {
-        repositories:
-            repositories,
-
-        source:
-            "api"
-    };
-
-}
-
-
-// =========================
-// GITHUB RENDERING
-// =========================
-
-function formatRepositoryDate(
-    dateString
-) {
-
-    return new Intl.DateTimeFormat(
-        "de-CH",
-        {
-            day:
-                "2-digit",
-
-            month:
-                "2-digit",
-
-            year:
-                "numeric"
-        }
-    ).format(
-        new Date(
-            dateString
-        )
-    );
-
-}
-
-
-function createRepositoryMarkup(
-    repository,
-    index
-) {
-
-    const number =
-        String(
-            index + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    return `
-        <a
-            href="${repository.html_url}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="github-card"
-        >
-
-            <div class="github-card-top">
-
-                <span class="github-card-number">
-                    ${number}
-                </span>
-
-                <span class="github-language">
-                    ${repository.language || "Code"}
-                </span>
-
-            </div>
-
-
-            <h3>
-                ${repository.name}
-            </h3>
-
-
-            <p class="github-description">
-                ${repository.description || "Öffentliches GitHub Repository."}
-            </p>
-
-
-            <div class="github-card-footer">
-
-                <span class="github-updated">
-                    Updated ${formatRepositoryDate(
-                        repository.updated_at
-                    )}
-                </span>
-
-
-                <svg
-                    class="arrow-icon github-open"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <path d="M5 19 L19 5"></path>
-                    <path d="M10 5 H19 V14"></path>
-                </svg>
-
-            </div>
-
-        </a>
-    `;
-
-}
-
-
-function renderRepositories(
-    repositories
-) {
-
-    const container =
-        document.querySelector(
-            "#github-repositories"
-        );
-
-
-    const visibleRepositories =
-        repositories
-            .filter(
-                repository =>
-                    !repository.fork
-                    &&
-                    !repository.archived
-            )
-            .slice(
-                0,
-                3
-            );
-
-
-    if (
-        visibleRepositories.length
-        ===
-        0
-    ) {
-
-        container.innerHTML =
-            `
-                <div class="github-error">
-                    Aktuell sind keine öffentlichen Repositories verfügbar.
-                </div>
-            `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        visibleRepositories
-            .map(
-                (
-                    repository,
-                    index
-                ) =>
-                    createRepositoryMarkup(
-                        repository,
-                        index
-                    )
-            )
-            .join("");
-
-}
-
-
-async function loadGitHubRepositories() {
-
-    const status =
-        document.querySelector(
-            "#github-status"
-        );
-
-
-    try {
-
-        const result =
-            await fetchRepositories();
-
-
-        renderRepositories(
-            result.repositories
-        );
-
-
-        status.textContent =
-            result.source
-            ===
-            "cache"
-                ? "GitHub Daten aus lokalem Cache geladen"
-                : "GitHub Daten erfolgreich aktualisiert";
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            error
-        );
-
-
-        status.textContent =
-            "GitHub Daten konnten nicht geladen werden";
-
-    }
-
-}
-
-
-// =========================
-// NAVIGATION
-// =========================
-
-function initialiseNavigation() {
-
-    const button =
-        document.querySelector(
-            ".menu-toggle"
-        );
-
-    const navigation =
-        document.querySelector(
-            ".nav-links"
-        );
-
-
-    function closeMenu() {
-
-        button.classList.remove(
-            "is-active"
-        );
-
-        navigation.classList.remove(
-            "is-open"
-        );
-
-        button.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        document.body.classList.remove(
-            "menu-open"
-        );
-
-    }
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            const open =
-                button.classList.toggle(
-                    "is-active"
-                );
-
-
-            navigation.classList.toggle(
-                "is-open",
-                open
-            );
-
-
-            button.setAttribute(
-                "aria-expanded",
-                String(open)
-            );
-
-
-            document.body.classList.toggle(
-                "menu-open",
-                open
-            );
-
-        }
-    );
-
-
-    document.querySelectorAll(
-        ".nav-links a"
-    ).forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                closeMenu
-            );
-
-        }
-    );
-
-}
-
-
-// =========================
-// CONTACT FORM
-// =========================
-
-function initialiseContactForm() {
-
-    const form =
-        document.querySelector(
-            "#contact-form"
-        );
-
-    if (
-        !form
-    ) {
-        return;
-    }
-
-
-    const nameInput =
-        document.querySelector(
-            "#contact-name"
-        );
-
-    const emailInput =
-        document.querySelector(
-            "#contact-email"
-        );
-
-    const messageInput =
-        document.querySelector(
-            "#contact-message"
-        );
-
-    const characterCount =
-        document.querySelector(
-            "#character-count"
-        );
-
-    const formStatus =
-        document.querySelector(
-            "#form-status"
-        );
-
-
-    function showError(
-        input,
-        errorId,
-        message
-    ) {
-
-        document.querySelector(
-            `#${errorId}`
-        ).textContent =
-            message;
-
-
-        input
-            .closest(
-                ".form-group"
-            )
-            .classList
-            .add(
-                "has-error"
-            );
-
-    }
-
-
-    function clearError(
-        input,
-        errorId
-    ) {
-
-        document.querySelector(
-            `#${errorId}`
-        ).textContent =
-            "";
-
-
-        input
-            .closest(
-                ".form-group"
-            )
-            .classList
-            .remove(
-                "has-error"
-            );
-
-    }
-
-
-    function validateName() {
-
-        if (
-            nameInput.value
-                .trim()
-                .length
-            <
-            2
-        ) {
-
-            showError(
-                nameInput,
-                "name-error",
-                "Bitte gib deinen Namen ein."
-            );
-
-            return false;
-
-        }
-
-
-        clearError(
-            nameInput,
-            "name-error"
-        );
-
-        return true;
-
-    }
-
-
-    function validateEmail() {
-
-        const emailPattern =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-        if (
-            !emailPattern.test(
-                emailInput.value.trim()
-            )
-        ) {
-
-            showError(
-                emailInput,
-                "email-error",
-                "Bitte gib eine gültige E-Mail-Adresse ein."
-            );
-
-            return false;
-
-        }
-
-
-        clearError(
-            emailInput,
-            "email-error"
-        );
-
-        return true;
-
-    }
-
-
-    function validateMessage() {
-
-        const message =
-            messageInput.value.trim();
-
-
-        if (
-            message.length
-            <
-            10
-        ) {
-
-            showError(
-                messageInput,
-                "message-error",
-                "Die Nachricht sollte mindestens 10 Zeichen enthalten."
-            );
-
-            return false;
-
-        }
-
-
-        if (
-            message.length
-            >
-            1000
-        ) {
-
-            showError(
-                messageInput,
-                "message-error",
-                "Die Nachricht darf maximal 1000 Zeichen enthalten."
-            );
-
-            return false;
-
-        }
-
-
-        clearError(
-            messageInput,
-            "message-error"
-        );
-
-        return true;
-
-    }
-
-
-    messageInput.addEventListener(
-        "input",
-        () => {
-
-            characterCount.textContent =
-                `${messageInput.value.length} / 1000`;
-
-        }
-    );
-
-
-    nameInput.addEventListener(
-        "blur",
-        validateName
-    );
-
-
-    emailInput.addEventListener(
-        "blur",
-        validateEmail
-    );
-
-
-    messageInput.addEventListener(
-        "blur",
-        validateMessage
-    );
-
-
-    form.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const valid =
-                validateName()
-                &&
-                validateEmail()
-                &&
-                validateMessage();
-
-
-            if (
-                !valid
-            ) {
-
-                formStatus.textContent =
-                    "Bitte überprüfe die markierten Felder.";
-
-                return;
-
-            }
-
-
-            const name =
-                nameInput.value.trim();
-
-            const sender =
-                emailInput.value.trim();
-
-            const message =
-                messageInput.value.trim();
-
-
-            const subject =
-                encodeURIComponent(
-                    `Portfolio Anfrage von ${name}`
-                );
-
-
-            const body =
-                encodeURIComponent(
-                    `Name: ${name}\n` +
-                    `E-Mail: ${sender}\n\n` +
-                    `Nachricht:\n${message}`
-                );
-
-
-            formStatus.textContent =
-                "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
-
-
-            window.location.href =
-                `mailto:${CONTACT_EMAIL}` +
-                `?subject=${subject}` +
-                `&body=${body}`;
-
-        }
-    );
-
-}
-
-
-// =========================
-// REVEAL ANIMATIONS
-// =========================
-
-function initialiseRevealAnimations() {
-
-    const elements =
-        document.querySelectorAll(
-            ".section-number, " +
-            ".section-heading, " +
-            ".bio-layout, " +
-            ".skill-item, " +
-            ".project-feature, " +
-            ".github-intro, " +
-            ".contact-header, " +
-            ".contact-form, " +
-            ".contact-direct"
-        );
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target
-                                .classList
-                                .add(
-                                    "is-visible"
-                                );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold:
-                    0.15
-            }
-        );
-
-
-    elements.forEach(
-        element => {
-
-            element.classList.add(
-                "reveal"
-            );
-
-            observer.observe(
-                element
-            );
-
-        }
-    );
-
-}
-
-
-// =========================
-// HERO ANIMATION
-// =========================
-
-function initialiseHeroAnimation() {
-
-    const elements =
-        document.querySelectorAll(
-            ".hero-label, " +
-            ".hero h1, " +
-            ".hero-description, " +
-            ".hero-link"
-        );
-
-
-    elements.forEach(
-        (
-            element,
-            index
-        ) => {
-
-            element.classList.add(
-                "hero-reveal"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    element.classList.add(
-                        "hero-visible"
-                    );
-
-                },
-                180
-                +
-                index
-                *
-                180
-            );
-
-        }
-    );
-
-}
-
-
-// =========================
-// START
-// =========================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        renderProjects();
-
-        initialiseProjectModal();
-
-        initialiseNavigation();
-
-        initialiseContactForm();
-
-        initialiseRevealAnimations();
-
-        initialiseHeroAnimation();
-
-        loadGitHubRepositories();
 
     }
 );
