@@ -1,3 +1,7 @@
+// =========================
+// CONFIGURATION
+// =========================
+
 const GITHUB_USERNAME =
     "Agnesa22";
 
@@ -13,7 +17,6 @@ const GITHUB_CACHE_KEY =
 
 const GITHUB_CACHE_TIME =
     30 * 60 * 1000;
-
 
 
 // =========================
@@ -103,9 +106,8 @@ const projects = [
 ];
 
 
-
 // =========================
-// PROJECT RENDERING
+// PROJECT BUTTON
 // =========================
 
 function createProjectButton(
@@ -118,19 +120,30 @@ function createProjectButton(
             class="project-modal-trigger"
             data-project-id="${project.id}"
             data-cursor="VIEW"
+            aria-label="Details zu ${project.title} anzeigen"
         >
+
+            <span>
+                Projekt ansehen
+            </span>
+
             <svg
-                class="arrow-icon"
+                class="project-button-arrow"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
             >
                 <path d="M5 19 L19 5"></path>
                 <path d="M10 5 H19 V14"></path>
             </svg>
+
         </button>
     `;
 }
 
+
+// =========================
+// PROJECT VISUAL
+// =========================
 
 function createProjectVisual(
     project
@@ -142,7 +155,10 @@ function createProjectVisual(
     ) {
 
         return `
-            <div class="project-visual project-visual-casasierra">
+            <div
+                class="project-visual project-visual-casasierra"
+                data-project-tilt
+            >
 
                 <div class="browser-mockup">
 
@@ -174,7 +190,10 @@ function createProjectVisual(
 
 
     return `
-        <div class="project-visual project-visual-fairflat">
+        <div
+            class="project-visual project-visual-fairflat"
+            data-project-tilt
+        >
 
             <div class="fairflat-device">
 
@@ -195,6 +214,10 @@ function createProjectVisual(
 }
 
 
+// =========================
+// PROJECT MARKUP
+// =========================
+
 function createProjectMarkup(
     project,
     index
@@ -202,6 +225,15 @@ function createProjectMarkup(
 
     const reverse =
         index % 2 !== 0;
+
+
+    const number =
+        String(
+            project.id
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     return `
@@ -225,12 +257,7 @@ function createProjectMarkup(
                 <div class="project-meta">
 
                     <span>
-                        ${String(
-                            project.id
-                        ).padStart(
-                            2,
-                            "0"
-                        )}
+                        ${number}
                     </span>
 
                     <span>
@@ -258,6 +285,7 @@ function createProjectMarkup(
                         )}
                     </p>
 
+
                     ${createProjectButton(
                         project
                     )}
@@ -270,6 +298,10 @@ function createProjectMarkup(
     `;
 }
 
+
+// =========================
+// RENDER PROJECTS
+// =========================
 
 function renderProjects() {
 
@@ -289,11 +321,17 @@ function renderProjects() {
     container.innerHTML =
         projects
             .map(
-                createProjectMarkup
+                (
+                    project,
+                    index
+                ) =>
+                    createProjectMarkup(
+                        project,
+                        index
+                    )
             )
             .join("");
 }
-
 
 
 // =========================
@@ -414,7 +452,6 @@ function initialiseCustomCursor() {
 }
 
 
-
 // =========================
 // HERO FLOATING CARDS
 // =========================
@@ -490,20 +527,8 @@ function initialiseHeroCards() {
                         index + 1;
 
 
-                    const moveX =
-                        x *
-                        10 *
-                        multiplier;
-
-
-                    const moveY =
-                        y *
-                        8 *
-                        multiplier;
-
-
                     card.style.translate =
-                        `${moveX}px ${moveY}px`;
+                        `${x * 9 * multiplier}px ${y * 7 * multiplier}px`;
 
                 }
             );
@@ -531,23 +556,41 @@ function initialiseHeroCards() {
 }
 
 
-
 // =========================
 // PROJECT TILT
+// CasaSierra + FairFlat
 // =========================
 
 function initialiseProjectTilt() {
 
     const visuals =
         document.querySelectorAll(
-            ".project-visual"
+            "[data-project-tilt]"
         );
 
 
     if (
-        !window.matchMedia(
+        !visuals.length
+    ) {
+        return;
+    }
+
+
+    const supportsMouse =
+        window.matchMedia(
             "(pointer: fine)"
-        ).matches
+        ).matches;
+
+
+    const reduceMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+    if (
+        !supportsMouse ||
+        reduceMotion
     ) {
         return;
     }
@@ -603,12 +646,8 @@ function initialiseProjectTilt() {
 
                     visual.style.transform =
                         `
-                            rotateX(
-                                ${rotateX}deg
-                            )
-                            rotateY(
-                                ${rotateY}deg
-                            )
+                            rotateX(${rotateX}deg)
+                            rotateY(${rotateY}deg)
                         `;
 
                 }
@@ -620,7 +659,7 @@ function initialiseProjectTilt() {
                 () => {
 
                     visual.style.transform =
-                        "";
+                        "rotateX(0deg) rotateY(0deg)";
 
                 }
             );
@@ -631,9 +670,8 @@ function initialiseProjectTilt() {
 }
 
 
-
 // =========================
-// MODAL
+// PROJECT MODAL
 // =========================
 
 function initialiseProjectModal() {
@@ -651,63 +689,100 @@ function initialiseProjectModal() {
     }
 
 
+    const closeButton =
+        modal.querySelector(
+            ".project-modal-close"
+        );
+
+
+    let previouslyFocusedElement =
+        null;
+
+
+    function setText(
+        selector,
+        value
+    ) {
+
+        const element =
+            document.querySelector(
+                selector
+            );
+
+
+        if (
+            element
+        ) {
+
+            element.textContent =
+                value;
+
+        }
+
+    }
+
+
     function openModal(
         project
     ) {
 
-        document.querySelector(
-            "#modal-project-number"
-        ).textContent =
+        previouslyFocusedElement =
+            document.activeElement;
+
+
+        setText(
+            "#modal-project-number",
             String(
                 project.id
             ).padStart(
                 2,
                 "0"
-            );
+            )
+        );
 
 
-        document.querySelector(
-            "#modal-project-category"
-        ).textContent =
-            project.category;
+        setText(
+            "#modal-project-category",
+            project.category
+        );
 
 
-        document.querySelector(
-            "#modal-project-title"
-        ).textContent =
-            project.title;
+        setText(
+            "#modal-project-title",
+            project.title
+        );
 
 
-        document.querySelector(
-            "#modal-project-description"
-        ).textContent =
-            project.description;
+        setText(
+            "#modal-project-description",
+            project.description
+        );
 
 
-        document.querySelector(
-            "#modal-project-challenge"
-        ).textContent =
-            project.challenge;
+        setText(
+            "#modal-project-challenge",
+            project.challenge
+        );
 
 
-        document.querySelector(
-            "#modal-project-solution"
-        ).textContent =
-            project.solution;
+        setText(
+            "#modal-project-solution",
+            project.solution
+        );
 
 
-        document.querySelector(
-            "#modal-project-result"
-        ).textContent =
-            project.result;
+        setText(
+            "#modal-project-result",
+            project.result
+        );
 
 
-        document.querySelector(
-            "#modal-project-technologies"
-        ).textContent =
+        setText(
+            "#modal-project-technologies",
             project.technologies.join(
                 " · "
-            );
+            )
+        );
 
 
         modal.classList.add(
@@ -724,6 +799,22 @@ function initialiseProjectModal() {
         document.body.classList.add(
             "modal-open"
         );
+
+
+        if (
+            closeButton
+        ) {
+
+            window.setTimeout(
+                () => {
+
+                    closeButton.focus();
+
+                },
+                40
+            );
+
+        }
 
     }
 
@@ -744,6 +835,19 @@ function initialiseProjectModal() {
         document.body.classList.remove(
             "modal-open"
         );
+
+
+        if (
+            previouslyFocusedElement &&
+            typeof
+            previouslyFocusedElement.focus
+            ===
+            "function"
+        ) {
+
+            previouslyFocusedElement.focus();
+
+        }
 
     }
 
@@ -787,10 +891,14 @@ function initialiseProjectModal() {
             }
 
 
-            if (
+            const closeTrigger =
                 event.target.closest(
                     "[data-modal-close]"
-                )
+                );
+
+
+            if (
+                closeTrigger
             ) {
 
                 closeModal();
@@ -807,7 +915,10 @@ function initialiseProjectModal() {
 
             if (
                 event.key ===
-                "Escape"
+                "Escape" &&
+                modal.classList.contains(
+                    "is-open"
+                )
             ) {
 
                 closeModal();
@@ -820,28 +931,31 @@ function initialiseProjectModal() {
 }
 
 
-
 // =========================
-// GITHUB
+// GITHUB CACHE
 // =========================
 
 function getCachedRepositories() {
 
     try {
 
-        const data =
-            JSON.parse(
-                localStorage.getItem(
-                    GITHUB_CACHE_KEY
-                )
+        const cached =
+            localStorage.getItem(
+                GITHUB_CACHE_KEY
             );
 
 
         if (
-            !data
+            !cached
         ) {
             return null;
         }
+
+
+        const data =
+            JSON.parse(
+                cached
+            );
 
 
         if (
@@ -850,6 +964,11 @@ function getCachedRepositories() {
             GITHUB_CACHE_TIME
         ) {
 
+            localStorage.removeItem(
+                GITHUB_CACHE_KEY
+            );
+
+
             return null;
 
         }
@@ -857,7 +976,14 @@ function getCachedRepositories() {
 
         return data.repositories;
 
-    } catch {
+    } catch (
+        error
+    ) {
+
+        localStorage.removeItem(
+            GITHUB_CACHE_KEY
+        );
+
 
         return null;
 
@@ -866,41 +992,9 @@ function getCachedRepositories() {
 }
 
 
-async function fetchRepositories() {
-
-    const cache =
-        getCachedRepositories();
-
-
-    if (
-        cache
-    ) {
-
-        return cache;
-
-    }
-
-
-    const response =
-        await fetch(
-            GITHUB_API_URL
-        );
-
-
-    if (
-        !response.ok
-    ) {
-
-        throw new Error(
-            "GitHub API error"
-        );
-
-    }
-
-
-    const data =
-        await response.json();
-
+function cacheRepositories(
+    repositories
+) {
 
     localStorage.setItem(
         GITHUB_CACHE_KEY,
@@ -909,24 +1003,147 @@ async function fetchRepositories() {
                 Date.now(),
 
             repositories:
-                data
+                repositories
         })
     );
-
-
-    return data;
 
 }
 
 
+// =========================
+// GITHUB API
+// =========================
+
+async function fetchRepositories() {
+
+    const cached =
+        getCachedRepositories();
+
+
+    if (
+        cached
+    ) {
+
+        return {
+            repositories:
+                cached,
+
+            source:
+                "cache"
+        };
+
+    }
+
+
+    const response =
+        await fetch(
+            GITHUB_API_URL,
+            {
+                headers: {
+                    Accept:
+                        "application/vnd.github+json"
+                }
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+            `GitHub API Error: ${response.status}`
+        );
+
+    }
+
+
+    const repositories =
+        await response.json();
+
+
+    cacheRepositories(
+        repositories
+    );
+
+
+    return {
+        repositories:
+            repositories,
+
+        source:
+            "api"
+    };
+
+}
+
+
+// =========================
+// GITHUB DATE
+// =========================
+
+function formatRepositoryDate(
+    dateString
+) {
+
+    return new Intl.DateTimeFormat(
+        "de-CH",
+        {
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric"
+        }
+    ).format(
+        new Date(
+            dateString
+        )
+    );
+
+}
+
+
+// =========================
+// GITHUB CARD
+// =========================
+
 function createRepositoryMarkup(
-    repo,
+    repository,
     index
 ) {
 
+    const number =
+        String(
+            index + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const language =
+        repository.language ||
+        "Code";
+
+
+    const description =
+        repository.description ||
+        "Öffentliches GitHub Repository.";
+
+
+    const updated =
+        formatRepositoryDate(
+            repository.updated_at
+        );
+
+
     return `
         <a
-            href="${repo.html_url}"
+            href="${repository.html_url}"
             target="_blank"
             rel="noopener noreferrer"
             class="github-card"
@@ -936,48 +1153,53 @@ function createRepositoryMarkup(
             <div class="github-card-top">
 
                 <span>
-                    ${String(
-                        index + 1
-                    ).padStart(
-                        2,
-                        "0"
-                    )}
+                    ${number}
                 </span>
 
                 <span>
-                    ${repo.language || "Code"}
+                    ${language}
                 </span>
 
             </div>
 
 
             <h3>
-                ${repo.name}
+                ${repository.name}
             </h3>
 
 
             <p class="github-description">
-                ${repo.description ||
-                "Öffentliches GitHub Repository."}
+                ${description}
             </p>
 
 
             <div class="github-card-footer">
 
-                <span>
-                    GitHub
+                <span class="github-updated">
+                    Updated ${updated}
                 </span>
 
-                <span>
-                    ↗
-                </span>
+
+                <svg
+                    class="arrow-icon github-open"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path d="M5 19 L19 5"></path>
+                    <path d="M10 5 H19 V14"></path>
+                </svg>
 
             </div>
 
         </a>
     `;
+
 }
 
+
+// =========================
+// LOAD GITHUB
+// =========================
 
 async function loadGitHubRepositories() {
 
@@ -1002,16 +1224,16 @@ async function loadGitHubRepositories() {
 
     try {
 
-        const repositories =
+        const result =
             await fetchRepositories();
 
 
         const visible =
-            repositories
+            result.repositories
                 .filter(
-                    repo =>
-                        !repo.fork &&
-                        !repo.archived
+                    repository =>
+                        !repository.fork &&
+                        !repository.archived
                 )
                 .slice(
                     0,
@@ -1019,12 +1241,34 @@ async function loadGitHubRepositories() {
                 );
 
 
-        container.innerHTML =
-            visible
-                .map(
-                    createRepositoryMarkup
-                )
-                .join("");
+        if (
+            !visible.length
+        ) {
+
+            container.innerHTML =
+                `
+                    <div class="github-error">
+                        Aktuell sind keine öffentlichen Repositories verfügbar.
+                    </div>
+                `;
+
+        } else {
+
+            container.innerHTML =
+                visible
+                    .map(
+                        (
+                            repository,
+                            index
+                        ) =>
+                            createRepositoryMarkup(
+                                repository,
+                                index
+                            )
+                    )
+                    .join("");
+
+        }
 
 
         if (
@@ -1032,7 +1276,10 @@ async function loadGitHubRepositories() {
         ) {
 
             status.textContent =
-                "GitHub repositories loaded";
+                result.source ===
+                "cache"
+                    ? "GitHub Daten aus lokalem Cache geladen"
+                    : "GitHub Daten erfolgreich aktualisiert";
 
         }
 
@@ -1040,19 +1287,32 @@ async function loadGitHubRepositories() {
         error
     ) {
 
+        console.error(
+            "GitHub API:",
+            error
+        );
+
+
         if (
             status
         ) {
 
             status.textContent =
-                "GitHub data currently unavailable";
+                "GitHub Daten konnten nicht geladen werden";
 
         }
+
+
+        container.innerHTML =
+            `
+                <div class="github-error">
+                    Die GitHub-Repositories sind momentan nicht verfügbar.
+                </div>
+            `;
 
     }
 
 }
-
 
 
 // =========================
@@ -1093,6 +1353,12 @@ function initialiseNavigation() {
         );
 
 
+        button.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
         document.body.classList.remove(
             "menu-open"
         );
@@ -1104,25 +1370,36 @@ function initialiseNavigation() {
         "click",
         () => {
 
-            button
-                .classList
-                .toggle(
-                    "is-active"
-                );
-
-
-            menu
-                .classList
-                .toggle(
+            const open =
+                !menu.classList.contains(
                     "is-open"
                 );
 
 
-            document.body
-                .classList
-                .toggle(
-                    "menu-open"
-                );
+            button.classList.toggle(
+                "is-active",
+                open
+            );
+
+
+            menu.classList.toggle(
+                "is-open",
+                open
+            );
+
+
+            button.setAttribute(
+                "aria-expanded",
+                String(
+                    open
+                )
+            );
+
+
+            document.body.classList.toggle(
+                "menu-open",
+                open
+            );
 
         }
     );
@@ -1143,12 +1420,28 @@ function initialiseNavigation() {
             }
         );
 
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
 }
 
 
-
 // =========================
-// CONTACT
+// CONTACT FORM
 // =========================
 
 function initialiseContactForm() {
@@ -1190,28 +1483,51 @@ function initialiseContactForm() {
         );
 
 
+    const status =
+        document.querySelector(
+            "#form-status"
+        );
+
+
     function setError(
         id,
         text
     ) {
 
-        document.querySelector(
-            id
-        ).textContent =
-            text;
+        const element =
+            document.querySelector(
+                id
+            );
+
+
+        if (
+            element
+        ) {
+
+            element.textContent =
+                text;
+
+        }
 
     }
 
 
-    message.addEventListener(
-        "input",
-        () => {
+    if (
+        message &&
+        counter
+    ) {
 
-            counter.textContent =
-                `${message.value.length} / 1000`;
+        message.addEventListener(
+            "input",
+            () => {
 
-        }
-    );
+                counter.textContent =
+                    `${message.value.length} / 1000`;
+
+            }
+        );
+
+    }
 
 
     form.addEventListener(
@@ -1235,6 +1551,7 @@ function initialiseContactForm() {
                     "#name-error",
                     "Bitte gib deinen Namen ein."
                 );
+
 
                 valid =
                     false;
@@ -1264,6 +1581,7 @@ function initialiseContactForm() {
                     "Bitte gib eine gültige E-Mail-Adresse ein."
                 );
 
+
                 valid =
                     false;
 
@@ -1288,6 +1606,21 @@ function initialiseContactForm() {
                     "Die Nachricht sollte mindestens 10 Zeichen enthalten."
                 );
 
+
+                valid =
+                    false;
+
+            } else if (
+                message.value.length >
+                1000
+            ) {
+
+                setError(
+                    "#message-error",
+                    "Die Nachricht darf maximal 1000 Zeichen enthalten."
+                );
+
+
                 valid =
                     false;
 
@@ -1304,7 +1637,19 @@ function initialiseContactForm() {
             if (
                 !valid
             ) {
+
+                if (
+                    status
+                ) {
+
+                    status.textContent =
+                        "Bitte überprüfe die Angaben.";
+
+                }
+
+
                 return;
+
             }
 
 
@@ -1322,6 +1667,16 @@ function initialiseContactForm() {
                 );
 
 
+            if (
+                status
+            ) {
+
+                status.textContent =
+                    "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
+
+            }
+
+
             window.location.href =
                 `mailto:${CONTACT_EMAIL}` +
                 `?subject=${subject}` +
@@ -1331,7 +1686,6 @@ function initialiseContactForm() {
     );
 
 }
-
 
 
 // =========================
@@ -1344,11 +1698,45 @@ function initialiseReveal() {
         document.querySelectorAll(
             ".section-heading, " +
             ".bio-layout, " +
-            ".experience-card, " +
+            ".current-card, " +
+            ".career-link, " +
             ".skill-item, " +
             ".github-intro, " +
-            ".contact-header"
+            ".contact-header, " +
+            ".cv-entry, " +
+            ".education-card, " +
+            ".cv-tool-grid, " +
+            ".language-grid"
         );
+
+
+    if (
+        !elements.length
+    ) {
+        return;
+    }
+
+
+    if (
+        !(
+            "IntersectionObserver"
+            in
+            window
+        )
+    ) {
+
+        elements.forEach(
+            element =>
+                element
+                    .classList
+                    .add(
+                        "is-visible"
+                    )
+        );
+
+
+        return;
+    }
 
 
     const observer =
@@ -1381,7 +1769,10 @@ function initialiseReveal() {
             },
             {
                 threshold:
-                    0.12
+                    0.12,
+
+                rootMargin:
+                    "0px 0px -8% 0px"
             }
         );
 
@@ -1402,7 +1793,6 @@ function initialiseReveal() {
     );
 
 }
-
 
 
 // =========================
