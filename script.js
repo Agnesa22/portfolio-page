@@ -24,6 +24,7 @@ const GITHUB_CACHE_TIME =
 // =========================
 
 const projects = [
+
     {
         id: 1,
 
@@ -42,6 +43,15 @@ const projects = [
             "JavaScript"
         ],
 
+        challenge:
+            "Die Dienstleistungen rund um Immobilienbuchhaltung und Treuhand sollten klar, professionell und verständlich auf einer modernen Website präsentiert werden.",
+
+        solution:
+            "Die Website wurde mit einer klaren Informationsarchitektur, einer ruhigen visuellen Gestaltung und einer benutzerfreundlichen Navigation konzipiert und umgesetzt.",
+
+        result:
+            "Entstanden ist eine moderne Unternehmenswebsite, welche Leistungen strukturiert präsentiert und gleichzeitig eine professionelle digitale Präsenz schafft.",
+
         type:
             "browser",
 
@@ -54,6 +64,7 @@ const projects = [
         browserAddress:
             "casasierra.ch"
     },
+
 
     {
         id: 2,
@@ -73,6 +84,15 @@ const projects = [
             "Prototyping"
         ],
 
+        challenge:
+            "Typische Aufgaben im WG-Alltag sollten einfacher organisiert und für alle Bewohnerinnen und Bewohner transparent dargestellt werden.",
+
+        solution:
+            "Auf Basis von UX-Überlegungen wurde eine übersichtliche App-Struktur entwickelt und anschliessend als interaktiver Prototyp in Figma gestaltet.",
+
+        result:
+            "Der entstandene Prototyp zeigt eine intuitive und visuell klare Lösung für die gemeinsame Organisation des WG-Alltags.",
+
         type:
             "phone",
 
@@ -82,6 +102,7 @@ const projects = [
         imageAlt:
             "Vorschau des FairFlat Projekts"
     }
+
 ];
 
 
@@ -125,46 +146,50 @@ window.addEventListener(
 // PROJECT ARROW
 // =========================
 
-function createArrowSVG(
+function createProjectButton(
+    project,
     direction
 ) {
 
-    if (
-        direction
-        ===
-        "left"
-    ) {
+    const directionClass =
+        direction === "left"
+            ? "project-modal-trigger-left"
+            : "project-modal-trigger-right";
 
-        return `
-            <svg
-                class="arrow-icon project-arrow project-arrow-left"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
+    const arrow =
+        direction === "left"
+            ? `
                 <path d="M19 19 L5 5"></path>
                 <path d="M14 5 H5 V14"></path>
-            </svg>
-        `;
-
-    }
+            `
+            : `
+                <path d="M5 19 L19 5"></path>
+                <path d="M10 5 H19 V14"></path>
+            `;
 
 
     return `
-        <svg
-            class="arrow-icon project-arrow project-arrow-right"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+        <button
+            type="button"
+            class="project-modal-trigger ${directionClass}"
+            data-project-id="${project.id}"
+            aria-label="Details zu ${project.title} anzeigen"
         >
-            <path d="M5 19 L19 5"></path>
-            <path d="M10 5 H19 V14"></path>
-        </svg>
+            <svg
+                class="arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                ${arrow}
+            </svg>
+        </button>
     `;
 
 }
 
 
 // =========================
-// PROJECT VISUALS
+// PROJECT VISUAL
 // =========================
 
 function createProjectVisual(
@@ -214,38 +239,27 @@ function createProjectVisual(
     }
 
 
-    if (
-        project.type
-        ===
-        "phone"
-    ) {
+    return `
+        <div class="project-visual project-visual-fairflat">
 
-        return `
-            <div class="project-visual project-visual-fairflat">
+            <div class="fairflat-device">
 
-                <div class="fairflat-device">
+                <div class="fairflat-device-speaker"></div>
 
-                    <div class="fairflat-device-speaker"></div>
+                <div class="fairflat-device-screen">
 
-                    <div class="fairflat-device-screen">
-
-                        <img
-                            src="${project.image}"
-                            alt="${project.imageAlt}"
-                            class="fairflat-preview-image"
-                        >
-
-                    </div>
+                    <img
+                        src="${project.image}"
+                        alt="${project.imageAlt}"
+                        class="fairflat-preview-image"
+                    >
 
                 </div>
 
             </div>
-        `;
 
-    }
-
-
-    return "";
+        </div>
+    `;
 
 }
 
@@ -262,16 +276,6 @@ function createProjectMarkup(
     const isReverse =
         index % 2 !== 0;
 
-    const articleClass =
-        isReverse
-            ? "project-feature project-feature-reverse reveal"
-            : "project-feature reveal";
-
-    const technologyText =
-        project.technologies.join(
-            " · "
-        );
-
     const number =
         String(
             project.id
@@ -280,19 +284,14 @@ function createProjectMarkup(
             "0"
         );
 
+    const technologyText =
+        project.technologies.join(
+            " · "
+        );
+
     const visual =
         createProjectVisual(
             project
-        );
-
-    const leftArrow =
-        createArrowSVG(
-            "left"
-        );
-
-    const rightArrow =
-        createArrowSVG(
-            "right"
         );
 
 
@@ -301,7 +300,7 @@ function createProjectMarkup(
     ) {
 
         return `
-            <article class="${articleClass}">
+            <article class="project-feature reveal">
 
                 ${visual}
 
@@ -329,7 +328,10 @@ function createProjectMarkup(
 
                     <div class="project-footer project-footer-casasierra">
 
-                        ${leftArrow}
+                        ${createProjectButton(
+                            project,
+                            "left"
+                        )}
 
                         <p class="project-tech">
                             ${technologyText}
@@ -346,7 +348,7 @@ function createProjectMarkup(
 
 
     return `
-        <article class="${articleClass}">
+        <article class="project-feature project-feature-reverse reveal">
 
             ${visual}
 
@@ -378,7 +380,10 @@ function createProjectMarkup(
                         ${technologyText}
                     </p>
 
-                    ${rightArrow}
+                    ${createProjectButton(
+                        project,
+                        "right"
+                    )}
 
                 </div>
 
@@ -396,20 +401,20 @@ function createProjectMarkup(
 
 function renderProjects() {
 
-    const projectShowcase =
+    const container =
         document.querySelector(
             "#project-showcase"
         );
 
 
     if (
-        !projectShowcase
+        !container
     ) {
         return;
     }
 
 
-    projectShowcase.innerHTML =
+    container.innerHTML =
         projects
             .map(
                 (
@@ -422,6 +427,298 @@ function renderProjects() {
                     )
             )
             .join("");
+
+}
+
+
+// =========================
+// PROJECT MODAL
+// =========================
+
+function initialiseProjectModal() {
+
+    const modal =
+        document.querySelector(
+            "#project-modal"
+        );
+
+    if (
+        !modal
+    ) {
+        return;
+    }
+
+
+    const closeButton =
+        modal.querySelector(
+            ".project-modal-close"
+        );
+
+    let previouslyFocusedElement =
+        null;
+
+
+    function populateModal(
+        project
+    ) {
+
+        document.querySelector(
+            "#modal-project-number"
+        ).textContent =
+            String(
+                project.id
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        document.querySelector(
+            "#modal-project-category"
+        ).textContent =
+            project.category;
+
+
+        document.querySelector(
+            "#modal-project-title"
+        ).textContent =
+            project.title;
+
+
+        document.querySelector(
+            "#modal-project-description"
+        ).textContent =
+            project.description;
+
+
+        document.querySelector(
+            "#modal-project-challenge"
+        ).textContent =
+            project.challenge;
+
+
+        document.querySelector(
+            "#modal-project-solution"
+        ).textContent =
+            project.solution;
+
+
+        document.querySelector(
+            "#modal-project-result"
+        ).textContent =
+            project.result;
+
+
+        document.querySelector(
+            "#modal-project-technologies"
+        ).textContent =
+            project.technologies.join(
+                " · "
+            );
+
+    }
+
+
+    function openModal(
+        project
+    ) {
+
+        previouslyFocusedElement =
+            document.activeElement;
+
+
+        populateModal(
+            project
+        );
+
+
+        modal.classList.add(
+            "is-open"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+
+        setTimeout(
+            () => {
+
+                closeButton.focus();
+
+            },
+            50
+        );
+
+    }
+
+
+    function closeModal() {
+
+        modal.classList.remove(
+            "is-open"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+
+        if (
+            previouslyFocusedElement
+        ) {
+
+            previouslyFocusedElement.focus();
+
+        }
+
+    }
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const trigger =
+                event.target.closest(
+                    ".project-modal-trigger"
+                );
+
+
+            if (
+                trigger
+            ) {
+
+                const projectId =
+                    Number(
+                        trigger.dataset.projectId
+                    );
+
+
+                const project =
+                    projects.find(
+                        item =>
+                            item.id
+                            ===
+                            projectId
+                    );
+
+
+                if (
+                    project
+                ) {
+
+                    openModal(
+                        project
+                    );
+
+                }
+
+            }
+
+
+            if (
+                event.target.closest(
+                    "[data-modal-close]"
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key
+                ===
+                "Escape"
+                &&
+                modal.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+
+            if (
+                event.key
+                ===
+                "Tab"
+                &&
+                modal.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                const focusableElements =
+                    modal.querySelectorAll(
+                        "button, a, input, textarea, [tabindex]:not([tabindex='-1'])"
+                    );
+
+
+                const firstElement =
+                    focusableElements[0];
+
+                const lastElement =
+                    focusableElements[
+                        focusableElements.length - 1
+                    ];
+
+
+                if (
+                    event.shiftKey
+                    &&
+                    document.activeElement
+                    ===
+                    firstElement
+                ) {
+
+                    event.preventDefault();
+
+                    lastElement.focus();
+
+                } else if (
+                    !event.shiftKey
+                    &&
+                    document.activeElement
+                    ===
+                    lastElement
+                ) {
+
+                    event.preventDefault();
+
+                    firstElement.focus();
+
+                }
+
+            }
+
+        }
+    );
 
 }
 
@@ -453,16 +750,12 @@ function getCachedRepositories() {
             );
 
 
-        const cacheIsValid =
+        if (
             Date.now()
             -
             parsedData.timestamp
-            <
-            GITHUB_CACHE_TIME;
-
-
-        if (
-            !cacheIsValid
+            >
+            GITHUB_CACHE_TIME
         ) {
 
             localStorage.removeItem(
@@ -495,22 +788,15 @@ function cacheRepositories(
     repositories
 ) {
 
-    const cacheData = {
-
-        timestamp:
-            Date.now(),
-
-        repositories:
-            repositories
-
-    };
-
-
     localStorage.setItem(
         GITHUB_CACHE_KEY,
-        JSON.stringify(
-            cacheData
-        )
+        JSON.stringify({
+            timestamp:
+                Date.now(),
+
+            repositories:
+                repositories
+        })
     );
 
 }
@@ -531,13 +817,11 @@ async function fetchRepositories() {
     ) {
 
         return {
-
             repositories:
                 cachedRepositories,
 
             source:
                 "cache"
-
         };
 
     }
@@ -576,31 +860,23 @@ async function fetchRepositories() {
 
 
     return {
-
         repositories:
             repositories,
 
         source:
             "api"
-
     };
 
 }
 
 
 // =========================
-// DATE FORMATTING
+// GITHUB RENDERING
 // =========================
 
 function formatRepositoryDate(
     dateString
 ) {
-
-    const date =
-        new Date(
-            dateString
-        );
-
 
     return new Intl.DateTimeFormat(
         "de-CH",
@@ -615,35 +891,18 @@ function formatRepositoryDate(
                 "numeric"
         }
     ).format(
-        date
+        new Date(
+            dateString
+        )
     );
 
 }
 
 
-// =========================
-// REPOSITORY MARKUP
-// =========================
-
 function createRepositoryMarkup(
     repository,
     index
 ) {
-
-    const description =
-        repository.description
-        ||
-        "Öffentliches GitHub Repository.";
-
-    const language =
-        repository.language
-        ||
-        "Code";
-
-    const updatedDate =
-        formatRepositoryDate(
-            repository.updated_at
-        );
 
     const number =
         String(
@@ -669,24 +928,30 @@ function createRepositoryMarkup(
                 </span>
 
                 <span class="github-language">
-                    ${language}
+                    ${repository.language || "Code"}
                 </span>
 
             </div>
+
 
             <h3>
                 ${repository.name}
             </h3>
 
+
             <p class="github-description">
-                ${description}
+                ${repository.description || "Öffentliches GitHub Repository."}
             </p>
+
 
             <div class="github-card-footer">
 
                 <span class="github-updated">
-                    Updated ${updatedDate}
+                    Updated ${formatRepositoryDate(
+                        repository.updated_at
+                    )}
                 </span>
+
 
                 <svg
                     class="arrow-icon github-open"
@@ -705,25 +970,14 @@ function createRepositoryMarkup(
 }
 
 
-// =========================
-// RENDER REPOSITORIES
-// =========================
-
 function renderRepositories(
     repositories
 ) {
 
-    const repositoryContainer =
+    const container =
         document.querySelector(
             "#github-repositories"
         );
-
-
-    if (
-        !repositoryContainer
-    ) {
-        return;
-    }
 
 
     const visibleRepositories =
@@ -746,7 +1000,7 @@ function renderRepositories(
         0
     ) {
 
-        repositoryContainer.innerHTML =
+        container.innerHTML =
             `
                 <div class="github-error">
                     Aktuell sind keine öffentlichen Repositories verfügbar.
@@ -758,7 +1012,7 @@ function renderRepositories(
     }
 
 
-    repositoryContainer.innerHTML =
+    container.innerHTML =
         visibleRepositories
             .map(
                 (
@@ -775,41 +1029,12 @@ function renderRepositories(
 }
 
 
-// =========================
-// GITHUB STATUS
-// =========================
+async function loadGitHubRepositories() {
 
-function updateGitHubStatus(
-    message
-) {
-
-    const statusElement =
+    const status =
         document.querySelector(
             "#github-status"
         );
-
-
-    if (
-        statusElement
-    ) {
-
-        statusElement.textContent =
-            message;
-
-    }
-
-}
-
-
-// =========================
-// LOAD GITHUB
-// =========================
-
-async function loadGitHubRepositories() {
-
-    updateGitHubStatus(
-        "Repositories werden geladen..."
-    );
 
 
     try {
@@ -823,58 +1048,24 @@ async function loadGitHubRepositories() {
         );
 
 
-        if (
+        status.textContent =
             result.source
             ===
             "cache"
-        ) {
-
-            updateGitHubStatus(
-                "GitHub Daten aus lokalem Cache geladen"
-            );
-
-        } else {
-
-            updateGitHubStatus(
-                "GitHub Daten erfolgreich aktualisiert"
-            );
-
-        }
+                ? "GitHub Daten aus lokalem Cache geladen"
+                : "GitHub Daten erfolgreich aktualisiert";
 
     } catch (
         error
     ) {
 
         console.error(
-            "GitHub repositories could not be loaded:",
             error
         );
 
 
-        updateGitHubStatus(
-            "GitHub Daten konnten nicht geladen werden"
-        );
-
-
-        const repositoryContainer =
-            document.querySelector(
-                "#github-repositories"
-            );
-
-
-        if (
-            repositoryContainer
-        ) {
-
-            repositoryContainer.innerHTML =
-                `
-                    <div class="github-error">
-                        Die GitHub-Repositories sind momentan nicht verfügbar.
-                        Bitte besuche mein GitHub-Profil direkt.
-                    </div>
-                `;
-
-        }
+        status.textContent =
+            "GitHub Daten konnten nicht geladen werden";
 
     }
 
@@ -887,7 +1078,7 @@ async function loadGitHubRepositories() {
 
 function initialiseNavigation() {
 
-    const menuToggle =
+    const button =
         document.querySelector(
             ".menu-toggle"
         );
@@ -897,51 +1088,10 @@ function initialiseNavigation() {
             ".nav-links"
         );
 
-    const navigationLinks =
-        document.querySelectorAll(
-            ".nav-links a"
-        );
-
-
-    if (
-        !menuToggle
-        ||
-        !navigation
-    ) {
-        return;
-    }
-
-
-    function openMenu() {
-
-        menuToggle.classList.add(
-            "is-active"
-        );
-
-        navigation.classList.add(
-            "is-open"
-        );
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Navigation schliessen"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
 
     function closeMenu() {
 
-        menuToggle.classList.remove(
+        button.classList.remove(
             "is-active"
         );
 
@@ -949,14 +1099,9 @@ function initialiseNavigation() {
             "is-open"
         );
 
-        menuToggle.setAttribute(
+        button.setAttribute(
             "aria-expanded",
             "false"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Navigation öffnen"
         );
 
         document.body.classList.remove(
@@ -966,32 +1111,40 @@ function initialiseNavigation() {
     }
 
 
-    function toggleMenu() {
+    button.addEventListener(
+        "click",
+        () => {
 
-        if (
-            menuToggle.classList.contains(
-                "is-active"
-            )
-        ) {
+            const open =
+                button.classList.toggle(
+                    "is-active"
+                );
 
-            closeMenu();
 
-        } else {
+            navigation.classList.toggle(
+                "is-open",
+                open
+            );
 
-            openMenu();
+
+            button.setAttribute(
+                "aria-expanded",
+                String(open)
+            );
+
+
+            document.body.classList.toggle(
+                "menu-open",
+                open
+            );
 
         }
-
-    }
-
-
-    menuToggle.addEventListener(
-        "click",
-        toggleMenu
     );
 
 
-    navigationLinks.forEach(
+    document.querySelectorAll(
+        ".nav-links a"
+    ).forEach(
         link => {
 
             link.addEventListener(
@@ -1002,29 +1155,11 @@ function initialiseNavigation() {
         }
     );
 
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key
-                ===
-                "Escape"
-            ) {
-
-                closeMenu();
-
-            }
-
-        }
-    );
-
 }
 
 
 // =========================
-// CONTACT VALIDATION
+// CONTACT FORM
 // =========================
 
 function initialiseContactForm() {
@@ -1067,109 +1202,61 @@ function initialiseContactForm() {
         );
 
 
-    const MAX_MESSAGE_LENGTH =
-        1000;
-
-
     function showError(
         input,
-        errorElementId,
+        errorId,
         message
     ) {
 
-        const errorElement =
-            document.querySelector(
-                `#${errorElementId}`
-            );
+        document.querySelector(
+            `#${errorId}`
+        ).textContent =
+            message;
 
-        const formGroup =
-            input.closest(
+
+        input
+            .closest(
                 ".form-group"
-            );
-
-
-        if (
-            errorElement
-        ) {
-
-            errorElement.textContent =
-                message;
-
-        }
-
-
-        if (
-            formGroup
-        ) {
-
-            formGroup.classList.add(
+            )
+            .classList
+            .add(
                 "has-error"
             );
-
-        }
-
-
-        input.setAttribute(
-            "aria-invalid",
-            "true"
-        );
 
     }
 
 
     function clearError(
         input,
-        errorElementId
+        errorId
     ) {
 
-        const errorElement =
-            document.querySelector(
-                `#${errorElementId}`
-            );
+        document.querySelector(
+            `#${errorId}`
+        ).textContent =
+            "";
 
-        const formGroup =
-            input.closest(
+
+        input
+            .closest(
                 ".form-group"
-            );
-
-
-        if (
-            errorElement
-        ) {
-
-            errorElement.textContent =
-                "";
-
-        }
-
-
-        if (
-            formGroup
-        ) {
-
-            formGroup.classList.remove(
+            )
+            .classList
+            .remove(
                 "has-error"
             );
-
-        }
-
-
-        input.removeAttribute(
-            "aria-invalid"
-        );
 
     }
 
 
     function validateName() {
 
-        const value =
-            nameInput.value.trim();
-
-
         if (
-            value.length
-            < 2
+            nameInput.value
+                .trim()
+                .length
+            <
+            2
         ) {
 
             showError(
@@ -1195,16 +1282,13 @@ function initialiseContactForm() {
 
     function validateEmail() {
 
-        const value =
-            emailInput.value.trim();
-
         const emailPattern =
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
         if (
             !emailPattern.test(
-                value
+                emailInput.value.trim()
             )
         ) {
 
@@ -1231,13 +1315,14 @@ function initialiseContactForm() {
 
     function validateMessage() {
 
-        const value =
+        const message =
             messageInput.value.trim();
 
 
         if (
-            value.length
-            < 10
+            message.length
+            <
+            10
         ) {
 
             showError(
@@ -1252,9 +1337,9 @@ function initialiseContactForm() {
 
 
         if (
-            value.length
+            message.length
             >
-            MAX_MESSAGE_LENGTH
+            1000
         ) {
 
             showError(
@@ -1278,33 +1363,15 @@ function initialiseContactForm() {
     }
 
 
-    function updateCharacterCount() {
+    messageInput.addEventListener(
+        "input",
+        () => {
 
-        const length =
-            messageInput.value.length;
-
-
-        characterCount.textContent =
-            `${length} / ${MAX_MESSAGE_LENGTH}`;
-
-
-        if (
-            length
-            >
-            MAX_MESSAGE_LENGTH
-        ) {
-
-            characterCount.style.color =
-                "#ffb2b2";
-
-        } else {
-
-            characterCount.style.color =
-                "";
+            characterCount.textContent =
+                `${messageInput.value.length} / 1000`;
 
         }
-
-    }
+    );
 
 
     nameInput.addEventListener(
@@ -1325,12 +1392,6 @@ function initialiseContactForm() {
     );
 
 
-    messageInput.addEventListener(
-        "input",
-        updateCharacterCount
-    );
-
-
     form.addEventListener(
         "submit",
         event => {
@@ -1338,30 +1399,16 @@ function initialiseContactForm() {
             event.preventDefault();
 
 
-            formStatus.textContent =
-                "";
-
-            formStatus.classList.remove(
-                "is-success"
-            );
-
-
-            const nameIsValid =
-                validateName();
-
-            const emailIsValid =
-                validateEmail();
-
-            const messageIsValid =
+            const valid =
+                validateName()
+                &&
+                validateEmail()
+                &&
                 validateMessage();
 
 
             if (
-                !nameIsValid
-                ||
-                !emailIsValid
-                ||
-                !messageIsValid
+                !valid
             ) {
 
                 formStatus.textContent =
@@ -1375,7 +1422,7 @@ function initialiseContactForm() {
             const name =
                 nameInput.value.trim();
 
-            const senderEmail =
+            const sender =
                 emailInput.value.trim();
 
             const message =
@@ -1391,17 +1438,13 @@ function initialiseContactForm() {
             const body =
                 encodeURIComponent(
                     `Name: ${name}\n` +
-                    `E-Mail: ${senderEmail}\n\n` +
+                    `E-Mail: ${sender}\n\n` +
                     `Nachricht:\n${message}`
                 );
 
 
             formStatus.textContent =
                 "Alles geprüft – dein E-Mail-Programm wird geöffnet.";
-
-            formStatus.classList.add(
-                "is-success"
-            );
 
 
             window.location.href =
@@ -1416,12 +1459,12 @@ function initialiseContactForm() {
 
 
 // =========================
-// SCROLL ANIMATIONS
+// REVEAL ANIMATIONS
 // =========================
 
 function initialiseRevealAnimations() {
 
-    const revealElements =
+    const elements =
         document.querySelectorAll(
             ".section-number, " +
             ".section-heading, " +
@@ -1435,26 +1478,9 @@ function initialiseRevealAnimations() {
         );
 
 
-    const observerOptions = {
-
-        root:
-            null,
-
-        rootMargin:
-            "0px 0px -10% 0px",
-
-        threshold:
-            0.15
-
-    };
-
-
-    const revealObserver =
+    const observer =
         new IntersectionObserver(
-            (
-                entries,
-                observer
-            ) => {
+            entries => {
 
                 entries.forEach(
                     entry => {
@@ -1469,7 +1495,6 @@ function initialiseRevealAnimations() {
                                     "is-visible"
                                 );
 
-
                             observer.unobserve(
                                 entry.target
                             );
@@ -1480,48 +1505,23 @@ function initialiseRevealAnimations() {
                 );
 
             },
-            observerOptions
+            {
+                threshold:
+                    0.15
+            }
         );
 
 
-    revealElements.forEach(
+    elements.forEach(
         element => {
 
             element.classList.add(
                 "reveal"
             );
 
-            revealObserver.observe(
+            observer.observe(
                 element
             );
-
-        }
-    );
-
-}
-
-
-// =========================
-// SKILL ANIMATION DELAYS
-// =========================
-
-function initialiseSkillAnimations() {
-
-    const skillItems =
-        document.querySelectorAll(
-            ".skill-item"
-        );
-
-
-    skillItems.forEach(
-        (
-            element,
-            index
-        ) => {
-
-            element.style
-                .transitionDelay =
-                `${index * 0.12}s`;
 
         }
     );
@@ -1535,7 +1535,7 @@ function initialiseSkillAnimations() {
 
 function initialiseHeroAnimation() {
 
-    const heroElements =
+    const elements =
         document.querySelectorAll(
             ".hero-label, " +
             ".hero h1, " +
@@ -1544,7 +1544,7 @@ function initialiseHeroAnimation() {
         );
 
 
-    heroElements.forEach(
+    elements.forEach(
         (
             element,
             index
@@ -1558,11 +1558,9 @@ function initialiseHeroAnimation() {
             setTimeout(
                 () => {
 
-                    element
-                        .classList
-                        .add(
-                            "hero-visible"
-                        );
+                    element.classList.add(
+                        "hero-visible"
+                    );
 
                 },
                 180
@@ -1579,7 +1577,7 @@ function initialiseHeroAnimation() {
 
 
 // =========================
-// START APPLICATION
+// START
 // =========================
 
 document.addEventListener(
@@ -1588,13 +1586,13 @@ document.addEventListener(
 
         renderProjects();
 
+        initialiseProjectModal();
+
         initialiseNavigation();
 
         initialiseContactForm();
 
         initialiseRevealAnimations();
-
-        initialiseSkillAnimations();
 
         initialiseHeroAnimation();
 
