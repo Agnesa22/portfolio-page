@@ -19,12 +19,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- NAVIGATION -->
 
     <header class="site-header">
 
@@ -65,37 +62,11 @@
                 class="nav-links"
                 id="main-navigation"
             >
-
-                <li>
-                    <a href="#about">
-                        Biography
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#skills">
-                        Skills
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#projects">
-                        My Work
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#github">
-                        GitHub
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#contact">
-                        Contact
-                    </a>
-                </li>
-
+                <li><a href="#about">Biography</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">My Work</a></li>
+                <li><a href="#github">GitHub</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
 
         </nav>
@@ -105,9 +76,7 @@
 
     <main>
 
-        <!-- =========================
-             HERO
-        ========================== -->
+        <!-- HERO -->
 
         <section
             id="home"
@@ -161,9 +130,7 @@
         </section>
 
 
-        <!-- =========================
-             BIOGRAPHY
-        ========================== -->
+        <!-- BIOGRAPHY -->
 
         <section
             id="about"
@@ -253,9 +220,7 @@
         </section>
 
 
-        <!-- =========================
-             SKILLS
-        ========================== -->
+        <!-- SKILLS -->
 
         <section
             id="skills"
@@ -358,9 +323,7 @@
         </section>
 
 
-        <!-- =========================
-             SELECTED WORK
-        ========================== -->
+        <!-- PROJECTS -->
 
         <section
             id="projects"
@@ -397,9 +360,7 @@
         </section>
 
 
-        <!-- =========================
-             GITHUB API
-        ========================== -->
+        <!-- GITHUB -->
 
         <section
             id="github"
@@ -478,9 +439,7 @@
         </section>
 
 
-        <!-- =========================
-             CONTACT
-        ========================== -->
+        <!-- CONTACT -->
 
         <section
             id="contact"
@@ -518,8 +477,6 @@
                     novalidate
                 >
 
-                    <!-- NAME -->
-
                     <div class="form-group">
 
                         <label for="contact-name">
@@ -543,8 +500,6 @@
                     </div>
 
 
-                    <!-- EMAIL -->
-
                     <div class="form-group">
 
                         <label for="contact-email">
@@ -567,8 +522,6 @@
 
                     </div>
 
-
-                    <!-- MESSAGE -->
 
                     <div class="form-group form-group-message">
 
@@ -639,9 +592,7 @@
                         Oder direkt per E-Mail
                     </span>
 
-                    <a
-                        href="mailto:pajaziti.agnesa@hotmail.com"
-                    >
+                    <a href="mailto:pajaziti.agnesa@hotmail.com">
                         pajaziti.agnesa@hotmail.com
                     </a>
 
@@ -654,9 +605,127 @@
     </main>
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+    <!-- PROJECT MODAL -->
+
+    <div
+        class="project-modal"
+        id="project-modal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="project-modal-backdrop"
+            data-modal-close
+        ></div>
+
+
+        <div
+            class="project-modal-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-project-title"
+        >
+
+            <button
+                class="project-modal-close"
+                type="button"
+                aria-label="Projektansicht schliessen"
+                data-modal-close
+            >
+                <span></span>
+                <span></span>
+            </button>
+
+
+            <div class="project-modal-meta">
+
+                <span id="modal-project-number">
+                    01
+                </span>
+
+                <span id="modal-project-category">
+                    Web Development
+                </span>
+
+            </div>
+
+
+            <h2 id="modal-project-title">
+                Projekt
+            </h2>
+
+
+            <p
+                class="project-modal-intro"
+                id="modal-project-description"
+            ></p>
+
+
+            <div class="project-modal-grid">
+
+                <article class="modal-detail">
+
+                    <span class="modal-detail-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Ausgangslage
+                    </h3>
+
+                    <p id="modal-project-challenge"></p>
+
+                </article>
+
+
+                <article class="modal-detail">
+
+                    <span class="modal-detail-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Umsetzung
+                    </h3>
+
+                    <p id="modal-project-solution"></p>
+
+                </article>
+
+
+                <article class="modal-detail">
+
+                    <span class="modal-detail-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Ergebnis
+                    </h3>
+
+                    <p id="modal-project-result"></p>
+
+                </article>
+
+            </div>
+
+
+            <div class="project-modal-footer">
+
+                <span>
+                    Technologies
+                </span>
+
+                <p id="modal-project-technologies"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
 
     <footer>
 
