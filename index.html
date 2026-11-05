@@ -16,14 +16,26 @@
 
     <title>Agnesa Pajaziti | Portfolio</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- CUSTOM CURSOR -->
+
+    <div
+        class="custom-cursor"
+        id="custom-cursor"
+        aria-hidden="true"
+    >
+        <span id="custom-cursor-text"></span>
+    </div>
+
+
+    <!-- HEADER -->
 
     <header class="site-header">
 
@@ -32,6 +44,7 @@
             <a
                 href="#home"
                 class="brand-block"
+                data-cursor="HOME"
             >
                 <span class="brand-subtitle">
                     Portfolio / 2026
@@ -51,6 +64,7 @@
                     aria-label="Navigation öffnen"
                     aria-expanded="false"
                     aria-controls="main-navigation"
+                    data-cursor="MENU"
                 >
                     <span></span>
                     <span></span>
@@ -64,11 +78,59 @@
                 class="nav-links"
                 id="main-navigation"
             >
-                <li><a href="#about">Biography</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">My Work</a></li>
-                <li><a href="#github">GitHub</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a
+                        href="#about"
+                        data-cursor="OPEN"
+                    >
+                        Biography
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#experience"
+                        data-cursor="OPEN"
+                    >
+                        Experience
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#skills"
+                        data-cursor="OPEN"
+                    >
+                        Skills
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#projects"
+                        data-cursor="OPEN"
+                    >
+                        My Work
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#github"
+                        data-cursor="OPEN"
+                    >
+                        GitHub
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#contact"
+                        data-cursor="OPEN"
+                    >
+                        Contact
+                    </a>
+                </li>
             </ul>
 
         </nav>
@@ -78,9 +140,7 @@
 
     <main>
 
-        <!-- =========================
-             HERO
-        ========================== -->
+        <!-- HERO -->
 
         <section
             id="home"
@@ -88,14 +148,18 @@
         >
 
             <div
-                class="hero-orb hero-orb-one"
+                class="hero-background-word"
+                aria-hidden="true"
+            >
+                AP
+            </div>
+
+
+            <div
+                class="hero-orb"
                 aria-hidden="true"
             ></div>
 
-            <div
-                class="hero-orb hero-orb-two"
-                aria-hidden="true"
-            ></div>
 
             <div
                 class="hero-grid-decoration"
@@ -105,43 +169,109 @@
 
             <div class="hero-main">
 
-                <p class="hero-label">
-                    Business Information Technology
-                </p>
+                <div class="hero-copy">
 
-                <h1>
-                    Agnesa
-
-                    <span>
-                        Pajaziti
-                    </span>
-                </h1>
-
-
-                <div class="hero-bottom">
-
-                    <p class="hero-description">
-                        Ich verbinde Business und Technologie und interessiere
-                        mich besonders für Webentwicklung, UX/UI,
-                        digitale Prozesse und innovative Lösungen.
+                    <p class="hero-label">
+                        Business Information Technology
                     </p>
 
+                    <h1>
+                        Agnesa
 
-                    <a
-                        href="#projects"
-                        class="hero-link"
-                    >
-                        Selected Work
+                        <span>
+                            Pajaziti
+                        </span>
+                    </h1>
 
-                        <svg
-                            class="arrow-icon"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
+
+                    <div class="hero-bottom">
+
+                        <p class="hero-description">
+                            Ich verbinde Business und Technologie und interessiere
+                            mich besonders für Webentwicklung, UX/UI,
+                            digitale Prozesse und innovative Lösungen.
+                        </p>
+
+
+                        <a
+                            href="#projects"
+                            class="hero-link"
+                            data-cursor="VIEW"
                         >
-                            <path d="M5 5 L19 19"></path>
-                            <path d="M10 19 H19 V10"></path>
-                        </svg>
-                    </a>
+                            Selected Work
+
+                            <svg
+                                class="arrow-icon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 5 L19 19"></path>
+                                <path d="M10 19 H19 V10"></path>
+                            </svg>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FLOATING CARDS -->
+
+                <div
+                    class="hero-cards"
+                    id="hero-cards"
+                    aria-hidden="true"
+                >
+
+                    <article class="hero-card hero-card-one">
+
+                        <span>
+                            01
+                        </span>
+
+                        <p>
+                            Business IT
+                        </p>
+
+                        <strong>
+                            BFH
+                        </strong>
+
+                    </article>
+
+
+                    <article class="hero-card hero-card-two">
+
+                        <span>
+                            02
+                        </span>
+
+                        <p>
+                            UX / UI
+                        </p>
+
+                        <strong>
+                            Figma · Research
+                        </strong>
+
+                    </article>
+
+
+                    <article class="hero-card hero-card-three">
+
+                        <span>
+                            03
+                        </span>
+
+                        <p>
+                            Development
+                        </p>
+
+                        <strong>
+                            HTML · CSS · JS
+                        </strong>
+
+                    </article>
 
                 </div>
 
@@ -150,9 +280,7 @@
         </section>
 
 
-        <!-- =========================
-             EDITORIAL TICKER
-        ========================== -->
+        <!-- TICKER -->
 
         <section
             class="ticker-section"
@@ -164,34 +292,43 @@
                 <div class="ticker-content">
 
                     <span>Business</span>
-                    <span class="ticker-dot">●</span>
+                    <i>●</i>
 
-                    <span>Technology</span>
-                    <span class="ticker-dot">●</span>
-
-                    <span>UX/UI</span>
-                    <span class="ticker-dot">●</span>
-
-                    <span>Digital Transformation</span>
-                    <span class="ticker-dot">●</span>
-
-                    <span>Web Development</span>
-                    <span class="ticker-dot">●</span>
-
-                    <span>Business</span>
-                    <span class="ticker-dot">●</span>
-
-                    <span>Technology</span>
-                    <span class="ticker-dot">●</span>
+                    <span class="ticker-outline">
+                        Technology
+                    </span>
+                    <i>●</i>
 
                     <span>UX/UI</span>
-                    <span class="ticker-dot">●</span>
+                    <i>●</i>
 
-                    <span>Digital Transformation</span>
-                    <span class="ticker-dot">●</span>
+                    <span class="ticker-outline">
+                        Digital Transformation
+                    </span>
+                    <i>●</i>
 
                     <span>Web Development</span>
-                    <span class="ticker-dot">●</span>
+                    <i>●</i>
+
+                    <span class="ticker-outline">
+                        Business
+                    </span>
+                    <i>●</i>
+
+                    <span>Technology</span>
+                    <i>●</i>
+
+                    <span class="ticker-outline">
+                        UX/UI
+                    </span>
+                    <i>●</i>
+
+                    <span>Digital Transformation</span>
+                    <i>●</i>
+
+                    <span class="ticker-outline">
+                        Web Development
+                    </span>
 
                 </div>
 
@@ -200,9 +337,7 @@
         </section>
 
 
-        <!-- =========================
-             BIOGRAPHY
-        ========================== -->
+        <!-- BIOGRAPHY -->
 
         <section
             id="about"
@@ -235,16 +370,20 @@
 
                 <div class="bio-image-column">
 
-                    <div
-                        class="bio-image-frame parallax-element"
-                        data-parallax-speed="0.10"
-                    >
+                    <div class="bio-image-frame">
 
                         <img
                             src="Pajaziti_Agnesa_paz_10922_bea.jpg"
                             alt="Portrait von Agnesa Pajaziti"
                             class="bio-image"
                         >
+
+                        <div
+                            class="image-number"
+                            aria-hidden="true"
+                        >
+                            AP
+                        </div>
 
                     </div>
 
@@ -288,6 +427,27 @@
 
                     </div>
 
+
+                    <div class="bio-tags">
+
+                        <span>
+                            Business
+                        </span>
+
+                        <span>
+                            Technology
+                        </span>
+
+                        <span>
+                            UX/UI
+                        </span>
+
+                        <span>
+                            Digital Projects
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -295,9 +455,234 @@
         </section>
 
 
-        <!-- =========================
-             SKILLS
-        ========================== -->
+        <!-- EXPERIENCE -->
+
+        <section
+            id="experience"
+            class="experience-section"
+        >
+
+            <div class="experience-inner">
+
+                <div class="section-number">
+                    02
+                </div>
+
+
+                <div class="section-heading">
+
+                    <p>
+                        Experience
+                    </p>
+
+                    <h2>
+                        Where business
+
+                        <span>
+                            becomes practice.
+                        </span>
+                    </h2>
+
+                </div>
+
+
+                <div class="experience-grid">
+
+                    <!-- CURRENT -->
+
+                    <article
+                        class="experience-card experience-current"
+                        data-cursor="CURRENT"
+                    >
+
+                        <div class="experience-top">
+
+                            <span class="experience-period">
+                                10/2025 — Today
+                            </span>
+
+                            <span class="experience-status">
+                                Current
+                            </span>
+
+                        </div>
+
+
+                        <div class="experience-company">
+                            Valiant Bank
+                        </div>
+
+
+                        <h3>
+                            Fachspezialistin
+                            <span>E-Banking</span>
+                        </h3>
+
+
+                        <p>
+                            Betreuung komplexer E-Banking-Themen im
+                            3rd-Level-Support sowie Mitarbeit bei digitalen
+                            Projekten, Tests und Optimierungen.
+                        </p>
+
+
+                        <div class="experience-tags">
+
+                            <span>
+                                E-Banking
+                            </span>
+
+                            <span>
+                                QA / Testing
+                            </span>
+
+                            <span>
+                                Payments
+                            </span>
+
+                            <span>
+                                UX
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- ROBERT PFISTER -->
+
+                    <article
+                        class="experience-card"
+                        data-cursor="VIEW"
+                    >
+
+                        <div class="experience-top">
+
+                            <span class="experience-period">
+                                06/2024 — 09/2025
+                            </span>
+
+                            <span>
+                                02
+                            </span>
+
+                        </div>
+
+
+                        <div class="experience-company">
+                            Robert Pfister AG
+                        </div>
+
+
+                        <h3>
+                            Sachbearbeitung
+                            <span>Buchhaltung & IT</span>
+                        </h3>
+
+
+                        <p>
+                            Mitarbeit in der Finanzbuchhaltung sowie
+                            Unterstützung bei digitalen Systemen,
+                            ERP-Prozessen und internen IT-Themen.
+                        </p>
+
+
+                        <div class="experience-tags">
+
+                            <span>
+                                Finance
+                            </span>
+
+                            <span>
+                                ERP
+                            </span>
+
+                            <span>
+                                IT
+                            </span>
+
+                            <span>
+                                Processes
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- UNIA -->
+
+                    <article
+                        class="experience-card"
+                        data-cursor="VIEW"
+                    >
+
+                        <div class="experience-top">
+
+                            <span class="experience-period">
+                                Until 05/2024
+                            </span>
+
+                            <span>
+                                03
+                            </span>
+
+                        </div>
+
+
+                        <div class="experience-company">
+                            Unia
+                        </div>
+
+
+                        <h3>
+                            Kundenservice
+                            <span>& Zahlstelle ALV</span>
+                        </h3>
+
+
+                        <p>
+                            Kundenbetreuung und Bearbeitung administrativer
+                            Anliegen im Umfeld der Arbeitslosenversicherung.
+                        </p>
+
+
+                        <div class="experience-tags">
+
+                            <span>
+                                Customer Service
+                            </span>
+
+                            <span>
+                                Administration
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <div class="experience-footer">
+
+                    <p>
+                        Mein vollständiger Lebenslauf kann später direkt
+                        als PDF eingebunden werden.
+                    </p>
+
+                    <span>
+                        CV / Coming soon
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILLS -->
 
         <section
             id="skills"
@@ -305,7 +690,7 @@
         >
 
             <div class="section-number">
-                02
+                03
             </div>
 
 
@@ -330,6 +715,10 @@
 
                 <article class="skill-item">
 
+                    <span class="skill-background-number">
+                        01
+                    </span>
+
                     <span class="skill-number">
                         01
                     </span>
@@ -346,6 +735,10 @@
 
 
                 <article class="skill-item">
+
+                    <span class="skill-background-number">
+                        02
+                    </span>
 
                     <span class="skill-number">
                         02
@@ -364,6 +757,10 @@
 
                 <article class="skill-item">
 
+                    <span class="skill-background-number">
+                        03
+                    </span>
+
                     <span class="skill-number">
                         03
                     </span>
@@ -380,6 +777,10 @@
 
 
                 <article class="skill-item">
+
+                    <span class="skill-background-number">
+                        04
+                    </span>
 
                     <span class="skill-number">
                         04
@@ -400,9 +801,7 @@
         </section>
 
 
-        <!-- =========================
-             PROJECTS
-        ========================== -->
+        <!-- PROJECTS -->
 
         <section
             id="projects"
@@ -410,7 +809,7 @@
         >
 
             <div class="section-number">
-                03
+                04
             </div>
 
 
@@ -439,9 +838,7 @@
         </section>
 
 
-        <!-- =========================
-             GITHUB
-        ========================== -->
+        <!-- GITHUB -->
 
         <section
             id="github"
@@ -451,7 +848,7 @@
             <div class="github-inner">
 
                 <div class="section-number">
-                    04
+                    05
                 </div>
 
 
@@ -485,6 +882,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                         class="github-profile-link"
+                        data-cursor="OPEN"
                     >
                         GitHub Profile
 
@@ -520,9 +918,7 @@
         </section>
 
 
-        <!-- =========================
-             CONTACT
-        ========================== -->
+        <!-- CONTACT -->
 
         <section
             id="contact"
@@ -534,7 +930,7 @@
                 <div class="contact-header">
 
                     <p class="contact-label">
-                        05 / Let’s connect
+                        06 / Let’s connect
                     </p>
 
                     <h2>
@@ -570,9 +966,7 @@
                             type="text"
                             id="contact-name"
                             name="name"
-                            autocomplete="name"
                             placeholder="Dein Name"
-                            aria-describedby="name-error"
                         >
 
                         <p
@@ -593,9 +987,7 @@
                             type="email"
                             id="contact-email"
                             name="email"
-                            autocomplete="email"
                             placeholder="deine@email.ch"
-                            aria-describedby="email-error"
                         >
 
                         <p
@@ -617,7 +1009,6 @@
                             name="message"
                             rows="6"
                             placeholder="Worum geht es?"
-                            aria-describedby="message-error"
                         ></textarea>
 
                         <div class="message-meta">
@@ -651,6 +1042,7 @@
                         <button
                             type="submit"
                             class="contact-submit"
+                            data-cursor="SEND"
                         >
                             Nachricht vorbereiten
 
@@ -675,7 +1067,10 @@
                         Oder direkt per E-Mail
                     </span>
 
-                    <a href="mailto:pajaziti.agnesa@hotmail.com">
+                    <a
+                        href="mailto:pajaziti.agnesa@hotmail.com"
+                        data-cursor="MAIL"
+                    >
                         pajaziti.agnesa@hotmail.com
                     </a>
 
@@ -688,9 +1083,7 @@
     </main>
 
 
-    <!-- =========================
-         PROJECT MODAL
-    ========================== -->
+    <!-- PROJECT MODAL -->
 
     <div
         class="project-modal"
@@ -708,36 +1101,27 @@
             class="project-modal-dialog"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="modal-project-title"
         >
 
             <button
                 class="project-modal-close"
                 type="button"
-                aria-label="Projektansicht schliessen"
                 data-modal-close
             >
-                <span></span>
-                <span></span>
+                ×
             </button>
 
 
             <div class="project-modal-meta">
 
-                <span id="modal-project-number">
-                    01
-                </span>
+                <span id="modal-project-number"></span>
 
-                <span id="modal-project-category">
-                    Web Development
-                </span>
+                <span id="modal-project-category"></span>
 
             </div>
 
 
-            <h2 id="modal-project-title">
-                Projekt
-            </h2>
+            <h2 id="modal-project-title"></h2>
 
 
             <p
@@ -750,7 +1134,7 @@
 
                 <article class="modal-detail">
 
-                    <span class="modal-detail-number">
+                    <span>
                         01
                     </span>
 
@@ -765,7 +1149,7 @@
 
                 <article class="modal-detail">
 
-                    <span class="modal-detail-number">
+                    <span>
                         02
                     </span>
 
@@ -780,7 +1164,7 @@
 
                 <article class="modal-detail">
 
-                    <span class="modal-detail-number">
+                    <span>
                         03
                     </span>
 
@@ -809,8 +1193,6 @@
 
     </div>
 
-
-    <!-- FOOTER -->
 
     <footer>
 
