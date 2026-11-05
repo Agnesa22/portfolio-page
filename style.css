@@ -25,7 +25,9 @@
 }
 
 
-/* RESET */
+/* =========================
+   RESET
+========================= */
 
 * {
     box-sizing: border-box;
@@ -42,6 +44,7 @@ body {
     background-color: var(--cream);
     color: var(--text);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 body.menu-open,
@@ -65,7 +68,9 @@ textarea {
 }
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .site-header {
     position: fixed;
@@ -83,21 +88,29 @@ textarea {
         1px solid
         rgba(122, 31, 43, 0.14);
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
 }
 
 .navbar {
-    max-width: var(--max-width);
-    min-height: var(--header-height);
+    max-width:
+        var(--max-width);
 
-    margin: 0 auto;
+    min-height:
+        var(--header-height);
+
+    margin:
+        0 auto;
 
     padding:
         16px
         40px;
 
-    display: flex;
+    display:
+        flex;
 
     justify-content:
         space-between;
@@ -107,7 +120,8 @@ textarea {
 }
 
 .brand-block {
-    display: flex;
+    display:
+        flex;
 
     align-items:
         center;
@@ -140,10 +154,13 @@ textarea {
 }
 
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
 
 .menu-area {
-    display: flex;
+    display:
+        flex;
 
     align-items:
         center;
@@ -170,9 +187,11 @@ textarea {
 }
 
 .menu-toggle {
-    display: block;
+    display:
+        block;
 
-    position: relative;
+    position:
+        relative;
 
     width:
         44px;
@@ -270,10 +289,13 @@ span:nth-child(3) {
 }
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 .nav-links {
-    position: fixed;
+    position:
+        fixed;
 
     top:
         var(--header-height);
@@ -396,7 +418,9 @@ span:nth-child(3) {
 }
 
 
-/* ARROWS */
+/* =========================
+   ARROWS
+========================= */
 
 .arrow-icon {
     width:
@@ -428,9 +452,14 @@ span:nth-child(3) {
 }
 
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
+    position:
+        relative;
+
     min-height:
         100vh;
 
@@ -445,16 +474,20 @@ span:nth-child(3) {
     align-items:
         center;
 
+    overflow:
+        hidden;
+
     background:
-        radial-gradient(
-            circle at 85% 35%,
-            rgba(122, 31, 43, 0.12),
-            transparent 32%
-        ),
         var(--cream-light);
 }
 
 .hero-main {
+    position:
+        relative;
+
+    z-index:
+        4;
+
     max-width:
         var(--max-width);
 
@@ -464,6 +497,181 @@ span:nth-child(3) {
     margin:
         0 auto;
 }
+
+
+/* HERO BACKGROUND ORBS */
+
+.hero-orb {
+    position:
+        absolute;
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
+    will-change:
+        transform;
+
+    transition:
+        transform 0.15s linear;
+}
+
+.hero-orb-one {
+    width:
+        520px;
+
+    height:
+        520px;
+
+    right:
+        -100px;
+
+    top:
+        13%;
+
+    background:
+        rgba(122, 31, 43, 0.12);
+
+    filter:
+        blur(1px);
+
+    animation:
+        orbFloatOne
+        11s
+        ease-in-out
+        infinite;
+}
+
+.hero-orb-two {
+    width:
+        270px;
+
+    height:
+        270px;
+
+    left:
+        8%;
+
+    bottom:
+        -95px;
+
+    border:
+        1px solid
+        rgba(122, 31, 43, 0.18);
+
+    background:
+        rgba(122, 31, 43, 0.025);
+
+    animation:
+        orbFloatTwo
+        14s
+        ease-in-out
+        infinite;
+}
+
+.hero-grid-decoration {
+    position:
+        absolute;
+
+    z-index:
+        1;
+
+    width:
+        340px;
+
+    height:
+        340px;
+
+    right:
+        8%;
+
+    top:
+        20%;
+
+    opacity:
+        0.18;
+
+    background-image:
+        linear-gradient(
+            rgba(122, 31, 43, 0.25)
+            1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(122, 31, 43, 0.25)
+            1px,
+            transparent 1px
+        );
+
+    background-size:
+        34px
+        34px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+}
+
+@keyframes orbFloatOne {
+
+    0%,
+    100% {
+        border-radius:
+            50%;
+    }
+
+    35% {
+        border-radius:
+            44%
+            56%
+            58%
+            42% /
+            48%
+            42%
+            58%
+            52%;
+    }
+
+    70% {
+        border-radius:
+            56%
+            44%
+            42%
+            58% /
+            46%
+            58%
+            42%
+            54%;
+    }
+}
+
+@keyframes orbFloatTwo {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-28px);
+    }
+}
+
 
 .hero-label {
     margin-bottom:
@@ -509,6 +717,9 @@ span:nth-child(3) {
 
     letter-spacing:
         -5px;
+
+    color:
+        var(--text);
 }
 
 .hero h1 span {
@@ -587,7 +798,110 @@ span:nth-child(3) {
 }
 
 
-/* COMMON */
+/* =========================
+   EDITORIAL TICKER
+========================= */
+
+.ticker-section {
+    position:
+        relative;
+
+    z-index:
+        10;
+
+    overflow:
+        hidden;
+
+    padding:
+        22px 0;
+
+    background:
+        var(--burgundy);
+
+    color:
+        var(--cream-light);
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+}
+
+.ticker-track {
+    width:
+        max-content;
+
+    animation:
+        tickerMove
+        32s
+        linear
+        infinite;
+}
+
+.ticker-content {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        30px;
+
+    padding-right:
+        30px;
+
+    white-space:
+        nowrap;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        22px;
+}
+
+.ticker-dot {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        8px;
+
+    color:
+        #d8b7ba;
+}
+
+.ticker-section:hover
+.ticker-track {
+    animation-play-state:
+        paused;
+}
+
+@keyframes tickerMove {
+
+    from {
+        transform:
+            translateX(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%);
+    }
+}
+
+
+/* =========================
+   COMMON SECTIONS
+========================= */
 
 .editorial-section,
 .skills-section,
@@ -690,7 +1004,9 @@ span:nth-child(3) {
 }
 
 
-/* BIOGRAPHY */
+/* =========================
+   BIOGRAPHY
+========================= */
 
 .bio-layout {
     display:
@@ -720,6 +1036,9 @@ span:nth-child(3) {
 
     overflow:
         hidden;
+
+    will-change:
+        transform;
 }
 
 .bio-image-frame::before {
@@ -777,7 +1096,7 @@ span:nth-child(3) {
 .bio-image-frame:hover
 .bio-image {
     transform:
-        scale(1.025);
+        scale(1.035);
 }
 
 .bio-image-caption {
@@ -862,7 +1181,9 @@ span:last-child {
 }
 
 
-/* SKILLS */
+/* =========================
+   SKILLS
+========================= */
 
 .skills-section {
     max-width:
@@ -921,6 +1242,9 @@ h2 span {
 }
 
 .skill-item {
+    position:
+        relative;
+
     min-height:
         270px;
 
@@ -931,6 +1255,55 @@ h2 span {
     border-bottom:
         1px solid
         rgba(255, 255, 255, 0.25);
+
+    overflow:
+        hidden;
+
+    transition:
+        background-color 0.35s ease,
+        padding-left 0.35s ease;
+}
+
+.skill-item::after {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        180px;
+
+    height:
+        180px;
+
+    right:
+        -100px;
+
+    bottom:
+        -100px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    transition:
+        transform 0.45s ease;
+}
+
+.skill-item:hover {
+    background:
+        rgba(255, 255, 255, 0.045);
+
+    padding-left:
+        40px;
+}
+
+.skill-item:hover::after {
+    transform:
+        scale(1.5);
 }
 
 .skill-item:nth-child(odd) {
@@ -975,7 +1348,9 @@ h2 span {
 }
 
 
-/* PROJECTS */
+/* =========================
+   PROJECTS
+========================= */
 
 .project-showcase {
     display:
@@ -1047,25 +1422,33 @@ h2 span {
         1px solid
         var(--line);
 
+    transform-style:
+        preserve-3d;
+
+    perspective:
+        1000px;
+
+    will-change:
+        transform;
+
     transition:
-        transform 0.45s ease,
-        box-shadow 0.45s ease;
+        transform 0.18s ease-out,
+        box-shadow 0.35s ease;
 }
 
 .project-feature:hover
 .project-visual {
-    transform:
-        translateY(-8px);
-
     box-shadow:
         0
-        25px
+        28px
         60px
-        rgba(45, 36, 34, 0.12);
+        rgba(45, 36, 34, 0.14);
 }
 
 
-/* CASA */
+/* =========================
+   CASA SIERRA
+========================= */
 
 .project-visual-casasierra {
     background:
@@ -1097,6 +1480,19 @@ h2 span {
         22px
         55px
         rgba(45, 36, 34, 0.12);
+
+    transform:
+        translateZ(25px);
+
+    transition:
+        transform 0.3s ease;
+}
+
+.project-feature:hover
+.browser-mockup {
+    transform:
+        translateZ(40px)
+        scale(1.01);
 }
 
 .browser-topbar {
@@ -1194,7 +1590,9 @@ span:nth-child(3) {
 }
 
 
-/* FAIRFLAT */
+/* =========================
+   FAIRFLAT
+========================= */
 
 .project-visual-fairflat {
     background:
@@ -1230,6 +1628,19 @@ span:nth-child(3) {
         30px
         60px
         rgba(0, 0, 0, 0.32);
+
+    transform:
+        translateZ(28px);
+
+    transition:
+        transform 0.3s ease;
+}
+
+.project-feature:hover
+.fairflat-device {
+    transform:
+        translateZ(44px)
+        scale(1.02);
 }
 
 .fairflat-device-speaker {
@@ -1290,7 +1701,9 @@ span:nth-child(3) {
 }
 
 
-/* PROJECT DETAILS */
+/* =========================
+   PROJECT DETAILS
+========================= */
 
 .project-meta {
     margin-bottom:
@@ -1424,7 +1837,9 @@ span:nth-child(3) {
 }
 
 
-/* GITHUB */
+/* =========================
+   GITHUB
+========================= */
 
 .github-section {
     background:
@@ -1556,12 +1971,16 @@ span:nth-child(3) {
 
     transition:
         transform 0.35s ease,
-        box-shadow 0.35s ease;
+        box-shadow 0.35s ease,
+        background-color 0.35s ease;
 }
 
 .github-card:hover {
     transform:
-        translateY(-6px);
+        translateY(-8px);
+
+    background:
+        var(--cream-light);
 
     box-shadow:
         0
@@ -1655,7 +2074,9 @@ span:nth-child(3) {
 }
 
 
-/* CONTACT */
+/* =========================
+   CONTACT
+========================= */
 
 .contact-section {
     padding:
@@ -1742,7 +2163,9 @@ span:nth-child(3) {
 }
 
 
-/* FORM */
+/* =========================
+   CONTACT FORM
+========================= */
 
 .contact-form {
     display:
@@ -1920,6 +2343,14 @@ span:nth-child(3) {
 
     cursor:
         pointer;
+
+    transition:
+        gap 0.3s ease;
+}
+
+.contact-submit:hover {
+    gap:
+        28px;
 }
 
 .contact-direct {
@@ -2115,9 +2546,6 @@ span:nth-child(3) {
 
     background:
         var(--burgundy);
-
-    transition:
-        background-color 0.3s ease;
 }
 
 .project-modal-close:hover
@@ -2168,9 +2596,6 @@ span:last-child {
 
     text-transform:
         uppercase;
-
-    letter-spacing:
-        1px;
 
     color:
         var(--burgundy);
@@ -2323,7 +2748,9 @@ span:last-child {
 }
 
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     padding:
@@ -2347,7 +2774,9 @@ footer {
 }
 
 
-/* TABLET */
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 1024px) {
 
@@ -2365,6 +2794,11 @@ footer {
     .hero-link {
         justify-self:
             start;
+    }
+
+    .bio-layout {
+        gap:
+            45px;
     }
 
     .project-feature,
@@ -2401,7 +2835,9 @@ footer {
 }
 
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 768px) {
 
@@ -2439,11 +2875,47 @@ footer {
     .hero h1 {
         font-size:
             64px;
+
+        letter-spacing:
+            -3px;
     }
 
     .hero h1 span {
         margin-left:
             0;
+    }
+
+    .hero-orb-one {
+        width:
+            330px;
+
+        height:
+            330px;
+
+        right:
+            -140px;
+
+        top:
+            22%;
+    }
+
+    .hero-orb-two,
+    .hero-grid-decoration {
+        display:
+            none;
+    }
+
+    .ticker-section {
+        padding:
+            16px 0;
+    }
+
+    .ticker-content {
+        gap:
+            22px;
+
+        font-size:
+            18px;
     }
 
     .editorial-section,
@@ -2478,12 +2950,26 @@ footer {
             none;
     }
 
+    .skill-item:hover {
+        padding-left:
+            30px;
+    }
+
     .project-visual {
         min-height:
             360px;
 
         padding:
             25px;
+
+        transform:
+            none !important;
+    }
+
+    .browser-mockup,
+    .fairflat-device {
+        transform:
+            none !important;
     }
 
     .github-intro {
@@ -2560,7 +3046,43 @@ footer {
 }
 
 
-/* ANIMATIONS */
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .hero h1 {
+        font-size:
+            54px;
+    }
+
+    .section-heading h2 {
+        font-size:
+            46px;
+    }
+
+    .project-details h3 {
+        font-size:
+            42px;
+    }
+
+    .contact-header h2 {
+        font-size:
+            46px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size:
+            23px;
+    }
+}
+
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
 
 .reveal {
     opacity:
@@ -2603,7 +3125,9 @@ footer {
 }
 
 
-/* ACCESSIBILITY */
+/* =========================
+   ACCESSIBILITY
+========================= */
 
 @media (
     prefers-reduced-motion: reduce
@@ -2620,6 +3144,9 @@ footer {
 
         animation-duration:
             0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
     }
 
     .reveal,
@@ -2628,6 +3155,11 @@ footer {
             1;
 
         transform:
+            none;
+    }
+
+    .ticker-track {
+        animation:
             none;
     }
 }
