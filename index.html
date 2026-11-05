@@ -85,6 +85,12 @@
                 </li>
 
                 <li>
+                    <a href="#github">
+                        GitHub
+                    </a>
+                </li>
+
+                <li>
                     <a href="#contact">
                         Contact
                     </a>
@@ -389,172 +395,95 @@
             </div>
 
 
-            <div class="project-showcase">
+            <!--
+                Wird mit JavaScript automatisch
+                aus dem projects-Array gefüllt.
+            -->
 
+            <div
+                class="project-showcase"
+                id="project-showcase"
+            ></div>
 
-                <!-- CASA SIERRA -->
+        </section>
 
-                <article class="project-feature reveal">
 
-                    <div class="project-visual project-visual-casasierra">
+        <!-- =========================
+             GITHUB API
+        ========================== -->
 
-                        <div class="browser-mockup">
+        <section
+            id="github"
+            class="github-section"
+        >
 
-                            <div class="browser-topbar">
+            <div class="github-inner">
 
-                                <div class="browser-controls">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                <div class="section-number">
+                    04
+                </div>
 
 
-                                <div class="browser-address">
-                                    casasierra.ch
-                                </div>
+                <div class="section-heading">
 
-                            </div>
+                    <p>
+                        GitHub Activity
+                    </p>
 
 
-                            <div class="browser-content">
+                    <h2>
+                        Code &
 
-                                <img
-                                    src="casasierra-preview.png"
-                                    alt="Vorschau der CasaSierra Website"
-                                    class="project-preview-image"
-                                >
+                        <span>
+                            repositories.
+                        </span>
+                    </h2>
 
-                            </div>
+                </div>
 
-                        </div>
 
-                    </div>
+                <div class="github-intro">
 
+                    <p>
+                        Meine öffentlichen GitHub-Repositories werden
+                        automatisch über die GitHub API geladen.
+                    </p>
 
-                    <div class="project-details">
 
-                        <div class="project-meta">
+                    <a
+                        href="https://github.com/Agnesa22"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="github-profile-link"
+                    >
+                        GitHub Profile
 
-                            <span>
-                                01
-                            </span>
+                        <svg
+                            class="arrow-icon"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 19 L19 5"></path>
+                            <path d="M10 5 H19 V14"></path>
+                        </svg>
+                    </a>
 
-                            <span>
-                                Web Development
-                            </span>
+                </div>
 
-                        </div>
 
+                <div
+                    id="github-status"
+                    class="github-status"
+                    aria-live="polite"
+                >
+                    Repositories werden geladen...
+                </div>
 
-                        <h3>
-                            CasaSierra
-                        </h3>
 
-
-                        <p class="project-description">
-                            Konzeption und Entwicklung einer modernen
-                            Website für ein Immobilien- und
-                            Treuhandunternehmen.
-                        </p>
-
-
-                        <div class="project-footer project-footer-casasierra">
-
-                            <svg
-                                class="arrow-icon project-arrow project-arrow-left"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                            >
-                                <path d="M19 19 L5 5"></path>
-                                <path d="M14 5 H5 V14"></path>
-                            </svg>
-
-
-                            <p class="project-tech">
-                                HTML · CSS · JavaScript
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- FAIRFLAT -->
-
-                <article class="project-feature project-feature-reverse reveal">
-
-                    <div class="project-visual project-visual-fairflat">
-
-                        <div class="fairflat-device">
-
-                            <div class="fairflat-device-speaker"></div>
-
-
-                            <div class="fairflat-device-screen">
-
-                                <img
-                                    src="fairflat-preview.png"
-                                    alt="Vorschau des FairFlat Projekts"
-                                    class="fairflat-preview-image"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="project-details">
-
-                        <div class="project-meta">
-
-                            <span>
-                                02
-                            </span>
-
-                            <span>
-                                UX/UI Design
-                            </span>
-
-                        </div>
-
-
-                        <h3>
-                            FairFlat
-                        </h3>
-
-
-                        <p class="project-description">
-                            Entwicklung eines UX/UI-Konzepts für eine
-                            App zur Organisation des Zusammenlebens
-                            in Wohngemeinschaften.
-                        </p>
-
-
-                        <div class="project-footer">
-
-                            <p class="project-tech">
-                                Figma · UX Research · Prototyping
-                            </p>
-
-
-                            <svg
-                                class="arrow-icon project-arrow project-arrow-right"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                            >
-                                <path d="M5 19 L19 5"></path>
-                                <path d="M10 5 H19 V14"></path>
-                            </svg>
-
-                        </div>
-
-                    </div>
-
-                </article>
+                <div
+                    id="github-repositories"
+                    class="github-grid"
+                ></div>
 
             </div>
 
@@ -597,7 +526,7 @@
                 Get in touch
 
                 <svg
-                    class="arrow-icon arrow-up-right"
+                    class="arrow-icon"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                 >
