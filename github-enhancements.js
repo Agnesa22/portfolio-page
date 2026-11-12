@@ -1,47 +1,57 @@
 (() => {
 
     // =========================================
-    // GITHUB ACTIVITY ENHANCEMENT
+    // GITHUB ACTIVITY DASHBOARD
     // =========================================
     //
-    // Erweiterung der bestehenden GitHub-Sektion:
-    //
+    // Features:
     // - GitHub Profile API
-    // - Repository API
-    // - Datenkombination
-    // - LocalStorage Cache
-    // - Statistiken
+    // - GitHub Repositories API
+    // - GitHub Commits API
+    // - Kombination mehrerer Datenquellen
+    // - LocalStorage Caching
+    // - Dynamische Statistiken
     // - Dynamische Sprachfilter
+    // - Recent Commit Activity
+    // - Responsive Rendering
     // - Fehlerbehandlung
     //
-    // Die Datei ist bewusst als separates Modul
-    // aufgebaut, damit der bestehende Code
-    // übersichtlich und wartbar bleibt.
+    // Dieses Modul erweitert nur die bestehende
+    // GitHub-Sektion des Portfolios.
     // =========================================
 
 
     // =========================================
-    // CONFIGURATION
+    // CONFIG
     // =========================================
 
-    const GITHUB_ENHANCEMENT_USERNAME =
+    const GITHUB_USERNAME =
         "Agnesa22";
 
 
-    const GITHUB_PROFILE_URL =
-        `https://api.github.com/users/${GITHUB_ENHANCEMENT_USERNAME}`;
+    const ACTIVITY_REPOSITORY =
+        "portfolio-page";
 
 
-    const GITHUB_REPOSITORIES_URL =
-        `https://api.github.com/users/${GITHUB_ENHANCEMENT_USERNAME}/repos` +
+    const PROFILE_API =
+        `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+
+    const REPOSITORIES_API =
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
         "?sort=updated&direction=desc&per_page=100&type=owner";
 
 
-    const GITHUB_ENHANCEMENT_CACHE_KEY =
-        "agnesa-github-dashboard";
+    const COMMITS_API =
+        `https://api.github.com/repos/${GITHUB_USERNAME}/${ACTIVITY_REPOSITORY}/commits` +
+        "?per_page=8";
 
 
-    const GITHUB_ENHANCEMENT_CACHE_TIME =
+    const CACHE_KEY =
+        "agnesa-github-dashboard-v2";
+
+
+    const CACHE_DURATION =
         30 * 60 * 1000;
 
 
@@ -49,28 +59,36 @@
         "All";
 
 
-    let activeLanguageFilter =
-        DEFAULT_FILTER;
+    const MAX_REPOSITORIES =
+        3;
 
 
-    let githubRepositories =
+    const MAX_COMMITS =
+        5;
+
+
+    let repositories =
         [];
 
 
-    let githubRequestPromise =
+    let activeFilter =
+        DEFAULT_FILTER;
+
+
+    let requestPromise =
         null;
 
 
 
     // =========================================
-    // CSS
+    // STYLES
     // =========================================
 
-    function injectGitHubEnhancementStyles() {
+    function injectStyles() {
 
         if (
             document.querySelector(
-                "#github-enhancement-styles"
+                "#github-dashboard-v2-styles"
             )
         ) {
             return;
@@ -84,45 +102,45 @@
 
 
         style.id =
-            "github-enhancement-styles";
+            "github-dashboard-v2-styles";
 
 
         style.textContent =
             `
 
-            /* =========================================
-               GITHUB DASHBOARD
-            ========================================= */
+            /* =====================================
+               DASHBOARD
+            ===================================== */
 
-            .github-dashboard {
-                margin-bottom: 36px;
-
-                border-top:
-                    1px solid
-                    var(--line);
-
-                border-left:
-                    1px solid
-                    var(--line);
+            .github-dashboard-v2 {
+                margin-bottom: 38px;
             }
 
 
-            /* STATISTICS */
+            /* =====================================
+               STATISTICS
+            ===================================== */
 
-            .github-stats {
+            .github-stats-v2 {
                 display: grid;
 
                 grid-template-columns:
                     repeat(3, 1fr);
+
+                border-top:
+                    1px solid var(--line);
+
+                border-left:
+                    1px solid var(--line);
             }
 
 
-            .github-stat {
+            .github-stat-v2 {
                 position: relative;
 
-                min-height: 165px;
+                min-height: 160px;
 
-                padding: 24px 26px;
+                padding: 26px;
 
                 display: flex;
 
@@ -134,12 +152,10 @@
                 overflow: hidden;
 
                 border-right:
-                    1px solid
-                    var(--line);
+                    1px solid var(--line);
 
                 border-bottom:
-                    1px solid
-                    var(--line);
+                    1px solid var(--line);
 
                 background:
                     var(--cream);
@@ -150,7 +166,7 @@
             }
 
 
-            .github-stat:hover {
+            .github-stat-v2:hover {
                 background:
                     var(--cream-dark);
 
@@ -159,11 +175,11 @@
             }
 
 
-            .github-stat-number {
+            .github-stat-decoration {
                 position: absolute;
 
                 right: -8px;
-                bottom: -42px;
+                bottom: -43px;
 
                 font-family:
                     Georgia,
@@ -181,7 +197,7 @@
             }
 
 
-            .github-stat-label {
+            .github-stat-label-v2 {
                 position: relative;
 
                 z-index: 2;
@@ -190,20 +206,21 @@
 
                 font-weight: 700;
 
-                letter-spacing: 1px;
+                text-transform: uppercase;
 
-                text-transform:
-                    uppercase;
+                letter-spacing: 1px;
 
                 color:
                     var(--burgundy);
             }
 
 
-            .github-stat-value {
+            .github-stat-value-v2 {
                 position: relative;
 
                 z-index: 2;
+
+                display: block;
 
                 font-family:
                     Georgia,
@@ -226,7 +243,7 @@
             }
 
 
-            .github-stat-detail {
+            .github-stat-detail-v2 {
                 position: relative;
 
                 z-index: 2;
@@ -235,8 +252,7 @@
 
                 font-size: 9px;
 
-                text-transform:
-                    uppercase;
+                text-transform: uppercase;
 
                 letter-spacing: 0.6px;
 
@@ -245,42 +261,44 @@
             }
 
 
-            /* FILTER AREA */
+            /* =====================================
+               FILTERS
+            ===================================== */
 
-            .github-filter-area {
+            .github-filter-wrapper-v2 {
                 padding: 22px 0 0;
 
                 display: flex;
 
-                align-items: flex-start;
+                align-items: center;
 
                 justify-content:
                     space-between;
 
-                gap: 30px;
+                gap: 25px;
             }
 
 
-            .github-filter-heading {
-                flex-shrink: 0;
+            .github-filter-wrapper-v2.is-hidden {
+                display: none;
+            }
 
-                padding-top: 8px;
 
+            .github-filter-label-v2 {
                 font-size: 9px;
 
                 font-weight: 700;
 
                 letter-spacing: 1px;
 
-                text-transform:
-                    uppercase;
+                text-transform: uppercase;
 
                 color:
                     var(--text-soft);
             }
 
 
-            .github-filters {
+            .github-filters-v2 {
                 display: flex;
 
                 flex-wrap: wrap;
@@ -291,13 +309,12 @@
             }
 
 
-            .github-filter {
+            .github-filter-v2 {
                 padding:
                     7px 12px;
 
                 border:
-                    1px solid
-                    var(--line);
+                    1px solid var(--line);
 
                 border-radius:
                     100px;
@@ -312,26 +329,25 @@
 
                 font-weight: 700;
 
-                letter-spacing: 0.5px;
+                text-transform: uppercase;
 
-                text-transform:
-                    uppercase;
+                letter-spacing: 0.5px;
 
                 cursor: pointer;
 
                 transition:
                     color 0.25s ease,
-                    border-color 0.25s ease,
                     background-color 0.25s ease,
+                    border-color 0.25s ease,
                     transform 0.25s ease;
             }
 
 
-            .github-filter:hover {
-                color:
+            .github-filter-v2:hover {
+                border-color:
                     var(--burgundy);
 
-                border-color:
+                color:
                     var(--burgundy);
 
                 transform:
@@ -339,11 +355,11 @@
             }
 
 
-            .github-filter.is-active {
-                background:
+            .github-filter-v2.is-active {
+                border-color:
                     var(--burgundy);
 
-                border-color:
+                background:
                     var(--burgundy);
 
                 color:
@@ -351,12 +367,23 @@
             }
 
 
-            /* TECHNICAL NOTE */
+            .github-filter-v2:focus-visible {
+                outline:
+                    2px solid var(--burgundy);
 
-            .github-tech-note {
-                margin-top: 19px;
+                outline-offset:
+                    3px;
+            }
 
-                padding-top: 14px;
+
+            /* =====================================
+               TECH INFO
+            ===================================== */
+
+            .github-tech-note-v2 {
+                margin-top: 20px;
+
+                padding-top: 15px;
 
                 display: flex;
 
@@ -368,34 +395,31 @@
                 gap: 20px;
 
                 border-top:
-                    1px solid
-                    var(--line);
+                    1px solid var(--line);
 
                 font-size: 9px;
 
-                text-transform:
-                    uppercase;
-
                 letter-spacing: 0.6px;
+
+                text-transform: uppercase;
 
                 color:
                     var(--text-soft);
             }
 
 
-            .github-tech-note strong {
+            .github-tech-note-v2 strong {
                 color:
                     var(--burgundy);
             }
 
 
-            .github-tech-badge {
+            .github-cache-badge-v2 {
                 padding:
-                    5px 9px;
+                    5px 10px;
 
                 border:
-                    1px solid
-                    var(--line);
+                    1px solid var(--line);
 
                 border-radius:
                     100px;
@@ -404,13 +428,297 @@
             }
 
 
-            /* FILTERED RESULT MESSAGE */
+            /* =====================================
+               CONTENT LAYOUT
+            ===================================== */
 
-            .github-empty-state {
-                grid-column:
-                    1 / -1;
+            .github-content-layout-v2 {
+                display: grid;
 
-                min-height: 200px;
+                grid-template-columns:
+                    minmax(0, 0.9fr)
+                    minmax(0, 1.1fr);
+
+                gap: 22px;
+
+                align-items: stretch;
+            }
+
+
+            .github-repositories-column-v2 {
+                min-width: 0;
+            }
+
+
+            .github-column-heading-v2 {
+                margin-bottom: 14px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content:
+                    space-between;
+
+                gap: 15px;
+            }
+
+
+            .github-column-heading-v2 p {
+                font-size: 9px;
+
+                font-weight: 700;
+
+                letter-spacing: 1px;
+
+                text-transform: uppercase;
+
+                color:
+                    var(--burgundy);
+            }
+
+
+            .github-column-heading-v2 span {
+                font-size: 9px;
+
+                text-transform: uppercase;
+
+                color:
+                    var(--text-soft);
+            }
+
+
+            /* =====================================
+               REPOSITORY GRID OVERRIDE
+            ===================================== */
+
+            .github-content-layout-v2
+            #github-repositories {
+                display: grid;
+
+                grid-template-columns:
+                    1fr;
+
+                gap: 0;
+            }
+
+
+            .github-content-layout-v2
+            .github-card {
+                min-height: 315px;
+
+                margin-right: 0;
+            }
+
+
+            /* =====================================
+               RECENT ACTIVITY
+            ===================================== */
+
+            .github-activity-panel-v2 {
+                min-width: 0;
+
+                border:
+                    1px solid var(--line);
+
+                background:
+                    var(--cream-light);
+            }
+
+
+            .github-activity-header-v2 {
+                min-height: 58px;
+
+                padding:
+                    17px 20px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content:
+                    space-between;
+
+                gap: 20px;
+
+                border-bottom:
+                    1px solid var(--line);
+            }
+
+
+            .github-activity-header-v2 p {
+                font-size: 9px;
+
+                font-weight: 700;
+
+                letter-spacing: 1px;
+
+                text-transform: uppercase;
+
+                color:
+                    var(--burgundy);
+            }
+
+
+            .github-activity-header-v2 span {
+                font-size: 9px;
+
+                text-transform: uppercase;
+
+                color:
+                    var(--text-soft);
+            }
+
+
+            .github-activity-list-v2 {
+                display: flex;
+
+                flex-direction: column;
+            }
+
+
+            .github-activity-item-v2 {
+                position: relative;
+
+                min-height: 88px;
+
+                padding:
+                    17px 20px;
+
+                display: grid;
+
+                grid-template-columns:
+                    34px minmax(0, 1fr) auto;
+
+                gap: 14px;
+
+                align-items: start;
+
+                border-bottom:
+                    1px solid var(--line);
+
+                transition:
+                    background-color 0.25s ease;
+            }
+
+
+            .github-activity-item-v2:last-child {
+                border-bottom: 0;
+            }
+
+
+            .github-activity-item-v2:hover {
+                background:
+                    var(--cream);
+            }
+
+
+            .github-activity-number-v2 {
+                width: 26px;
+                height: 26px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                border:
+                    1px solid var(--line);
+
+                border-radius: 50%;
+
+                font-size: 8px;
+
+                font-weight: 700;
+
+                color:
+                    var(--burgundy);
+            }
+
+
+            .github-activity-content-v2 {
+                min-width: 0;
+            }
+
+
+            .github-activity-message-v2 {
+                margin-bottom: 5px;
+
+                font-family:
+                    Georgia,
+                    "Times New Roman",
+                    serif;
+
+                font-size: 17px;
+
+                line-height: 1.25;
+
+                color:
+                    var(--text);
+
+                overflow-wrap: anywhere;
+            }
+
+
+            .github-activity-meta-v2 {
+                display: flex;
+
+                flex-wrap: wrap;
+
+                gap: 5px 12px;
+
+                font-size: 8px;
+
+                font-weight: 700;
+
+                text-transform: uppercase;
+
+                letter-spacing: 0.5px;
+
+                color:
+                    var(--text-soft);
+            }
+
+
+            .github-activity-meta-v2 strong {
+                color:
+                    var(--burgundy);
+            }
+
+
+            .github-activity-arrow-v2 {
+                width: 20px;
+                height: 20px;
+
+                fill: none;
+
+                stroke:
+                    var(--burgundy);
+
+                stroke-width: 1.7;
+
+                transition:
+                    transform 0.25s ease;
+            }
+
+
+            .github-activity-item-v2:hover
+            .github-activity-arrow-v2 {
+                transform:
+                    translate(
+                        2px,
+                        -2px
+                    );
+            }
+
+
+            /* =====================================
+               EMPTY STATE
+            ===================================== */
+
+            .github-empty-v2 {
+                min-height: 210px;
 
                 padding: 35px;
 
@@ -420,10 +728,6 @@
 
                 justify-content: center;
 
-                border:
-                    1px solid
-                    var(--line);
-
                 color:
                     var(--text-soft);
 
@@ -432,83 +736,101 @@
                     "Times New Roman",
                     serif;
 
-                font-size: 23px;
+                font-size: 20px;
 
                 text-align: center;
             }
 
 
-            /* ACCESSIBILITY */
-
-            .github-filter:focus-visible {
-                outline:
-                    2px solid
-                    var(--burgundy);
-
-                outline-offset:
-                    3px;
-            }
-
-
-            /* TABLET */
+            /* =====================================
+               TABLET
+            ===================================== */
 
             @media (
                 max-width: 1024px
             ) {
 
-                .github-stats {
-                    grid-template-columns:
-                        repeat(3, 1fr);
-                }
-
-
-                .github-stat {
-                    min-height:
-                        145px;
-                }
-
-            }
-
-
-            /* MOBILE */
-
-            @media (
-                max-width: 768px
-            ) {
-
-                .github-stats {
+                .github-content-layout-v2 {
                     grid-template-columns:
                         1fr;
                 }
 
 
-                .github-stat {
+                .github-content-layout-v2
+                #github-repositories {
+                    grid-template-columns:
+                        repeat(
+                            2,
+                            1fr
+                        );
+                }
+
+            }
+
+
+            /* =====================================
+               MOBILE
+            ===================================== */
+
+            @media (
+                max-width: 768px
+            ) {
+
+                .github-stats-v2 {
+                    grid-template-columns:
+                        1fr;
+                }
+
+
+                .github-stat-v2 {
                     min-height:
                         125px;
                 }
 
 
-                .github-filter-area {
-                    flex-direction:
-                        column;
-
-                    gap:
-                        15px;
-                }
-
-
-                .github-filters {
-                    justify-content:
-                        flex-start;
-                }
-
-
-                .github-tech-note {
+                .github-filter-wrapper-v2 {
                     align-items:
                         flex-start;
 
                     flex-direction:
                         column;
+                }
+
+
+                .github-filters-v2 {
+                    justify-content:
+                        flex-start;
+                }
+
+
+                .github-tech-note-v2 {
+                    align-items:
+                        flex-start;
+
+                    flex-direction:
+                        column;
+                }
+
+
+                .github-content-layout-v2
+                #github-repositories {
+                    grid-template-columns:
+                        1fr;
+                }
+
+
+                .github-activity-item-v2 {
+                    grid-template-columns:
+                        30px minmax(0, 1fr) 20px;
+
+                    padding:
+                        15px;
+                }
+
+
+                .github-activity-message-v2 {
+                    font-size:
+                        16px;
                 }
 
             }
@@ -525,564 +847,7 @@
 
 
     // =========================================
-    // CREATE DASHBOARD STRUCTURE
-    // =========================================
-
-    function createGitHubDashboard() {
-
-        const githubSection =
-            document.querySelector(
-                "#github .github-inner"
-            );
-
-
-        const githubStatus =
-            document.querySelector(
-                "#github-status"
-            );
-
-
-        if (
-            !githubSection ||
-            !githubStatus
-        ) {
-            return null;
-        }
-
-
-        let dashboard =
-            document.querySelector(
-                "#github-dashboard"
-            );
-
-
-        if (
-            dashboard
-        ) {
-            return dashboard;
-        }
-
-
-        dashboard =
-            document.createElement(
-                "div"
-            );
-
-
-        dashboard.id =
-            "github-dashboard";
-
-
-        dashboard.className =
-            "github-dashboard";
-
-
-        dashboard.innerHTML =
-            `
-
-            <div
-                class="github-stats"
-                id="github-stats"
-                aria-label="GitHub Statistiken"
-            >
-
-                <article class="github-stat">
-
-                    <span class="github-stat-number">
-                        01
-                    </span>
-
-                    <span class="github-stat-label">
-                        Repositories
-                    </span>
-
-                    <div>
-
-                        <strong
-                            class="github-stat-value"
-                            id="github-stat-repositories"
-                        >
-                            —
-                        </strong>
-
-                        <p class="github-stat-detail">
-                            Public repositories
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="github-stat">
-
-                    <span class="github-stat-number">
-                        02
-                    </span>
-
-                    <span class="github-stat-label">
-                        Languages
-                    </span>
-
-                    <div>
-
-                        <strong
-                            class="github-stat-value"
-                            id="github-stat-languages"
-                        >
-                            —
-                        </strong>
-
-                        <p
-                            class="github-stat-detail"
-                            id="github-stat-language-detail"
-                        >
-                            Technologies detected
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="github-stat">
-
-                    <span class="github-stat-number">
-                        03
-                    </span>
-
-                    <span class="github-stat-label">
-                        Last Activity
-                    </span>
-
-                    <div>
-
-                        <strong
-                            class="github-stat-value"
-                            id="github-stat-activity"
-                        >
-                            —
-                        </strong>
-
-                        <p class="github-stat-detail">
-                            Latest repository update
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-
-            <div class="github-filter-area">
-
-                <p class="github-filter-heading">
-                    Filter by language
-                </p>
-
-
-                <div
-                    class="github-filters"
-                    id="github-language-filters"
-                    role="group"
-                    aria-label="Repositories nach Sprache filtern"
-                ></div>
-
-            </div>
-
-
-            <div class="github-tech-note">
-
-                <p>
-                    Live data via
-                    <strong>
-                        GitHub REST API
-                    </strong>
-                    · Profile + repository data
-                </p>
-
-
-                <span class="github-tech-badge">
-                    LocalStorage cache · 30 min
-                </span>
-
-            </div>
-
-            `;
-
-
-        githubSection.insertBefore(
-            dashboard,
-            githubStatus
-        );
-
-
-        return dashboard;
-
-    }
-
-
-
-    // =========================================
-    // CACHE
-    // =========================================
-
-    function getCachedGitHubDashboard() {
-
-        try {
-
-            const cachedData =
-                localStorage.getItem(
-                    GITHUB_ENHANCEMENT_CACHE_KEY
-                );
-
-
-            if (
-                !cachedData
-            ) {
-                return null;
-            }
-
-
-            const parsedData =
-                JSON.parse(
-                    cachedData
-                );
-
-
-            const cacheAge =
-                Date.now() -
-                parsedData.timestamp;
-
-
-            if (
-                cacheAge >
-                GITHUB_ENHANCEMENT_CACHE_TIME
-            ) {
-
-                localStorage.removeItem(
-                    GITHUB_ENHANCEMENT_CACHE_KEY
-                );
-
-
-                return null;
-
-            }
-
-
-            if (
-                !parsedData.profile ||
-                !Array.isArray(
-                    parsedData.repositories
-                )
-            ) {
-
-                return null;
-
-            }
-
-
-            return {
-                profile:
-                    parsedData.profile,
-
-                repositories:
-                    parsedData.repositories
-            };
-
-        } catch (
-            error
-        ) {
-
-            console.warn(
-                "GitHub dashboard cache could not be read.",
-                error
-            );
-
-
-            localStorage.removeItem(
-                GITHUB_ENHANCEMENT_CACHE_KEY
-            );
-
-
-            return null;
-
-        }
-
-    }
-
-
-    function cacheGitHubDashboard(
-        profile,
-        repositories
-    ) {
-
-        try {
-
-            localStorage.setItem(
-                GITHUB_ENHANCEMENT_CACHE_KEY,
-
-                JSON.stringify({
-                    timestamp:
-                        Date.now(),
-
-                    profile:
-                        profile,
-
-                    repositories:
-                        repositories
-                })
-            );
-
-        } catch (
-            error
-        ) {
-
-            console.warn(
-                "GitHub dashboard cache could not be saved.",
-                error
-            );
-
-        }
-
-    }
-
-
-
-    // =========================================
-    // API REQUEST
-    // =========================================
-
-    async function fetchGitHubDashboardData() {
-
-        const cached =
-            getCachedGitHubDashboard();
-
-
-        if (
-            cached
-        ) {
-
-            return {
-                ...cached,
-                source:
-                    "cache"
-            };
-
-        }
-
-
-        const requestOptions = {
-            headers: {
-                Accept:
-                    "application/vnd.github+json"
-            }
-        };
-
-
-        const [
-            profileResponse,
-            repositoriesResponse
-        ] =
-            await Promise.all([
-                fetch(
-                    GITHUB_PROFILE_URL,
-                    requestOptions
-                ),
-
-                fetch(
-                    GITHUB_REPOSITORIES_URL,
-                    requestOptions
-                )
-            ]);
-
-
-        if (
-            !profileResponse.ok
-        ) {
-
-            throw new Error(
-                `GitHub profile request failed: ${profileResponse.status}`
-            );
-
-        }
-
-
-        if (
-            !repositoriesResponse.ok
-        ) {
-
-            throw new Error(
-                `GitHub repository request failed: ${repositoriesResponse.status}`
-            );
-
-        }
-
-
-        const [
-            profile,
-            repositories
-        ] =
-            await Promise.all([
-                profileResponse.json(),
-                repositoriesResponse.json()
-            ]);
-
-
-        cacheGitHubDashboard(
-            profile,
-            repositories
-        );
-
-
-        return {
-            profile:
-                profile,
-
-            repositories:
-                repositories,
-
-            source:
-                "api"
-        };
-
-    }
-
-
-
-    // =========================================
-    // REPOSITORY PREPARATION
-    // =========================================
-
-    function getRelevantRepositories(
-        repositories
-    ) {
-
-        return repositories
-            .filter(
-                repository =>
-                    !repository.fork &&
-                    !repository.archived
-            )
-            .sort(
-                (
-                    firstRepository,
-                    secondRepository
-                ) =>
-                    new Date(
-                        secondRepository.updated_at
-                    ) -
-                    new Date(
-                        firstRepository.updated_at
-                    )
-            );
-
-    }
-
-
-
-    // =========================================
-    // LANGUAGE DATA
-    // =========================================
-
-    function getLanguageStatistics(
-        repositories
-    ) {
-
-        const languageCounts =
-            repositories.reduce(
-                (
-                    result,
-                    repository
-                ) => {
-
-                    const language =
-                        repository.language;
-
-
-                    if (
-                        !language
-                    ) {
-                        return result;
-                    }
-
-
-                    if (
-                        !result[language]
-                    ) {
-
-                        result[language] =
-                            0;
-
-                    }
-
-
-                    result[language] +=
-                        1;
-
-
-                    return result;
-
-                },
-                {}
-            );
-
-
-        return Object.entries(
-            languageCounts
-        ).sort(
-            (
-                firstLanguage,
-                secondLanguage
-            ) =>
-                secondLanguage[1] -
-                firstLanguage[1]
-        );
-
-    }
-
-
-
-    // =========================================
-    // DATE FORMATTING
-    // =========================================
-
-    function formatDashboardDate(
-        dateString
-    ) {
-
-        if (
-            !dateString
-        ) {
-            return "—";
-        }
-
-
-        return new Intl.DateTimeFormat(
-            "de-CH",
-            {
-                day:
-                    "2-digit",
-
-                month:
-                    "2-digit",
-
-                year:
-                    "numeric"
-            }
-        ).format(
-            new Date(
-                dateString
-            )
-        );
-
-    }
-
-
-
-    // =========================================
-    // SAFE TEXT
+    // HTML ESCAPING
     // =========================================
 
     function escapeHTML(
@@ -1118,108 +883,803 @@
 
 
     // =========================================
+    // DATE FORMATTING
+    // =========================================
+
+    function formatDate(
+        dateString
+    ) {
+
+        if (
+            !dateString
+        ) {
+            return "—";
+        }
+
+
+        return new Intl.DateTimeFormat(
+            "de-CH",
+            {
+                day:
+                    "2-digit",
+
+                month:
+                    "2-digit",
+
+                year:
+                    "numeric"
+            }
+        ).format(
+            new Date(
+                dateString
+            )
+        );
+
+    }
+
+
+
+    // =========================================
+    // CACHE
+    // =========================================
+
+    function getCachedData() {
+
+        try {
+
+            const cached =
+                localStorage.getItem(
+                    CACHE_KEY
+                );
+
+
+            if (
+                !cached
+            ) {
+                return null;
+            }
+
+
+            const data =
+                JSON.parse(
+                    cached
+                );
+
+
+            if (
+                Date.now() -
+                data.timestamp >
+                CACHE_DURATION
+            ) {
+
+                localStorage.removeItem(
+                    CACHE_KEY
+                );
+
+
+                return null;
+
+            }
+
+
+            if (
+                !data.profile ||
+                !Array.isArray(
+                    data.repositories
+                ) ||
+                !Array.isArray(
+                    data.commits
+                )
+            ) {
+                return null;
+            }
+
+
+            return data;
+
+        } catch (
+            error
+        ) {
+
+            console.warn(
+                "GitHub cache could not be read.",
+                error
+            );
+
+
+            localStorage.removeItem(
+                CACHE_KEY
+            );
+
+
+            return null;
+
+        }
+
+    }
+
+
+    function cacheData(
+        profile,
+        repositoryData,
+        commits
+    ) {
+
+        try {
+
+            localStorage.setItem(
+                CACHE_KEY,
+
+                JSON.stringify({
+                    timestamp:
+                        Date.now(),
+
+                    profile:
+                        profile,
+
+                    repositories:
+                        repositoryData,
+
+                    commits:
+                        commits
+                })
+            );
+
+        } catch (
+            error
+        ) {
+
+            console.warn(
+                "GitHub cache could not be saved.",
+                error
+            );
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // API
+    // =========================================
+
+    async function requestGitHubData() {
+
+        const cached =
+            getCachedData();
+
+
+        if (
+            cached
+        ) {
+
+            return {
+                profile:
+                    cached.profile,
+
+                repositories:
+                    cached.repositories,
+
+                commits:
+                    cached.commits,
+
+                source:
+                    "cache"
+            };
+
+        }
+
+
+        const options = {
+
+            headers: {
+                Accept:
+                    "application/vnd.github+json"
+            }
+
+        };
+
+
+        const [
+            profileResponse,
+            repositoryResponse,
+            commitResponse
+        ] =
+            await Promise.all([
+
+                fetch(
+                    PROFILE_API,
+                    options
+                ),
+
+                fetch(
+                    REPOSITORIES_API,
+                    options
+                ),
+
+                fetch(
+                    COMMITS_API,
+                    options
+                )
+
+            ]);
+
+
+        if (
+            !profileResponse.ok
+        ) {
+
+            throw new Error(
+                `Profile API: ${profileResponse.status}`
+            );
+
+        }
+
+
+        if (
+            !repositoryResponse.ok
+        ) {
+
+            throw new Error(
+                `Repositories API: ${repositoryResponse.status}`
+            );
+
+        }
+
+
+        if (
+            !commitResponse.ok
+        ) {
+
+            throw new Error(
+                `Commits API: ${commitResponse.status}`
+            );
+
+        }
+
+
+        const [
+            profile,
+            repositoryData,
+            commits
+        ] =
+            await Promise.all([
+
+                profileResponse.json(),
+
+                repositoryResponse.json(),
+
+                commitResponse.json()
+
+            ]);
+
+
+        cacheData(
+            profile,
+            repositoryData,
+            commits
+        );
+
+
+        return {
+
+            profile:
+                profile,
+
+            repositories:
+                repositoryData,
+
+            commits:
+                commits,
+
+            source:
+                "api"
+
+        };
+
+    }
+
+
+
+    // =========================================
+    // REPOSITORIES
+    // =========================================
+
+    function prepareRepositories(
+        repositoryData
+    ) {
+
+        return repositoryData
+            .filter(
+                repository =>
+                    !repository.fork &&
+                    !repository.archived
+            )
+            .sort(
+                (
+                    first,
+                    second
+                ) =>
+
+                    new Date(
+                        second.updated_at
+                    ) -
+
+                    new Date(
+                        first.updated_at
+                    )
+            );
+
+    }
+
+
+
+    // =========================================
+    // LANGUAGE STATISTICS
+    // =========================================
+
+    function getLanguages(
+        repositoryData
+    ) {
+
+        const counts =
+            {};
+
+
+        repositoryData.forEach(
+            repository => {
+
+                if (
+                    !repository.language
+                ) {
+                    return;
+                }
+
+
+                counts[
+                    repository.language
+                ] =
+                    (
+                        counts[
+                            repository.language
+                        ] ||
+                        0
+                    ) +
+                    1;
+
+            }
+        );
+
+
+        return Object
+            .entries(
+                counts
+            )
+            .sort(
+                (
+                    first,
+                    second
+                ) =>
+                    second[1] -
+                    first[1]
+            );
+
+    }
+
+
+
+    // =========================================
+    // DASHBOARD STRUCTURE
+    // =========================================
+
+    function createDashboard() {
+
+        const githubInner =
+            document.querySelector(
+                "#github .github-inner"
+            );
+
+
+        const githubStatus =
+            document.querySelector(
+                "#github-status"
+            );
+
+
+        const repositoryGrid =
+            document.querySelector(
+                "#github-repositories"
+            );
+
+
+        if (
+            !githubInner ||
+            !githubStatus ||
+            !repositoryGrid
+        ) {
+            return;
+        }
+
+
+        if (
+            document.querySelector(
+                "#github-dashboard-v2"
+            )
+        ) {
+            return;
+        }
+
+
+        const dashboard =
+            document.createElement(
+                "div"
+            );
+
+
+        dashboard.id =
+            "github-dashboard-v2";
+
+
+        dashboard.className =
+            "github-dashboard-v2";
+
+
+        dashboard.innerHTML =
+            `
+
+            <div
+                class="github-stats-v2"
+                aria-label="GitHub Statistiken"
+            >
+
+                <article class="github-stat-v2">
+
+                    <span class="github-stat-decoration">
+                        01
+                    </span>
+
+                    <span class="github-stat-label-v2">
+                        Repositories
+                    </span>
+
+                    <div>
+
+                        <strong
+                            class="github-stat-value-v2"
+                            id="github-repository-count"
+                        >
+                            —
+                        </strong>
+
+                        <p class="github-stat-detail-v2">
+                            Public repositories
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="github-stat-v2">
+
+                    <span class="github-stat-decoration">
+                        02
+                    </span>
+
+                    <span class="github-stat-label-v2">
+                        Languages
+                    </span>
+
+                    <div>
+
+                        <strong
+                            class="github-stat-value-v2"
+                            id="github-language-count"
+                        >
+                            —
+                        </strong>
+
+                        <p
+                            class="github-stat-detail-v2"
+                            id="github-language-summary"
+                        >
+                            Technologies detected
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="github-stat-v2">
+
+                    <span class="github-stat-decoration">
+                        03
+                    </span>
+
+                    <span class="github-stat-label-v2">
+                        Last Activity
+                    </span>
+
+                    <div>
+
+                        <strong
+                            class="github-stat-value-v2"
+                            id="github-last-activity"
+                        >
+                            —
+                        </strong>
+
+                        <p class="github-stat-detail-v2">
+                            Latest repository update
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div
+                class="github-filter-wrapper-v2"
+                id="github-filter-wrapper-v2"
+            >
+
+                <p class="github-filter-label-v2">
+                    Filter by language
+                </p>
+
+
+                <div
+                    class="github-filters-v2"
+                    id="github-filters-v2"
+                    role="group"
+                    aria-label="Repositories nach Sprache filtern"
+                ></div>
+
+            </div>
+
+
+            <div class="github-tech-note-v2">
+
+                <p>
+                    Live data via
+                    <strong>
+                        GitHub REST API
+                    </strong>
+                    · Profile + repositories + commits
+                </p>
+
+
+                <span class="github-cache-badge-v2">
+                    LocalStorage cache · 30 min
+                </span>
+
+            </div>
+
+            `;
+
+
+        githubInner.insertBefore(
+            dashboard,
+            githubStatus
+        );
+
+
+        const layout =
+            document.createElement(
+                "div"
+            );
+
+
+        layout.id =
+            "github-content-layout-v2";
+
+
+        layout.className =
+            "github-content-layout-v2";
+
+
+        const repositoryColumn =
+            document.createElement(
+                "div"
+            );
+
+
+        repositoryColumn.className =
+            "github-repositories-column-v2";
+
+
+        repositoryColumn.innerHTML =
+            `
+
+            <div class="github-column-heading-v2">
+
+                <p>
+                    Repositories
+                </p>
+
+                <span id="github-visible-repository-count">
+                    —
+                </span>
+
+            </div>
+
+            `;
+
+
+        repositoryGrid
+            .parentNode
+            .insertBefore(
+                layout,
+                repositoryGrid
+            );
+
+
+        layout.appendChild(
+            repositoryColumn
+        );
+
+
+        repositoryColumn.appendChild(
+            repositoryGrid
+        );
+
+
+        const activityPanel =
+            document.createElement(
+                "aside"
+            );
+
+
+        activityPanel.className =
+            "github-activity-panel-v2";
+
+
+        activityPanel.innerHTML =
+            `
+
+            <div class="github-activity-header-v2">
+
+                <p>
+                    Recent Activity
+                </p>
+
+                <span>
+                    ${escapeHTML(
+                        ACTIVITY_REPOSITORY
+                    )}
+                </span>
+
+            </div>
+
+
+            <div
+                class="github-activity-list-v2"
+                id="github-activity-list-v2"
+            ></div>
+
+            `;
+
+
+        layout.appendChild(
+            activityPanel
+        );
+
+    }
+
+
+
+    // =========================================
     // STATISTICS
     // =========================================
 
-    function renderGitHubStatistics(
+    function renderStatistics(
         profile,
-        repositories
+        repositoryData
     ) {
 
-        const repositoryElement =
+        const repositoryCount =
             document.querySelector(
-                "#github-stat-repositories"
+                "#github-repository-count"
             );
 
 
-        const languageElement =
+        const languageCount =
             document.querySelector(
-                "#github-stat-languages"
+                "#github-language-count"
             );
 
 
-        const languageDetailElement =
+        const languageSummary =
             document.querySelector(
-                "#github-stat-language-detail"
+                "#github-language-summary"
             );
 
 
-        const activityElement =
+        const lastActivity =
             document.querySelector(
-                "#github-stat-activity"
+                "#github-last-activity"
             );
 
 
-        const languageStatistics =
-            getLanguageStatistics(
-                repositories
+        const languages =
+            getLanguages(
+                repositoryData
             );
 
 
         const latestRepository =
-            repositories[0];
+            repositoryData[0];
 
 
         if (
-            repositoryElement
+            repositoryCount
         ) {
 
-            repositoryElement.textContent =
+            repositoryCount.textContent =
                 profile.public_repos ??
-                repositories.length;
+                repositoryData.length;
 
         }
 
 
         if (
-            languageElement
+            languageCount
         ) {
 
-            languageElement.textContent =
-                languageStatistics.length;
+            languageCount.textContent =
+                languages.length;
 
         }
 
 
         if (
-            languageDetailElement
+            languageSummary
         ) {
 
-            const topLanguages =
-                languageStatistics
-                    .slice(
-                        0,
-                        3
-                    )
-                    .map(
-                        item =>
-                            item[0]
-                    );
+            languageSummary.textContent =
+                languages.length
 
-
-            languageDetailElement.textContent =
-                topLanguages.length
                     ?
-                    topLanguages.join(
-                        " · "
-                    )
+
+                    languages
+                        .slice(
+                            0,
+                            3
+                        )
+                        .map(
+                            item =>
+                                item[0]
+                        )
+                        .join(
+                            " · "
+                        )
+
                     :
+
                     "No language data";
 
         }
 
 
         if (
-            activityElement
+            lastActivity
         ) {
 
-            activityElement.textContent =
+            lastActivity.textContent =
                 latestRepository
+
                     ?
-                    formatDashboardDate(
+
+                    formatDate(
                         latestRepository.updated_at
                     )
+
                     :
+
                     "—";
 
         }
@@ -1229,84 +1689,119 @@
 
 
     // =========================================
-    // FILTER BUTTONS
+    // FILTERS
     // =========================================
 
-    function renderLanguageFilters(
-        repositories
-    ) {
+    function renderFilters() {
 
-        const filterContainer =
+        const wrapper =
             document.querySelector(
-                "#github-language-filters"
+                "#github-filter-wrapper-v2"
+            );
+
+
+        const container =
+            document.querySelector(
+                "#github-filters-v2"
             );
 
 
         if (
-            !filterContainer
+            !wrapper ||
+            !container
         ) {
             return;
         }
 
 
-        const languageStatistics =
-            getLanguageStatistics(
+        const languages =
+            getLanguages(
                 repositories
             );
 
 
-        const languages = [
+        /*
+         * Wenn nur eine Sprache vorhanden ist,
+         * macht ein Filter für den Besucher
+         * keinen wirklichen Sinn.
+         */
+
+        if (
+            languages.length <=
+            1
+        ) {
+
+            wrapper.classList.add(
+                "is-hidden"
+            );
+
+
+            activeFilter =
+                DEFAULT_FILTER;
+
+
+            return;
+
+        }
+
+
+        wrapper.classList.remove(
+            "is-hidden"
+        );
+
+
+        const options = [
+
             DEFAULT_FILTER,
-            ...languageStatistics.map(
-                item =>
-                    item[0]
+
+            ...languages.map(
+                language =>
+                    language[0]
             )
+
         ];
 
 
-        filterContainer.innerHTML =
-            languages
+        container.innerHTML =
+            options
                 .map(
                     language => {
 
-                        const activeClass =
+                        const active =
                             language ===
-                            activeLanguageFilter
-                                ?
-                                "is-active"
-                                :
-                                "";
-
-
-                        const label =
-                            language ===
-                            DEFAULT_FILTER
-                                ?
-                                "All"
-                                :
-                                escapeHTML(
-                                    language
-                                );
+                            activeFilter;
 
 
                         return `
+
                             <button
                                 type="button"
-                                class="github-filter ${activeClass}"
-                                data-github-language="${escapeHTML(
+                                class="
+                                    github-filter-v2
+                                    ${
+                                        active
+                                            ?
+                                            "is-active"
+                                            :
+                                            ""
+                                    }
+                                "
+                                data-language="${escapeHTML(
                                     language
                                 )}"
                                 aria-pressed="${
-                                    language ===
-                                    activeLanguageFilter
+                                    active
                                         ?
                                         "true"
                                         :
                                         "false"
                                 }"
                             >
-                                ${label}
+                                ${escapeHTML(
+                                    language
+                                )}
                             </button>
+
                         `;
 
                     }
@@ -1321,7 +1816,7 @@
     // REPOSITORY CARD
     // =========================================
 
-    function createEnhancedRepositoryMarkup(
+    function createRepositoryCard(
         repository,
         index
     ) {
@@ -1345,13 +1840,8 @@
             "Öffentliches GitHub Repository.";
 
 
-        const updated =
-            formatDashboardDate(
-                repository.updated_at
-            );
-
-
         return `
+
             <a
                 href="${escapeHTML(
                     repository.html_url
@@ -1394,7 +1884,10 @@
                 <div class="github-card-footer">
 
                     <span class="github-updated">
-                        Updated ${updated}
+                        Updated
+                        ${formatDate(
+                            repository.updated_at
+                        )}
                     </span>
 
 
@@ -1404,12 +1897,14 @@
                         aria-hidden="true"
                     >
                         <path d="M5 19 L19 5"></path>
+
                         <path d="M10 5 H19 V14"></path>
                     </svg>
 
                 </div>
 
             </a>
+
         `;
 
     }
@@ -1417,63 +1912,83 @@
 
 
     // =========================================
-    // REPOSITORY RENDERING
+    // RENDER REPOSITORIES
     // =========================================
 
-    function renderFilteredRepositories() {
+    function renderRepositories() {
 
-        const repositoryContainer =
+        const container =
             document.querySelector(
                 "#github-repositories"
             );
 
 
+        const count =
+            document.querySelector(
+                "#github-visible-repository-count"
+            );
+
+
         if (
-            !repositoryContainer
+            !container
         ) {
             return;
         }
 
 
-        const filteredRepositories =
-            activeLanguageFilter ===
+        const filtered =
+            activeFilter ===
             DEFAULT_FILTER
 
                 ?
-                githubRepositories
+
+                repositories
 
                 :
-                githubRepositories.filter(
+
+                repositories.filter(
                     repository =>
                         repository.language ===
-                        activeLanguageFilter
+                        activeFilter
                 );
 
 
-        /*
-         * Heute zeigen wir maximal sechs.
-         *
-         * Im nächsten Ausbauschritt können wir
-         * daraus "Load more" / Pagination machen.
-         */
-
-        const visibleRepositories =
-            filteredRepositories.slice(
+        const visible =
+            filtered.slice(
                 0,
-                6
+                MAX_REPOSITORIES
             );
 
 
         if (
-            !visibleRepositories.length
+            count
         ) {
 
-            repositoryContainer.innerHTML =
+            count.textContent =
+                `${filtered.length} ${
+                    filtered.length ===
+                    1
+                        ?
+                        "repository"
+                        :
+                        "repositories"
+                }`;
+
+        }
+
+
+        if (
+            !visible.length
+        ) {
+
+            container.innerHTML =
                 `
-                    <div class="github-empty-state">
-                        Für diesen Filter sind aktuell
-                        keine Repositories vorhanden.
-                    </div>
+
+                <div class="github-empty-v2">
+                    Keine Repositories für
+                    diesen Filter vorhanden.
+                </div>
+
                 `;
 
 
@@ -1482,14 +1997,14 @@
         }
 
 
-        repositoryContainer.innerHTML =
-            visibleRepositories
+        container.innerHTML =
+            visible
                 .map(
                     (
                         repository,
                         index
                     ) =>
-                        createEnhancedRepositoryMarkup(
+                        createRepositoryCard(
                             repository,
                             index
                         )
@@ -1501,37 +2016,262 @@
 
 
     // =========================================
-    // FILTER INTERACTION
+    // COMMIT MESSAGE
     // =========================================
 
-    function initialiseLanguageFilters() {
+    function getCommitMessage(
+        commit
+    ) {
 
-        const filterContainer =
+        const message =
+            commit?.commit?.message ||
+            "Repository update";
+
+
+        /*
+         * Git Commit Messages können mehrere
+         * Zeilen enthalten.
+         *
+         * Für die Karte verwenden wir nur
+         * die erste Zeile.
+         */
+
+        return message
+            .split(
+                "\n"
+            )[0]
+            .trim();
+
+    }
+
+
+
+    // =========================================
+    // COMMIT DATE
+    // =========================================
+
+    function getCommitDate(
+        commit
+    ) {
+
+        return (
+            commit?.commit
+                ?.author
+                ?.date
+            ||
+            commit?.commit
+                ?.committer
+                ?.date
+            ||
+            null
+        );
+
+    }
+
+
+
+    // =========================================
+    // ACTIVITY
+    // =========================================
+
+    function renderActivity(
+        commits
+    ) {
+
+        const container =
             document.querySelector(
-                "#github-language-filters"
+                "#github-activity-list-v2"
             );
 
 
         if (
-            !filterContainer ||
-            filterContainer.dataset.initialised ===
+            !container
+        ) {
+            return;
+        }
+
+
+        const visibleCommits =
+            commits.slice(
+                0,
+                MAX_COMMITS
+            );
+
+
+        if (
+            !visibleCommits.length
+        ) {
+
+            container.innerHTML =
+                `
+
+                <div class="github-empty-v2">
+                    Aktuell sind keine
+                    Commit-Daten verfügbar.
+                </div>
+
+                `;
+
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            visibleCommits
+                .map(
+                    (
+                        commit,
+                        index
+                    ) => {
+
+                        const number =
+                            String(
+                                index + 1
+                            ).padStart(
+                                2,
+                                "0"
+                            );
+
+
+                        const message =
+                            getCommitMessage(
+                                commit
+                            );
+
+
+                        const date =
+                            formatDate(
+                                getCommitDate(
+                                    commit
+                                )
+                            );
+
+
+                        const shortSha =
+                            commit.sha
+
+                                ?
+
+                                commit.sha
+                                    .slice(
+                                        0,
+                                        7
+                                    )
+
+                                :
+
+                                "—";
+
+
+                        return `
+
+                            <a
+                                href="${escapeHTML(
+                                    commit.html_url
+                                )}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="github-activity-item-v2"
+                                data-cursor="OPEN"
+                            >
+
+                                <span class="github-activity-number-v2">
+                                    ${number}
+                                </span>
+
+
+                                <div class="github-activity-content-v2">
+
+                                    <p class="github-activity-message-v2">
+                                        ${escapeHTML(
+                                            message
+                                        )}
+                                    </p>
+
+
+                                    <div class="github-activity-meta-v2">
+
+                                        <span>
+                                            ${date}
+                                        </span>
+
+
+                                        <span>
+                                            Commit
+                                            <strong>
+                                                ${escapeHTML(
+                                                    shortSha
+                                                )}
+                                            </strong>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <svg
+                                    class="github-activity-arrow-v2"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 19 L19 5"></path>
+
+                                    <path d="M10 5 H19 V14"></path>
+                                </svg>
+
+                            </a>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+
+    // =========================================
+    // FILTER EVENTS
+    // =========================================
+
+    function initialiseFilters() {
+
+        const container =
+            document.querySelector(
+                "#github-filters-v2"
+            );
+
+
+        if (
+            !container
+        ) {
+            return;
+        }
+
+
+        if (
+            container.dataset.initialised ===
             "true"
         ) {
             return;
         }
 
 
-        filterContainer.dataset.initialised =
+        container.dataset.initialised =
             "true";
 
 
-        filterContainer.addEventListener(
+        container.addEventListener(
             "click",
             event => {
 
                 const button =
                     event.target.closest(
-                        "[data-github-language]"
+                        "[data-language]"
                     );
 
 
@@ -1542,40 +2282,43 @@
                 }
 
 
-                activeLanguageFilter =
-                    button.dataset.githubLanguage;
+                activeFilter =
+                    button.dataset.language;
 
 
                 document
                     .querySelectorAll(
-                        ".github-filter"
+                        ".github-filter-v2"
                     )
                     .forEach(
                         filterButton => {
 
-                            const isActive =
-                                filterButton.dataset.githubLanguage ===
-                                activeLanguageFilter;
+                            const active =
+                                filterButton.dataset.language ===
+                                activeFilter;
 
 
-                            filterButton.classList.toggle(
-                                "is-active",
-                                isActive
-                            );
+                            filterButton
+                                .classList
+                                .toggle(
+                                    "is-active",
+                                    active
+                                );
 
 
-                            filterButton.setAttribute(
-                                "aria-pressed",
-                                String(
-                                    isActive
-                                )
-                            );
+                            filterButton
+                                .setAttribute(
+                                    "aria-pressed",
+                                    String(
+                                        active
+                                    )
+                                );
 
                         }
                     );
 
 
-                renderFilteredRepositories();
+                renderRepositories();
 
             }
         );
@@ -1588,8 +2331,8 @@
     // STATUS
     // =========================================
 
-    function updateEnhancedGitHubStatus(
-        message
+    function updateStatus(
+        text
     ) {
 
         const status =
@@ -1603,7 +2346,7 @@
         ) {
 
             status.textContent =
-                message;
+                text;
 
         }
 
@@ -1612,72 +2355,79 @@
 
 
     // =========================================
-    // MAIN GITHUB LOADER
+    // INITIALISE
     // =========================================
 
-    async function enhancedLoadGitHubRepositories() {
+    async function loadEnhancedGitHubDashboard() {
 
         if (
-            githubRequestPromise
+            requestPromise
         ) {
 
-            return githubRequestPromise;
+            return requestPromise;
 
         }
 
 
-        githubRequestPromise =
+        requestPromise =
             (async () => {
 
-                injectGitHubEnhancementStyles();
+                injectStyles();
 
 
-                createGitHubDashboard();
+                createDashboard();
 
 
-                updateEnhancedGitHubStatus(
+                updateStatus(
                     "GitHub Daten werden geladen..."
                 );
 
 
                 try {
 
-                    const result =
-                        await fetchGitHubDashboardData();
+                    const data =
+                        await requestGitHubData();
 
 
-                    githubRepositories =
-                        getRelevantRepositories(
-                            result.repositories
+                    repositories =
+                        prepareRepositories(
+                            data.repositories
                         );
 
 
-                    renderGitHubStatistics(
-                        result.profile,
-                        githubRepositories
+                    renderStatistics(
+                        data.profile,
+                        repositories
                     );
 
 
-                    renderLanguageFilters(
-                        githubRepositories
+                    renderFilters();
+
+
+                    initialiseFilters();
+
+
+                    renderRepositories();
+
+
+                    renderActivity(
+                        data.commits
                     );
 
 
-                    initialiseLanguageFilters();
+                    updateStatus(
 
-
-                    renderFilteredRepositories();
-
-
-                    updateEnhancedGitHubStatus(
-                        result.source ===
+                        data.source ===
                         "cache"
 
                             ?
-                            "Profil und Repositories aus lokalem Cache geladen"
+
+                            "Profil, Repositories und Commit-Aktivität aus lokalem Cache geladen"
 
                             :
-                            "Profil und Repositories über GitHub API aktualisiert"
+
+                            "Profil, Repositories und Commit-Aktivität über GitHub API aktualisiert"
+
                     );
 
 
@@ -1686,12 +2436,12 @@
                 ) {
 
                     console.error(
-                        "Enhanced GitHub dashboard:",
+                        "GitHub dashboard error:",
                         error
                     );
 
 
-                    updateEnhancedGitHubStatus(
+                    updateStatus(
                         "GitHub Daten konnten momentan nicht geladen werden"
                     );
 
@@ -1702,16 +2452,41 @@
                         );
 
 
+                    const activityContainer =
+                        document.querySelector(
+                            "#github-activity-list-v2"
+                        );
+
+
                     if (
                         repositoryContainer
                     ) {
 
                         repositoryContainer.innerHTML =
                             `
-                                <div class="github-empty-state">
-                                    Die GitHub-Daten sind momentan
-                                    nicht verfügbar.
-                                </div>
+
+                            <div class="github-empty-v2">
+                                Repository-Daten sind
+                                momentan nicht verfügbar.
+                            </div>
+
+                            `;
+
+                    }
+
+
+                    if (
+                        activityContainer
+                    ) {
+
+                        activityContainer.innerHTML =
+                            `
+
+                            <div class="github-empty-v2">
+                                Commit-Aktivität ist
+                                momentan nicht verfügbar.
+                            </div>
+
                             `;
 
                     }
@@ -1721,36 +2496,37 @@
             })();
 
 
-        return githubRequestPromise;
+        return requestPromise;
 
     }
 
 
 
     // =========================================
-    // OVERRIDE EXISTING GITHUB LOADER
+    // REPLACE EXISTING GITHUB LOADER
     // =========================================
-    //
-    // Die bestehende script.js ruft bereits
-    // loadGitHubRepositories() auf.
-    //
-    // Wir ersetzen nur diese Funktion durch die
-    // erweiterte Version. Der restliche bestehende
-    // JavaScript-Code bleibt unverändert.
-    // =========================================
+
+    /*
+     * script.js besitzt bereits eine Funktion
+     * namens loadGitHubRepositories().
+     *
+     * Da github-enhancements.js nach script.js
+     * geladen wird, ersetzen wir diese Funktion
+     * durch die erweiterte Version.
+     */
 
     window.loadGitHubRepositories =
-        enhancedLoadGitHubRepositories;
+        loadEnhancedGitHubDashboard;
 
 
 
     // =========================================
-    // FALLBACK INITIALISATION
+    // FALLBACK START
     // =========================================
 
-    function initialiseGitHubEnhancement() {
+    function start() {
 
-        enhancedLoadGitHubRepositories();
+        loadEnhancedGitHubDashboard();
 
     }
 
@@ -1762,7 +2538,7 @@
 
         document.addEventListener(
             "DOMContentLoaded",
-            initialiseGitHubEnhancement,
+            start,
             {
                 once:
                     true
@@ -1771,7 +2547,7 @@
 
     } else {
 
-        initialiseGitHubEnhancement();
+        start();
 
     }
 
