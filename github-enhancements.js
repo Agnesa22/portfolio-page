@@ -48,7 +48,7 @@
 
 
     const CACHE_KEY =
-        "agnesa-github-dashboard-v2";
+        "agnesa-github-dashboard-v3";
 
 
     const CACHE_DURATION =
@@ -489,7 +489,7 @@
 
 
             /* =====================================
-               REPOSITORY GRID OVERRIDE
+               REPOSITORY GRID
             ===================================== */
 
             .github-content-layout-v2
@@ -1412,7 +1412,7 @@
                         </strong>
 
                         <p class="github-stat-detail-v2">
-                            Latest repository update
+                            Latest commit activity
                         </p>
 
                     </div>
@@ -1578,7 +1578,8 @@
 
     function renderStatistics(
         profile,
-        repositoryData
+        repositoryData,
+        commits
     ) {
 
         const repositoryCount =
@@ -1611,8 +1612,12 @@
             );
 
 
-        const latestRepository =
-            repositoryData[0];
+        const latestCommit =
+            commits.length
+                ?
+                commits[0]
+                :
+                null;
 
 
         if (
@@ -1670,12 +1675,14 @@
         ) {
 
             lastActivity.textContent =
-                latestRepository
+                latestCommit
 
                     ?
 
                     formatDate(
-                        latestRepository.updated_at
+                        getCommitDate(
+                            latestCommit
+                        )
                     )
 
                     :
@@ -1719,12 +1726,6 @@
                 repositories
             );
 
-
-        /*
-         * Wenn nur eine Sprache vorhanden ist,
-         * macht ein Filter für den Besucher
-         * keinen wirklichen Sinn.
-         */
 
         if (
             languages.length <=
@@ -2027,14 +2028,6 @@
             commit?.commit?.message ||
             "Repository update";
 
-
-        /*
-         * Git Commit Messages können mehrere
-         * Zeilen enthalten.
-         *
-         * Für die Karte verwenden wir nur
-         * die erste Zeile.
-         */
 
         return message
             .split(
@@ -2397,7 +2390,8 @@
 
                     renderStatistics(
                         data.profile,
-                        repositories
+                        repositories,
+                        data.commits
                     );
 
 
@@ -2422,11 +2416,11 @@
 
                             ?
 
-                            "Profil, Repositories und Commit-Aktivität aus lokalem Cache geladen"
+                            "GitHub Daten aus lokalem Cache geladen"
 
                             :
 
-                            "Profil, Repositories und Commit-Aktivität über GitHub API aktualisiert"
+                            "GitHub Daten live aktualisiert"
 
                     );
 
@@ -2505,15 +2499,6 @@
     // =========================================
     // REPLACE EXISTING GITHUB LOADER
     // =========================================
-
-    /*
-     * script.js besitzt bereits eine Funktion
-     * namens loadGitHubRepositories().
-     *
-     * Da github-enhancements.js nach script.js
-     * geladen wird, ersetzen wir diese Funktion
-     * durch die erweiterte Version.
-     */
 
     window.loadGitHubRepositories =
         loadEnhancedGitHubDashboard;
